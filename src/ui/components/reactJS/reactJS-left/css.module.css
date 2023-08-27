@@ -1,0 +1,17 @@
+.hooks {
+    cursor: pointer;
+}
+
+.ulState > li {
+    margin-left: 10px; 
+}
+
+.liHooks {
+    margin-left: 10px;
+}
+
+.dicasReact {
+    background-color: rgba(89, 0, 255, 0.8);
+    color: darkturquoise;
+    font-weight: 700;
+}

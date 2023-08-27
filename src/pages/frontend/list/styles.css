@@ -1,0 +1,8 @@
+.input-list {
+    background-color: rgb(172, 56, 56, 1);
+    margin-right: 15px;
+}
+
+.input-list:hover {
+    background-color: dimgrey;
+}

@@ -1,0 +1,1 @@
+# components baixo nivel como INPUT

@@ -1,0 +1,20 @@
+
+.container-search span {
+    cursor: pointer;
+}
+
+.container-search div span ul {
+    opacity: 0;
+    transition: 2s
+}
+
+.container-search div span:hover ul {
+    opacity: 1;
+    /* display: block; */
+}
+
+.container-search div span ul li {
+    cursor: pointer;
+    margin: 5px 0 0 5px;
+    /* display: block; */
+}

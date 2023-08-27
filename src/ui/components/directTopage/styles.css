@@ -1,0 +1,17 @@
+.h1-directTopage {
+    text-align: start;
+}
+.rei {
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+.cancel {
+    color: #000;
+    background-color: red;
+    cursor: pointer;
+}
+.dir {
+    background-color: green;
+    cursor: pointer;
+}

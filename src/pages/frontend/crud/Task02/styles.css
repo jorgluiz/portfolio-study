@@ -1,0 +1,70 @@
+/* COMPONENT Task02   */
+
+.table01 .td-list {
+    width: 220px;
+    height: 30px;
+    background-color: rgb(54, 135, 211);
+    /* width: 100%; */
+    /* display: flex; */
+    /* align-items: center */
+    /* margin: 0 30px 0 0; */
+    /* display: none; */
+}
+
+.table01 .edit {
+    background-color:  rgb(7, 168, 7);
+    width: 100px;
+    color: #ffffff;
+    border-radius: 10px;
+    /* width: 100%; */
+    /* display: flex; */
+    /* align-items: center */
+    /* margin: 0 30px 0 0; */
+    /* display: none; */
+}
+
+.table01 .delete {
+    background-color: red;
+    width: 100px;
+    color: #ffffff;
+    border-radius: 10px;
+    /* width: 100%; */
+    /* display: flex; */
+    /* align-items: center */
+    /* margin: 0 30px 0 0; */
+    /* display: none; */
+}
+/* ========================   ========================   ======================== */
+
+/* COMPONENT EditList   */
+
+.edit-text td input {
+    width: 220px;
+    height: 30px;
+    background-color: rgb(54, 135, 211);
+}
+
+.edit-text td button {
+    background-color: rgb(7, 168, 7);
+    width: 100px;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+/* COMPONENT AddList   */
+
+.addForm input {
+    width: 222px;
+}
+
+.addForm button {
+    width: 100px;
+    border-radius: 10px;
+    background-color: rgb(168, 168, 168);
+}
+
+.addForm button:active {
+    background-color: #3e8e41;
+    /* box-shadow: 0 3px #666; */
+    transform: translateY(1px);
+}

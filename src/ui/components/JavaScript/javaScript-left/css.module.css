@@ -1,0 +1,8 @@
+.unirDoisArrays {
+    position: absolute;
+    display: none;
+    border: 1px solid #000;
+}
+.imgArray:hover + .unirDoisArrays {
+    display: block;
+}

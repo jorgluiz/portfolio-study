@@ -1,0 +1,38 @@
+/* Component newTask.js */
+
+.btn-primary {
+    margin: 0 40px 0 0;
+    border: solid 2px #000000;
+}
+
+.to-do-input {
+    border: solid 2px #000000;
+}
+/* =================================================================================================== */
+
+
+/* Component listItems.js */
+
+.field-item {
+    background-color: chartreuse;
+    border: solid 1px #000000;
+}
+
+.btn-secundary {
+    background-color: rgb(255, 0, 0);
+    border: solid 1px #000000;
+}
+
+/* =================================================================================================== */
+
+/* Component index.jsx */
+
+.app {
+    height: 170px;
+    border: solid 2px #000000;
+    margin-bottom: 50px;
+}
+
+.app .App-header div + p ~ div button {
+    margin: 0 7px 0 7px;
+}

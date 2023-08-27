@@ -1,0 +1,15 @@
+ul [target=borderRadius] {
+    border-radius: 50px;
+    width: 120px;
+    text-align: center;
+    transition-duration: 0.5s;
+}
+ul:hover [target=borderRadius] {
+    background-color: blue;
+}
+ul [target=borderRadius] a {
+    color: #111;
+}
+ul:hover [target=borderRadius] a {
+    color: #fff;
+}

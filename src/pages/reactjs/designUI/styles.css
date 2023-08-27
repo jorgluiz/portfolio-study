@@ -1,0 +1,7 @@
+.container-ui p {
+    font-size: 30px;
+}
+
+.container-ui p span {
+    text-decoration: underline;
+}

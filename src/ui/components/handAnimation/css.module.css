@@ -1,0 +1,18 @@
+.TfiHandPointLeft {
+position: relative;
+    
+animation-name: handleft;
+animation-duration: 1s;
+animation-timing-function: ease-in-out;
+animation-iteration-count: infinite;
+animation-direction: alternate;
+    
+}
+
+@keyframes handleft {
+    0% {left: 2px;}
+    25%, 26% {background-color: rgb(211, 0, 0);}
+    27% {background-color: rgb(0, 49, 211);}
+    30% {background-color: darkviolet;}
+    to {left: 20px;}
+}
