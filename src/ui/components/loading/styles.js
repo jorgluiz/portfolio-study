@@ -6,8 +6,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
-height: 100%;
-
+/* height: 100%; */
 `;
 /* ---------------------------------------------------------------- */
 export const Progress = styled.div`
@@ -121,7 +120,6 @@ animation-iteration-count: infinite;
 @keyframes child04 {
   0% {height: 0; width: 0;}
   100% {height: 5px; width: 5px;}
-}
 }
 }
 `;

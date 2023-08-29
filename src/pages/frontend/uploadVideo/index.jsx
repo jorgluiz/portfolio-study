@@ -130,3 +130,9 @@ export default Upload
 // https://javascript.plainenglish.io/reading-files-via-javascript-in-the-browser-part-3-responding-to-filereader-errors-and-progress-458fce0a9f17
 
 // https://stackoverflow.com/questions/23402187/multiple-files-upload-and-using-file-reader-to-preview
+// https://contactmentor.com/file-upload-component-react-js/?expand_article=1
+// https://www.youtube.com/watch?v=-7w2KtfiMEM&ab_channel=CodeWithYousaf
+// https://blog.sw9.com.br/2019/02/14/html5-file-api-aula-4-de-6-monitorar-progresso-de-leitura-sw9/
+
+// @@@@@@@  https://www.bezkoder.com/multiple-image-upload-react-js/                  #######
+// @@@@@@@  https://blog.logrocket.com/using-filereader-api-preview-images-react/#    #######

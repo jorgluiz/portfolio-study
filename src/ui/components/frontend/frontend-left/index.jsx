@@ -3,9 +3,10 @@ import { Link } from "react-router-dom"
 import { useRef, useState } from "react"
 
 import { Container, ContainerIcon, ArrowDiv, ArrowIcon } from "./styles"
+import HandAnimation from "../../handAnimation";
 import { Button } from "../../button/frontend-Left"
 import { FadeInDown } from "../../fadeInDown"
-import { NavbarLinkContainerUl, Li, LinkNavBar, SpanHooks, SpanReact } from "../../../styles/navigation"
+import { NavbarLinkContainerUl, SpanHooks } from "../../../styles/navigation"
 import { ReactRoutes, HookRoutes } from "../../../../data/mock"
 import warning from "../../../../assets/warning.ico"
 
@@ -29,49 +30,50 @@ const Left = () => {
             {/* <Input01 type="text" chooseColor={chooseColor} value={chooseColor} onChange={(e) => setChooseColor(e.target.value)} placeholder="cor aqui"/> */}
 
             <NavbarLinkContainerUl target="frontend-left01">
-                <Li>
-                    <LinkNavBar to="projetos-para-implementar">Projetos para implementar</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="tests">Tests</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="triangulo">triangulo</LinkNavBar>
-                </Li>
-                <Li className="templates">
+                <li>
+                    <Link to="projetos-para-implementar">Projetos para implementar</Link>
+                </li>
+                <li>
+                    <Link to="tests">Tests</Link>
+                </li>
+                <li>
+                    <Link to="triangulo">triangulo</Link>
+                </li>
+                <li className="templates">
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <span>Templates</span>
                         <IoIosArrowForward className="icon" />
                     </div>
                     <ul style={{ margin: "0 0 0 20px" }}>
                         <li>
-                            <LinkNavBar to="catalogo">catalogo</LinkNavBar>
+                            <Link to="catalogo">catalogo</Link>
                         </li>
                         <li>
-                            <LinkNavBar to="cod3r">cod3r</LinkNavBar>
+                            <Link to="cod3r">cod3r</Link>
                         </li>
                     </ul>
-                </Li>
-                <Li>
-                    <LinkNavBar to="direcionar-para-pagina">Direcionar pagina</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="/video">YouTube</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="image-full-window">Image full window</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="video-upload">Video upload</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="coracao-batendo">Coração batendo</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="fundamentos-web">Fundamentos Web</LinkNavBar>
-                </Li>
+                </li>
+                <li>
+                    <Link to="direcionar-para-pagina">Direcionar pagina</Link>
+                </li>
+                <li>
+                    <Link to="/video">YouTube</Link>
+                </li>
+                <li>
+                    <Link to="image-full-window">Image full window</Link>
+                </li>
+                <li>
+                    <Link to="video-upload">Video upload</Link>
+                </li>
+                <li>
+                    <Link to="coracao-batendo">Coração batendo</Link>
+                </li>
+                <li>
+                    <Link to="fundamentos-web">Fundamentos Web</Link>
+                </li>
                 <div className="grid">
                     <strong>Grid-templates</strong>
+                    <HandAnimation />
                     <ul className="ul-secundary">
                         <a target="_blank" href="https://www.origamid.com/projetos/css-grid-layout-guia-completo/" rel="noreferrer">referência</a>
                         <div className="li01">
@@ -114,13 +116,13 @@ const Left = () => {
                         {ReactRoutes.map((item, index) => {
 
                             return (
-                                <Li key={index}>
-                                    <LinkNavBar to={item.path}>
-                                        <SpanReact ref={refspan} onClick={(e) => (setTargetReactRoutes(e.currentTarget.textContent))} titletargetreact={targetReactRoutes === item.title ? true : ''}>{item.title}</SpanReact>
+                                <li key={index}>
+                                    <Link to={item.path}>
+                                        <span ref={refspan} onClick={(e) => (setTargetReactRoutes(e.currentTarget.textContent))} titletargetreact={targetReactRoutes === item.title ? true : ''}>{item.title}</span>
                                         {item.title === "Dicas-react" &&
                                             <img height="20px" className="warning" src={warning}></img>}
-                                    </LinkNavBar>
-                                </Li>
+                                    </Link>
+                                </li>
                             )
                         })}
                     </NavbarLinkContainerUl>
@@ -145,14 +147,14 @@ const Left = () => {
                         {HookRoutes.map((item, index) => {
                             return (
                                 <li key={index}>
-                                    <LinkNavBar to={item.path}>
+                                    <Link to={item.path}>
                                         {index + 1 + '.'}
                                         <SpanHooks onClick={(e) => (setTargetHookRoutes(e.currentTarget.textContent))} titletargethook={targetHookRoutes === item.title ? true : ''}>{item.title}</SpanHooks>
                                         {item.title === "useContext" &&
                                             <p><Link to="context">- Context</Link></p>}
                                         {item.title === "useContext" &&
                                             <p><Link to="redux">- Redux</Link></p>}
-                                    </LinkNavBar>
+                                    </Link>
                                 </li>
                             )
                         })}
@@ -167,19 +169,19 @@ const Left = () => {
 
                 <NavbarLinkContainerUl target="frontend-left03">
                     <li>
-                        <LinkNavBar to="localization">Get Localization</LinkNavBar>
+                        <Link to="localization">Get Localization</Link>
                     </li>
                     <li>
-                        <LinkNavBar to="tipos-dados-argumentos">tipos dados arguments</LinkNavBar>
+                        <Link to="tipos-dados-argumentos">tipos dados arguments</Link>
                     </li>
                     <li>
-                        <LinkNavBar to="mudando-estado-array" style={{ color: "#323232", fontSize: "14px" }}>Mudando o estado de um array </LinkNavBar>
+                        <Link to="mudando-estado-array" style={{ color: "#323232", fontSize: "14px" }}>Mudando o estado de um array </Link>
                     </li>
                     <li>
-                        <LinkNavBar to="list" style={{ color: "#323232" }}>LIST [ ]</LinkNavBar>
+                        <Link to="list" style={{ color: "#323232" }}>LIST [ ]</Link>
                     </li>
                     <li>
-                        <LinkNavBar to="crud" style={{ color: "#323232" }}>CRUD</LinkNavBar>
+                        <Link to="crud" style={{ color: "#323232" }}>CRUD</Link>
                     </li>
                 </NavbarLinkContainerUl>
             }
@@ -187,27 +189,27 @@ const Left = () => {
             <div style={{ margin: "10px 0 10px 0" }}></div>
 
             <NavbarLinkContainerUl target="frontend-left02">
-                <Li>
-                    <LinkNavBar to="drop-down-3-formas">três tipos dropDown</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="pseudo-element-before-after">Pseudo Element</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="efeito-matriz">Efeito Matriz</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="degrade">Degradê</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="transforms">Transform</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="transitions">Transition</LinkNavBar>
-                </Li>
-                <Li>
-                    <LinkNavBar to="animations">Animations</LinkNavBar>
-                </Li>
+                <li>
+                    <Link to="drop-down-3-formas">três tipos dropDown</Link>
+                </li>
+                <li>
+                    <Link to="pseudo-element-before-after">Pseudo Element</Link>
+                </li>
+                <li>
+                    <Link to="efeito-matriz">Efeito Matriz</Link>
+                </li>
+                <li>
+                    <Link to="degrade">Degradê</Link>
+                </li>
+                <li>
+                    <Link to="transforms">Transform</Link>
+                </li>
+                <li>
+                    <Link to="transitions">Transition</Link>
+                </li>
+                <li>
+                    <Link to="animations">Animations</Link>
+                </li>
             </NavbarLinkContainerUl>
 
             <div style={{ margin: "10px 0 10px 0" }}></div>

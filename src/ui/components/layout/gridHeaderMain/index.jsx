@@ -25,16 +25,16 @@ const HeaderMain = () => {
                     <Link to="/back-end">Back-end</Link>
                 </li>
                 <li >
-                    <Link to="/banco-de-dados">Banco de dados</Link>
+                    <Link to="/front-end">Front-end</Link>
                 </li>
                 <li>
-                    <Link to="/front-end">Front-end</Link>
+                    <Link to="/react-js">ReactJS</Link>
                 </li>
                 <li>
                     <Link to="/java-script">JavaScript</Link>
                 </li>
                 <li>
-                    <Link to="/react-js">ReactJS</Link>
+                    <Link to="/banco-de-dados">Banco de dados</Link>
                 </li>
                 <li>
                     <Link to="/skills">Skills</Link>
@@ -51,16 +51,16 @@ const HeaderMain = () => {
                 <DropDown>+
                     <DropDownContentUl>
                         <li>
-                            <Link to={"/request"}>youtube</Link>
+                            <Link to={"/conteudos-new-skills"}>Conteudos</Link>
                         </li>
                         <li>
-                            <Link to={"/git-hub"}>github</Link>
+                            <Link to={"/git-hub"}>Github</Link>
                         </li>
                         <li>
-                            <Link to={"projetos"}>Projetos-github</Link>
+                            <Link to={"projetos"}>????????</Link>
                         </li>
                         <li>
-                            <Link to={"seguranca"}>Segurança-github</Link>
+                            <Link to={"seguranca"}>????????</Link>
                         </li>
                     </DropDownContentUl>
                 </DropDown>

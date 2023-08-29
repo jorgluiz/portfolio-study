@@ -82,10 +82,14 @@ const Left = () => {
                 <Li><a href="https://www.w3schools.com/js/js_function_invocation.asp" target="_blank" rel="noopener noreferrer">Function Invocation</a></Li>
             </ul>
             <h2 style={{ margin: "20px 0 3px 10px" }}>Async JS</h2>
-            <ul>
+            <ul className={styles.promise}>
                 <Li><a href="https://www.w3schools.com/js/js_callback.asp" target="_blank" rel="noopener noreferrer">Callbacks</a></Li>
                 <Li><a href="https://www.w3schools.com/js/js_asynchronous.asp" target="_blank" rel="noopener noreferrer">Asynchronous</a></Li>
                 <Li><a href="https://www.w3schools.com/js/js_promise.asp" target="_blank" rel="noopener noreferrer">Promises</a></Li>
+                <ul style={{marginLeft: "10px", fontSize: "15px" }}>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">Promise.all()</a></li>
+                    <li><a href="https://pt.stackoverflow.com/questions/446251/quais-as-diferen%C3%A7as-entre-promise-all-e-promise-allsettled">Promise.all() List</a></li>
+                </ul>
                 <Li><a href="https://www.w3schools.com/js/js_async.asp" target="_blank" rel="noopener noreferrer">Async</a></Li>
             </ul>
 

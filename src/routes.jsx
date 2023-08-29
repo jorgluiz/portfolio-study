@@ -73,6 +73,7 @@ import TypeArray from "./pages/javascript/typeArray"
 import TiposDadosArguments from "./pages/javascript/tiposDadosArguments";
 import Paradigma from "./pages/javascript/homePageParadigma"
 import Bhaskara from "./pages/javascript/bhaskara"
+import ApiIntroducao from "./pages/javascript/apisIntroducao";
 
 import TemplateReactJS from "./ui/components/layoutReactJS"; //template-grid (ReactJS)
 import Started from "./pages/reactjs/started"
@@ -87,7 +88,7 @@ import DesignUxreact from "./pages/reactjs/designUX"
 import HomeReactJS from "./pages/reactjs/home"
 import DicasR from "./pages/reactjs/dicasReact"
 
-import ResquestYouTube from "./pages/youtubeRequest";
+import Conteudos from "./ui/components/conteudos";
 
 // import Microservicos from "./pages/Microservicos"
 
@@ -173,6 +174,7 @@ const AppRoutes = () => {
                         <Route path="types" element={<TypeArray />} />
                         <Route path="tipos-dados-arguments" element={<TiposDadosArguments />} />
                         <Route path="bhaskara-fn" element={<Bhaskara />} />
+                        <Route path="apis-web-introducao" element={<ApiIntroducao />} />
                     </Route>
 
                     <Route path="/react-js" element={<TemplateReactJS />}>
@@ -202,7 +204,7 @@ const AppRoutes = () => {
                         <Route path="hook-callback" element={<UseCallback />} />
                     </Route>
 
-                    <Route path="/request" element={<ResquestYouTube />}>
+                    <Route path="/conteudos-new-skills" element={<Conteudos />}>
 
                     </Route>
 

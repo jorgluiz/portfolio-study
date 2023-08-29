@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import { useState } from "react"
+import { Link } from "react-router-dom"
 import HandAnimation from "../../handAnimation"
 
 import { DivAnimationBottom, DivAnimationRight, DivAnimationLeft, DivAnimationTop, DivAnimation } from "../../../styles/animationMovement"
-import { NavbarLinkContainerUl, Li, LinkNavBar } from "../../../styles/navigation"
+import { NavbarLinkContainerUl } from "../../../styles/navigation"
 import { Aloading } from "../../../styles/animationLoading"
 import { Container, A, Img, DropDownImg } from "./styles"
 import { ToolTip } from "../../../styles/toolTip"
@@ -517,12 +518,12 @@ const Right = () => {
 
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <NavbarLinkContainerUl target="frontend-left-reactJS">
-                    <Li>
+                    <li>
                         <A href="https://www.freecodecamp.org/portuguese/news/como-usar-o-html-para-abrir-um-link-em-uma-nova-aba/#:~:text=%C3%89%20f%C3%A1cil%20usar%20o%20HTML,voc%C3%AA%20quer%20fazer%20a%20liga%C3%A7%C3%A3o" target="_blank" rel="noopener noreferrer" style={{ fontSize: "15px" }}>Como renderizar {"<a>"} com a href opcional em React</A>
-                    </Li>
-                    <Li>
-                        <LinkNavBar to={'regras-hooks'} style={{ fontSize: "15px" }}>Hook Regras</LinkNavBar>
-                    </Li>
+                    </li>
+                    <li>
+                        <Link to={'regras-hooks'} style={{ fontSize: "15px" }}>Hook Regras</Link>
+                    </li>
                 </NavbarLinkContainerUl>
             </div>
 

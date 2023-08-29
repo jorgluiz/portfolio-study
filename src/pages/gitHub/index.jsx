@@ -10,6 +10,7 @@ const GitHub = () => {
                 <p><strong>Prefixo:</strong> Chore = não se refere uma (features)</p><br />
                 <p><strong>Prefixo:</strong> Fix = arrumar um bug</p><br />
                 <p><strong>Prefixo:</strong> Features = funcionalidade</p><br />
+                <p><a href="https://www.brunodulcetti.com/padroes-e-nomenclaturas-no-git/">Padrões e nomenclaturas no Git</a></p>
             </Container>
         </GridLayout>
     )

@@ -77,71 +77,71 @@ export const HookRoutes = [
     }
 ]
 
-import shorts01 from "../../assets/videos/shorts01.mp4"
-import shorts02 from "../../assets/videos/shorts02.mp4"
-import shorts03 from "../../assets/videos/shorts03.mp4"
-import shorts04 from "../../assets/videos/shorts04.mp4"
-import shorts05 from "../../assets/videos/shorts05.mp4"
-import shorts06 from "../../assets/videos/shorts06.mp4"
+// import shorts01 from "../../assets/videos/shorts01.mp4"
+// import shorts02 from "../../assets/videos/shorts02.mp4"
+// import shorts03 from "../../assets/videos/shorts03.mp4"
+// import shorts04 from "../../assets/videos/shorts04.mp4"
+// import shorts05 from "../../assets/videos/shorts05.mp4"
+// import shorts06 from "../../assets/videos/shorts06.mp4"
 
 export const playlistMock = [
-    {
-        id: 1,
-        video: shorts01
-    },
-    {
-        id: 2,
-        video: shorts02
-    },
-    {
-        id: 4,
-        video: shorts03
-    },
-    {
-        id: 3,
-        video: shorts04
-    },
-    {
-        id: 5,
-        video: shorts05
-    },
-    {
-        id: 6,
-        video: shorts06
-    },
+    // {
+    //     id: 1,
+    //     video: shorts01
+    // },
+    // {
+    //     id: 2,
+    //     video: shorts02
+    // },
+    // {
+    //     id: 4,
+    //     video: shorts03
+    // },
+    // {
+    //     id: 3,
+    //     video: shorts04
+    // },
+    // {
+    //     id: 5,
+    //     video: shorts05
+    // },
+    // {
+    //     id: 6,
+    //     video: shorts06
+    // },
 ]
 
 
-import rocket01 from "../../assets/videos/rocket01.mp4"
-import rocket02 from "../../assets/videos/rocket02.mp4"
-import rocket03 from "../../assets/videos/rocket03.mp4"
-import rocket04 from "../../assets/videos/rocket04.mp4"
-import curso from "../../assets/videos/curso.mp4"
+// import rocket01 from "../../assets/videos/rocket01.mp4"
+// import rocket02 from "../../assets/videos/rocket02.mp4"
+// import rocket03 from "../../assets/videos/rocket03.mp4"
+// import rocket04 from "../../assets/videos/rocket04.mp4"
+// import curso from "../../assets/videos/curso.mp4"
 
 export const rocketSeatMock = [
-    {
-        id: 1,
-        title: "erros que eu mais cometi empreendendo como dev",
-        video: rocket01
-    },
-    {
-        id: 2,
-        title: "Curso IGNITE da ROCKETSEAT vale a pena_ Conheça a plataforma por DENTRO!",
-        video: rocket02
-    },
-    {
-        id: 4,
-        title: "TUDO que você precisa saber do Next 13 (isso muda tudo",
-        video: rocket03
-    },
-    {
-        id: 3,
-        title: "Verificação AUTOMÁTICA de SMS (ANDROID com React Native)",
-        video: rocket04
-    },
-    {
-        id: 5,
-        title: "Você não usa Tailwind por ESSE motivo_! (mitos sobre Tailwind",
-        video: curso
-    }
+    // {
+    //     id: 1,
+    //     title: "erros que eu mais cometi empreendendo como dev",
+    //     video: rocket01
+    // },
+    // {
+    //     id: 2,
+    //     title: "Curso IGNITE da ROCKETSEAT vale a pena_ Conheça a plataforma por DENTRO!",
+    //     video: rocket02
+    // },
+    // {
+    //     id: 4,
+    //     title: "TUDO que você precisa saber do Next 13 (isso muda tudo",
+    //     video: rocket03
+    // },
+    // {
+    //     id: 3,
+    //     title: "Verificação AUTOMÁTICA de SMS (ANDROID com React Native)",
+    //     video: rocket04
+    // },
+    // {
+    //     id: 5,
+    //     title: "Você não usa Tailwind por ESSE motivo_! (mitos sobre Tailwind",
+    //     video: curso
+    // }
 ]
