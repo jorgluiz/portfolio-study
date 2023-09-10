@@ -37,7 +37,7 @@ const HeaderMain = () => {
                     <Link to="/banco-de-dados">Banco de dados</Link>
                 </li>
                 <li>
-                    <Link to="/skills">Skills</Link>
+                    <Link to="/arquitetura-node-js-entenda-loop-de-eventos">event loop</Link>
                 </li>
                 <li>
                     <Link to="/new-skills">Learn New Skills</Link>

@@ -7,7 +7,7 @@ import { Container } from "./styles"
 const Main = ({ children }) => {
 
     return (
-        <Container>
+        <Container className="souBody">
             {children === undefined ? <><FluxogramaEdiagrama /> <Object /></> : children}
         </Container>
     )

@@ -62,6 +62,7 @@ import GridtemplateFixeHeader from "./pages/frontend/layout/gridtemplateFixeHead
 // import Err from "./pages/Err/HookDentroCondicional"
 import Skills from "./pages/skills"
 import GitHub from "./pages/gitHub"
+import EventLoop from "./pages/eventLoop"
 
 import TiposDropDown from "./pages/frontend/tiposDropDown"
 import Transforms from "./pages/frontend/Transforms"
@@ -89,13 +90,11 @@ import HomeReactJS from "./pages/reactjs/home"
 import DicasR from "./pages/reactjs/dicasReact"
 
 import Conteudos from "./ui/components/conteudos";
-
 // import Microservicos from "./pages/Microservicos"
 
 // import Library from "./pages/Library"
 // import { useContext } from "react";
 // import Html from "./pages/Html";
-
 
 const AppRoutes = () => {
 
@@ -204,13 +203,15 @@ const AppRoutes = () => {
                         <Route path="hook-callback" element={<UseCallback />} />
                     </Route>
 
-                    <Route path="/conteudos-new-skills" element={<Conteudos />}>
-
-                    </Route>
+                    <Route path="/conteudos-new-skills" element={<Conteudos />}></Route>
 
                     <Route path="/git-hub" element={<GitHub />}></Route>
 
                     <Route path="/skills" element={<Skills />} />
+
+                    <Route path="/arquitetura-node-js-entenda-loop-de-eventos" element={<EventLoop />} />
+
+
 
                 </Routes>
             </Router >

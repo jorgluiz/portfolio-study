@@ -19,7 +19,7 @@ const Object = () => {
             <h3 style={{textAlign: "center"}}>criando propria function constructor</h3><br />
             <img src={objetoConstructor}></img><br /><br /><br /><br /><br />
 
-            <h3></h3>
+            <h3>criando propria function constructor e acessando <span style={{color: "#e4b006"}}>método()</span> passando URL como argumento</h3>
             <img src={objetoConstructorMethod} />
         </>
     )

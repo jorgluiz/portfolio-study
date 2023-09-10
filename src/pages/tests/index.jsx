@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import eminemWithoutMe from "../../assets/videos/EminemWithoutMe.mp4"
+import  { useState, useEffect, useRef } from "react";
+// import eminemWithoutMe from "../../assets/videos/EminemWithoutMe.mp4"
 
 import { H1, DivExternaGreen, Sobrepor, Posterior, Progresso, Play, Pause, DivFlexBox, ControlsVideo, Ranger, Advance, Rewind, Video, ContainerVideo } from "./styles";
 
@@ -198,7 +198,7 @@ const Tests = () => {
 
                     <div className="html5-video-container" data-layer="0">
                         {/* obtendo referencia do elemento video >>>  ref={refVideo} */}
-                        <Video ref={refVideo} controlsList="nodownload" autoPlay preload="auto" width="450" height="100%" onTimeUpdate={handleTimeUpdate} poster={capavideo} src={eminemWithoutMe} />
+                        <Video ref={refVideo} controlsList="nodownload" autoPlay preload="auto" width="450" height="100%" onTimeUpdate={handleTimeUpdate} poster={capavideo} src={""} />
                     </div>
                 </ControlsVideo>
             </div>

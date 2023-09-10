@@ -24,7 +24,6 @@ const useCancel = (directCancel, setTimeSeconds, setAtivo, cancelTimeSeconds) =>
     return { cancel }
 }
 
-
 const DirectTopage = () => {
     const [timeSeconds, setTimeSeconds] = useState(5)
     const [cancelTimeSeconds, setCancelTimeSeconds] = useState()
