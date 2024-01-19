@@ -66,11 +66,11 @@ import GitHub from "./pages/gitHub"
 import EventLoop from "./pages/eventLoop"
 
 import TiposDropDown from "./pages/frontend/tiposDropDown"
-import Transforms from "./pages/frontend/Transforms"
+import Transforms from "./pages/frontend/transforms"
 import Transitions from "./pages/frontend/transitions"
 
 import JavaScript from "./ui/components/layoutJavascript" //template-grid (JavaScript)
-import Operators from "./pages/javascript/Operators"
+import Operators from "./pages/javascript/operators"
 import TypeArray from "./pages/javascript/typeArray"
 import TiposDadosArguments from "./pages/javascript/tiposDadosArguments";
 import Paradigma from "./pages/javascript/homePageParadigma"
