@@ -18,10 +18,11 @@ const Left = () => {
                 <Li><a href="https://www.w3schools.com/js/js_syntax.asp" target="_blank" rel="noopener noreferrer" >JS Syntax</a></Li>
                 <Li><Link to="operators"><span style={{ backgroundColor: "#45ff1b", color: "black", borderRadius: "5%" }}>JS Operadores</span></Link></Li>
                 <Li><a href="https://www.w3schools.com/js/js_functions.asp" target="_blank" rel="noopener noreferrer" >JS Funções </a></Li>
-                <Li tooltip={true}><a href="https://www.w3schools.com/js/js_objects.asp" target="_blank" rel="noopener noreferrer" >JS Objetos </a>
-                    <tooltiptext>
-                        <p>Os objetos usam nomes para acessar seus {"valores"}.</p>
+                <Li className="liRelative"><a href="https://www.w3schools.com/js/js_objects.asp" target="_blank" rel="noopener noreferrer" >JS Objetos </a>
+                    <tooltiptext  className="tooltipObjetoTop">
+                        <p>Os objetos usam nomes para acessar seus valores.</p>
                     </tooltiptext>
+                    <p style={{marginLeft: "10px"}}><Link to="instancias">- Instância</Link></p>
                 </Li>
                 <Li><a href="https://www.w3schools.com/js/js_events.asp" target="_blank" rel="noopener noreferrer" >JS Events</a></Li>
                 <Li><a href="https://www.w3schools.com/js/js_strings.asp" target="_blank" rel="noopener noreferrer" >JS Strings</a></Li>

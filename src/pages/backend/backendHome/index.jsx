@@ -9,7 +9,6 @@ const BackendHome = () => {
             <h1>Estrutura de camadas</h1>
             <p style={{ whiteSpace: "pre-wrap" }}>Cada módulo é uma camada que define uma estrutura<br />nesse projeto que mostra na imagem abaixo contém 4 módulos<br /><br />Controllers: dados<br />Models: validações<br />Routes: rotas para cada recurso<br />Services: pode ser enviar um email para usuário de boas vindas ou até mesmo query para banco de dados</p><br />
 
-
             <a href="https://www.w3schools.com/css/css3_images.asp">
                 <Img src={imgEstrutura} />
             </a>
@@ -17,7 +16,7 @@ const BackendHome = () => {
             {/* ---------------------------------------------------------------------------------------------------------- */}
             <div style={{ height: "auto", width: "633px", whiteSpace: "pre-wrap", marginTop: "50px" }}>
                 <h1 style={{ textAlign: "center" }}>Dependencies</h1>
-                <p>Essas dependências são nada mais nada menos que bibliotecas externas que a aplicação vai utilizar para funcionamento.<br />Existe dois tipos de dependências produção e desenvolvimento, essas dependências são nada mais que (Technology)</p> <br /><br />
+                <p>Essas dependências são nada mais nada menos que bibliotecas externas que a aplicação vai utilizar para funcionamento.<br />Existe dois tipos de dependências <strong>produção</strong> e <strong>desenvolvimento</strong>, essas dependências são nada mais que (Technology)</p> <br /><br />
                 <h4 style={{ textAlign: "center" }}>dependencies ( tech )</h4>
 
                 <p>body-parser:</p>

@@ -13,3 +13,7 @@ function calculaQuadrado(num) {
    }
    
    imprimeValor(3); // ‘o resultado é 36’
+
+   const multiply = new Function("x", "y", "return x * y");
+
+console.log(multiply(2, 2))

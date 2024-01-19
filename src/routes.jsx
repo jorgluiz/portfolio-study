@@ -12,6 +12,7 @@ import Env from "./pages/backend/env"
 import ServicoAutenticacao from "./pages/backend/servicoAutenticacao"
 
 import BancoDeDados from "./ui/components/layoutBancoDados"; //template-grid (banco de dados)
+import ModelagemDados from "./pages/bancoDados/01modelagemDados";
 
 import TemplateFrontend from "./ui/components/layoutFrontend"  //template-grid (frontend)
 import Animations from "./pages/frontend/animations"
@@ -75,6 +76,7 @@ import TiposDadosArguments from "./pages/javascript/tiposDadosArguments";
 import Paradigma from "./pages/javascript/homePageParadigma"
 import Bhaskara from "./pages/javascript/bhaskara"
 import ApiIntroducao from "./pages/javascript/apisIntroducao";
+import Instancia from "./pages/javascript/instancia";
 
 import TemplateReactJS from "./ui/components/layoutReactJS"; //template-grid (ReactJS)
 import Started from "./pages/reactjs/started"
@@ -111,7 +113,9 @@ const AppRoutes = () => {
                         <Route path="servicos-autenticacao" element={<ServicoAutenticacao />} />
                     </Route>
 
-                    <Route path="/banco-de-dados" element={<BancoDeDados />} />
+                    <Route path="/banco-de-dados" element={<BancoDeDados />}>
+                    <Route path="modelagem-de-dados" element={<ModelagemDados />} />
+                    </Route>
 
                     <Route path="/front-end" element={<TemplateFrontend />}> {/* Frontend */}
                         <Route index element={<FrontendHome />} />
@@ -174,6 +178,7 @@ const AppRoutes = () => {
                         <Route path="tipos-dados-arguments" element={<TiposDadosArguments />} />
                         <Route path="bhaskara-fn" element={<Bhaskara />} />
                         <Route path="apis-web-introducao" element={<ApiIntroducao />} />
+                        <Route path="instancias" element={<Instancia />} />
                     </Route>
 
                     <Route path="/react-js" element={<TemplateReactJS />}>

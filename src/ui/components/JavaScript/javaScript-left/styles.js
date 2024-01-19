@@ -52,5 +52,29 @@ export const Li = styled.li`
     display: block;
     transition: all 0.5s ease;
 }
+
+&.liRelative {
+    position: relative;
+}
+
+& > .tooltipObjetoTop {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+  /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+&.liRelative:hover .tooltipObjetoTop {
+  visibility: visible;
+}
 `;
 export const TextGradientTagA = styled.a``;

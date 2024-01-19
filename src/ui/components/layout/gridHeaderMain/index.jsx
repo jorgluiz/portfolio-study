@@ -24,6 +24,9 @@ const HeaderMain = () => {
                 <li>
                     <Link to="/back-end">Back-end</Link>
                 </li>
+                <li>
+                    <Link to="/banco-de-dados">Banco de dados</Link>
+                </li>
                 <li >
                     <Link to="/front-end">Front-end</Link>
                 </li>
@@ -32,9 +35,6 @@ const HeaderMain = () => {
                 </li>
                 <li>
                     <Link to="/java-script">JavaScript</Link>
-                </li>
-                <li>
-                    <Link to="/banco-de-dados">Banco de dados</Link>
                 </li>
                 <li>
                     <Link to="/arquitetura-node-js-entenda-loop-de-eventos">event loop</Link>
