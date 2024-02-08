@@ -7,9 +7,14 @@ import LayoutGrid from "./ui/components/layout/gridLayout"
 
 import Backend from "./ui/components/layoutBackend"; //template-grid (backend)
 import BackendHome from "./pages/backend/backendHome"
-import Status from "./pages/backend/status"
-import Env from "./pages/backend/env"
-import ServicoAutenticacao from "./pages/backend/servicoAutenticacao"
+import SugestoesGerais from "./pages/backend/sugestoesGerais"
+import PassarDadosEntreRotas from "./pages/backend/dadosEntreRotas"
+import Escalabilidade from "./pages/backend/escalabilidade"
+import Package from "./pages/backend/package"
+import MysqlEorm from "./pages/backend/mysqlEorm"
+// import Status from "./pages/backend/status"
+// import Env from "./pages/backend/env"
+// import ServicoAutenticacao from "./pages/backend/servicoAutenticacao"
 
 import BancoDeDados from "./ui/components/layoutBancoDados"; //template-grid (banco de dados)
 import ModelagemDados from "./pages/bancoDados/01modelagemDados";
@@ -108,9 +113,14 @@ const AppRoutes = () => {
 
                     <Route path="/back-end" element={<Backend />}>  {/* Backend */}
                         <Route index element={<BackendHome />} />
-                        <Route path="status-code" element={<Status />} />
+                        <Route  path="sugestoes-gerais" element={<SugestoesGerais />} />
+                        <Route  path="passar-dados-entre-rotas" element={<PassarDadosEntreRotas />} />
+                        <Route  path="escalabilidade-de-projeto" element={<Escalabilidade />} />
+                        <Route  path="framework-biblioteca-ferramenta" element={<Package />} />
+                        <Route  path="mysql-puro-ou-orm" element={<MysqlEorm />} />
+                        {/* <Route path="status-code" element={<Status />} />
                         <Route path="env" element={<Env />} />
-                        <Route path="servicos-autenticacao" element={<ServicoAutenticacao />} />
+                        <Route path="servicos-autenticacao" element={<ServicoAutenticacao />} /> */}
                     </Route>
 
                     <Route path="/banco-de-dados" element={<BancoDeDados />}>
