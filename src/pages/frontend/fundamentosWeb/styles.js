@@ -123,5 +123,4 @@ animation-iteration-count: infinite;
   100% {height: 5px; width: 5px;}
 }
 }
-}
 `;

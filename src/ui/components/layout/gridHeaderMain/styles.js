@@ -6,6 +6,8 @@ grid-area: headerMain;
 display: flex;
 align-items: center;
 background-color: #c0c0c0;
+justify-content: center;
+font-size: 20px;
 /* 
 background-color: var(--tertiary);
 padding: 11px 0;
@@ -19,7 +21,7 @@ overflow-y: scroll;
 & ul {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 95%;
 }
 `;
 

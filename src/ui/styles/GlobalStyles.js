@@ -14,8 +14,9 @@ html, body, #root {
 }
 
 body {
-    /* width: 100vw; */
     height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
 }
 
 *, button, input {
@@ -23,7 +24,6 @@ body {
     outline: 0;
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
 }
 
 :root {

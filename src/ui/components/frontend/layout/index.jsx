@@ -1,19 +1,24 @@
-import { Grid } from "./styles"
+import { Grid } from "./styles";
 
-import Left from "../frontend-left"
-import Center from "../frontend-center"
-import Right from "../frontend-right"
+import Left from "../frontend-left";
+import Center from "../frontend-center";
+import Right from "../frontend-right";
 
-const Frontend = ({ children }) => {
-    return (
-        <Grid>
-            <Left />
-            <Center> {/* LayoutFrontend */}
-                    {children}
-            </Center>
-            <Right />
-        </Grid>
-    )
-}
+import GridLayout from "../../layout/gridLayout";
+import { Outlet } from "react-router-dom";
 
-export default Frontend
+export const LayoutFrontend = () => {
+  return (
+    <GridLayout>
+      <Grid>
+        <Left />
+        <Center>
+          {" "}
+          {/* LayoutFrontend */}
+          <Outlet />
+        </Center>
+        <Right />
+      </Grid>
+    </GridLayout>
+  );
+};

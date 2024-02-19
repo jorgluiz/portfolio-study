@@ -4,9 +4,9 @@ export const Container = styled.div`
 grid-area: header;
 
 display: flex;
+justify-content: space-evenly;
 align-items: center;
 background: #0E1835;
-justify-content: space-evenly;
 
 /* 
 background-color: var(--tertiary);

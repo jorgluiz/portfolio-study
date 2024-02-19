@@ -8,7 +8,7 @@ import {Container} from "./styles"
 const Context = () => {
     return (
         <Container>
-            <h1>CONTEXT API</h1>
+            <h1 className="h1-context">CONTEXT API</h1>
             <p><strong>Distribuição de dados</strong></p>
             <p>Canal de comunicação pelo qual dados poderão</p>
             <p>ser acessado de maneira padronizada dentro de um escopo definido {"{ }"}</p><br />

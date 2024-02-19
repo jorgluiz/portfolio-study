@@ -1,0 +1,34 @@
+.list-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-container a {
+    color: blue;
+}
+
+.ul-padding-left {
+   padding-left: 10px;
+}
+
+.ul-web .li-vercel > a + p  {
+    transition: 1s;
+    position: absolute;
+    background-color: #111111;
+    color: aliceblue;
+    opacity: 0;
+}
+
+.ul-web .li-vercel > a:hover + p  {
+    opacity: 1;
+}
+
+.list-container-canais{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
+}
+
+.list-container-canais > ul > li {
+    margin: 0 0 10px 0;
+}

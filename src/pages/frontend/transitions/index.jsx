@@ -151,7 +151,7 @@ const TransitionPage = () => {
             <div style={{ display: "flex", alignItems: "center", height: "300px", border: "solid 2px #000000" }}>
                 <Transicao01></Transicao01>
             </div>
-            <p styled={{ margin: "0 0 80px 0" }}>Observe que, quando o cursor sair do elemento, ele voltará gradualmente ao seu estilo original.</p>
+            <p style={{ margin: "0 0 80px 0" }}>Observe que, quando o cursor sair do elemento, ele voltará gradualmente ao seu estilo original.</p>
             {/* ====================================================================================================================================== */}
             <h1 style={{ marginTop: "40px", fontSize: "30px" }}>Alterar vários valores de propriedade</h1>
             <p style={{ marginTop: "20px", marginBottom: "20px" }}>O exemplo a seguir adiciona um efeito de transição para a propriedade <strong>width</strong> e <strong>height</strong>, com uma duração de <strong>7 segundos para a largura</strong> e <strong>10 segundos para a altura</strong>:</p>
@@ -176,7 +176,7 @@ const TransitionPage = () => {
 
             <p>O exemplo a seguir mostra algumas das diferentes curvas de velocidade que podem ser usadas:</p>
 
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", justifyContent: "space-between", height: "300px", border: "solid 2px #000000", marginBottom: "60px" }}>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "300px", border: "solid 2px #000000", marginBottom: "60px" }}>
                 <Linear>Linear</Linear>
                 <Ease>Ease</Ease>
                 <EaseIn>Ease-In</EaseIn>

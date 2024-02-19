@@ -313,15 +313,15 @@ const TransformsPage = () => {
                 <p>Com a propriedade CSS <strong>transform</strong> você pode usar os seguintes métodos de transformação 2D:</p>
 
                 <ul style={{ margin: "20px 0 80px 20px", width: "calc(100% - 40px)" }}>
-                    <li><strong style={{color: "#111"}}>transform:</strong> translate();</li>
-                    <li><strong style={{color: "#111"}}>transform:</strong> rotate();</li>
-                    <li><strong style={{color: "#111"}}>transform:</strong> scaleX();</li>
-                    <li><strong style={{color: "#111"}}>transform:</strong> scaleY();</li>
-                    <li><strong style={{color: "#111"}}>transform:</strong> scale();</li>
-                    <li><strong style={{color: "#111"}}>transform:</strong> skewX();</li>
-                    <li><strong style={{color: "#111"}}>transform:</strong> skewY();</li>
-                    <li><strong style={{color: "#111"}}>transform:</strong> skew();</li>
-                    <li><strong style={{color: "#111"}}>transform:</strong> matrix();</li>
+                    <li><strong style={{ color: "#111" }}>transform:</strong> translate();</li>
+                    <li><strong style={{ color: "#111" }}>transform:</strong> rotate();</li>
+                    <li><strong style={{ color: "#111" }}>transform:</strong> scaleX();</li>
+                    <li><strong style={{ color: "#111" }}>transform:</strong> scaleY();</li>
+                    <li><strong style={{ color: "#111" }}>transform:</strong> scale();</li>
+                    <li><strong style={{ color: "#111" }}>transform:</strong> skewX();</li>
+                    <li><strong style={{ color: "#111" }}>transform:</strong> skewY();</li>
+                    <li><strong style={{ color: "#111" }}>transform:</strong> skew();</li>
+                    <li><strong style={{ color: "#111" }}>transform:</strong> matrix();</li>
                 </ul>
 
                 <p style={{ margin: "0 0 60px 0" }}>O <strong>translate(X Y)</strong> método move um elemento de sua posição atual (de acordo com os parâmetros fornecidos para o eixo X e o eixo Y).</p>

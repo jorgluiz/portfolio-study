@@ -8,7 +8,7 @@ import { Container } from "./styles"
 const Redux = () => {
     return (
         <Container>
-            <h1>Redux</h1>
+            <h1 className="h1-redux">Redux</h1>
             <p><strong>Gerenciar estado</strong></p>
             <p><strong>Redux</strong> é uma biblioteca feita para <span className="gerenciar-redux">gerenciar estados em uma aplicação,</span> ela tira a</p>         
             <p>responsabilidade de um componente ter um estado que poderá ser usado por vários</p>

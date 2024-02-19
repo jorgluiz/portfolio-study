@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
 
-& h1 {
+& .h1-context {
     text-align: center;
 }
 

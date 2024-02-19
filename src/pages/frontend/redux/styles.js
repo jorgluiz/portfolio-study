@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
 
-& h1 {
+& .h1-redux {
     text-align: center;
 }
 & .gerenciar-redux {

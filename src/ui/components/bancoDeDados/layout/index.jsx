@@ -1,19 +1,24 @@
-import { Grid } from "./styles"
+import { Grid } from "./styles";
 
-import Left from "../bancoDados-left"
-import Center from "../bancoDados-center"
-import Right from "../bancoDados-right"
+import Left from "../bancoDados-left";
+import Center from "../bancoDados-center";
+import Right from "../bancoDados-right";
 
-const LayoutBancoDeDados = ({ children }) => {
-    return (
-            <Grid>
-                <Left />
-                <Center> {/* LayoutFrontend */}
-                    {children}
-                </Center>
-                <Right />
-            </Grid>
-    )
-}
+import GridLayout from "../../layout/gridLayout";
+import { Outlet } from "react-router-dom";
 
-export default LayoutBancoDeDados
+export const LayoutBancoDeDados = () => {
+  return (
+    <GridLayout>
+      <Grid>
+        <Left />
+        <Center>
+          {" "}
+          {/* LayoutFrontend */}
+          <Outlet />
+        </Center>
+        <Right />
+      </Grid>
+    </GridLayout>
+  );
+};

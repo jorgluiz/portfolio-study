@@ -3,8 +3,6 @@ import styled from "styled-components";
 // Container
 export const Container = styled.main`
 grid-area: main;
-
-background: #ffffff; 
 /* display: flex;
 flex-direction: column;
 

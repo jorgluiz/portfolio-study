@@ -366,7 +366,7 @@ border-bottom: 4px solid #ffffff;
 border-top: 4px solid #000000;
 transform: rotate(-70deg);
 
-opacity: ${({endVideo}) => endVideo === true ? 1 : 0};
+/* opacity: ${({endVideo}) => endVideo === true ? 1 : 0}; */
 `;
 
 export const Triangulo = styled.div`

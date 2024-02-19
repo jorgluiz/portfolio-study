@@ -275,264 +275,264 @@ animation-play-state: ${({ activeEngre }) => activeEngre === false ? "paused" : 
 
 // @@@ COMPONENT @@@  @@@ COMPONENT @@@  @@@ COMPONENT @@@  @@@ COMPONENT @@@  @@@ COMPONENT @@@
 const EventLoop = () => {
-    const [playRequest01, SetPlayRequest01] = useState(false)
-    const [playRequest02, SetPlayRequest02] = useState(true)
-    const [playRequest03, SetPlayRequest03] = useState(true)
-    const [playRequest04, SetPlayRequest04] = useState(true)
+  const [playRequest01, SetPlayRequest01] = useState(false)
+  const [playRequest02, SetPlayRequest02] = useState(true)
+  const [playRequest03, SetPlayRequest03] = useState(true)
+  const [playRequest04, SetPlayRequest04] = useState(true)
 
-    const [timeSeconds01, setTimeSeconds01] = useState(0)
-    const [timeSeconds02, setTimeSeconds02] = useState(0)
-    const [timeSeconds03, setTimeSeconds03] = useState(0)
-    const [timeSeconds04, setTimeSeconds04] = useState(0)
+  const [timeSeconds01, setTimeSeconds01] = useState(0)
+  const [timeSeconds02, setTimeSeconds02] = useState(0)
+  const [timeSeconds03, setTimeSeconds03] = useState(0)
+  const [timeSeconds04, setTimeSeconds04] = useState(0)
 
-    const [cancelTimeOut01, setCancelTimeOut01] = useState()
-    const [cancelTimeOut02, setCancelTimeOut02] = useState()
-    const [cancelTimeOut03, setCancelTimeOut03] = useState()
-    const [cancelTimeOut04, setCancelTimeOut04] = useState()
+  const [cancelTimeOut01, setCancelTimeOut01] = useState()
+  const [cancelTimeOut02, setCancelTimeOut02] = useState()
+  const [cancelTimeOut03, setCancelTimeOut03] = useState()
+  const [cancelTimeOut04, setCancelTimeOut04] = useState()
 
-    const [activateTime01, setActivateTime01] = useState(true)
-    const [activateTime02, setActivateTime02] = useState(true)
-    const [activateTime03, setActivateTime03] = useState(true)
-    const [activateTime04, setActivateTime04] = useState(true)
+  const [activateTime01, setActivateTime01] = useState(true)
+  const [activateTime02, setActivateTime02] = useState(true)
+  const [activateTime03, setActivateTime03] = useState(true)
+  const [activateTime04, setActivateTime04] = useState(true)
 
-    const [circleRotate, SetCircleRotate] = useState(false)
-    const [activeEngre, SetActiveEngre] = useState(false)
-    const [arequestResponse01, SetRequestResponse01] = useState(false)
-    const [arequestResponse02, SetRequestResponse02] = useState(false)
-    const [arequestResponse03, SetRequestResponse03] = useState(false)
-    const [arequestResponse04, SetRequestResponse04] = useState(false)
+  const [circleRotate, SetCircleRotate] = useState(false)
+  const [activeEngre, SetActiveEngre] = useState(false)
+  const [arequestResponse01, SetRequestResponse01] = useState(false)
+  const [arequestResponse02, SetRequestResponse02] = useState(false)
+  const [arequestResponse03, SetRequestResponse03] = useState(false)
+  const [arequestResponse04, SetRequestResponse04] = useState(false)
 
-    useEffect(() => {
-        if (activateTime01 === true) setTimeout(() => setTimeSeconds01(timeSeconds01 + 1), 1000)
-        
-        SetCircleRotate(true)
-        
-        //    paused animation
-        if (timeSeconds01 === 7) {
-            SetPlayRequest01(!playRequest01) // paused animation
-            setActivateTime01(false)
-            SetActiveEngre(!activeEngre)
-        }
-        if (timeSeconds01 >= 10) setTimeSeconds01(0)
-        // ----------------------------------------
-        // ----------------------------------------
-        // ----------------------------------------
-        if (timeSeconds01 === 8) {
-            if (activateTime02 === true) {
-                SetPlayRequest02(false) // running animation
-                setTimeout(() => setTimeSeconds02(timeSeconds02 + 1), 1250)
-            }
+  useEffect(() => {
+    if (activateTime01 === true) setTimeout(() => setTimeSeconds01(timeSeconds01 + 1), 1000)
 
-            if (timeSeconds02 === 5) {
-                SetPlayRequest02(true) // paused animation
-                setActivateTime02(false)
-            }
-            if (timeSeconds02 >= 10) setTimeSeconds02(0)
-        }
-        // ----------------------------------------
-        // ----------------------------------------
-        // ----------------------------------------
-        if (timeSeconds02 === 6) {
-            if (activateTime03 === true) {
-                SetPlayRequest03(false) // running animation
-                setTimeout(() => setTimeSeconds02(timeSeconds02 + 1), 1050)
-            }
+    SetCircleRotate(true)
 
-            if (timeSeconds02 === 6) {
-                SetPlayRequest02(true) // paused animation
-                setActivateTime02(false)
-            }
-            if (timeSeconds02 >= 10) setTimeSeconds02(0)
-        }
-        // ----------------------------------------
-        // ----------------------------------------
-        // ----------------------------------------
-        if (timeSeconds02 >= 6) {
-            if (activateTime03 === true) {
-                SetPlayRequest03(false) // running animation
-                setTimeout(() => setTimeSeconds03(timeSeconds03 + 1), 1160)
-            }
+    //    paused animation
+    if (timeSeconds01 === 7) {
+      SetPlayRequest01(!playRequest01) // paused animation
+      setActivateTime01(false)
+      SetActiveEngre(!activeEngre)
+    }
+    if (timeSeconds01 >= 10) setTimeSeconds01(0)
+    // ----------------------------------------
+    // ----------------------------------------
+    // ----------------------------------------
+    if (timeSeconds01 === 8) {
+      if (activateTime02 === true) {
+        SetPlayRequest02(false) // running animation
+        setTimeout(() => setTimeSeconds02(timeSeconds02 + 1), 1250)
+      }
 
-            if (timeSeconds03 === 5) {
-                SetPlayRequest03(true) // paused animation
-                setActivateTime03(false)
-            }
-            if (timeSeconds03 >= 10) setTimeSeconds03(0)
-        }
-        // ----------------------------------------
-        // ----------------------------------------
-        // ----------------------------------------
-        console.log(timeSeconds03, "timeSeconds03")
-        if (timeSeconds03 >= 6) {
-            if (activateTime04 === true) {
-                SetPlayRequest04(false) // running animation
-                setTimeout(() => setTimeSeconds04(timeSeconds04 + 1), 1100)
-            }
-            if (timeSeconds04 === 5) {
-                SetPlayRequest04(true) // paused animation
-                setActivateTime04(false)
-            }// else if (playRequest01 === true && playRequest02 === true && playRequest03 === true && playRequest04 === true) {
-            //     SetPlayRequest01(false)
-            // } else if (playRequest01 === false && playRequest02 === true && playRequest03 === true && playRequest04 === true) {
-            //     SetPlayRequest02(false)
-            // } else if (playRequest01 === false && playRequest02 === false && playRequest03 === true && playRequest04 === true) {
-            //     SetPlayRequest03(false)
-            // } else if (playRequest01 === false && playRequest02 === false && playRequest03 === false && playRequest04 === true) {
-            //     SetPlayRequest04(false)
-            // }
+      if (timeSeconds02 === 5) {
+        SetPlayRequest02(true) // paused animation
+        setActivateTime02(false)
+      }
+      if (timeSeconds02 >= 10) setTimeSeconds02(0)
+    }
+    // ----------------------------------------
+    // ----------------------------------------
+    // ----------------------------------------
+    if (timeSeconds02 === 6) {
+      if (activateTime03 === true) {
+        SetPlayRequest03(false) // running animation
+        setTimeout(() => setTimeSeconds02(timeSeconds02 + 1), 1050)
+      }
 
-            // CONTINUE ANIMAÇÃO ### ### ###
-            switch (playRequest01, playRequest02, playRequest03, playRequest04) {
-                case playRequest01 === true && playRequest02 === true && playRequest03 === true && playRequest04 === true:
-                    SetPlayRequest01(false);
-                    SetRequestResponse01(true);
-                    break;
-                case playRequest01 === false && playRequest02 === true && playRequest03 === true && playRequest04 === true:
-                case playRequest01 === false && playRequest02 === false && playRequest03 === true && playRequest04 === true:
-                case playRequest01 === false && playRequest02 === false && playRequest03 === false && playRequest04 === true:
-                    SetPlayRequest02(false);
-                    SetRequestResponse02(true);
-                    setTimeout(() => {SetPlayRequest03(false), SetRequestResponse03(true)}, 2000)
-                    setTimeout(() => {
-                        SetPlayRequest04(false)
-                        SetActiveEngre(false)
-                        SetCircleRotate(false)
-                        SetRequestResponse04(true)
-                    }, 8000)
-                    break;
-            }
+      if (timeSeconds02 === 6) {
+        SetPlayRequest02(true) // paused animation
+        setActivateTime02(false)
+      }
+      if (timeSeconds02 >= 10) setTimeSeconds02(0)
+    }
+    // ----------------------------------------
+    // ----------------------------------------
+    // ----------------------------------------
+    if (timeSeconds02 >= 6) {
+      if (activateTime03 === true) {
+        SetPlayRequest03(false) // running animation
+        setTimeout(() => setTimeSeconds03(timeSeconds03 + 1), 1160)
+      }
 
-            if (timeSeconds04 >= 10) setTimeSeconds04(0)
-        }
-    }, [timeSeconds01, timeSeconds02, timeSeconds03, timeSeconds04])
+      if (timeSeconds03 === 5) {
+        SetPlayRequest03(true) // paused animation
+        setActivateTime03(false)
+      }
+      if (timeSeconds03 >= 10) setTimeSeconds03(0)
+    }
+    // ----------------------------------------
+    // ----------------------------------------
+    // ----------------------------------------
+    console.log(timeSeconds03, "timeSeconds03")
+    if (timeSeconds03 >= 6) {
+      if (activateTime04 === true) {
+        SetPlayRequest04(false) // running animation
+        setTimeout(() => setTimeSeconds04(timeSeconds04 + 1), 1100)
+      }
+      if (timeSeconds04 === 5) {
+        SetPlayRequest04(true) // paused animation
+        setActivateTime04(false)
+      }// else if (playRequest01 === true && playRequest02 === true && playRequest03 === true && playRequest04 === true) {
+      //     SetPlayRequest01(false)
+      // } else if (playRequest01 === false && playRequest02 === true && playRequest03 === true && playRequest04 === true) {
+      //     SetPlayRequest02(false)
+      // } else if (playRequest01 === false && playRequest02 === false && playRequest03 === true && playRequest04 === true) {
+      //     SetPlayRequest03(false)
+      // } else if (playRequest01 === false && playRequest02 === false && playRequest03 === false && playRequest04 === true) {
+      //     SetPlayRequest04(false)
+      // }
 
-    return (
-        <>
-                <Container playRequest01={playRequest01} playRequest02={playRequest02} playRequest03={playRequest03} playRequest04={playRequest04}>
-            <div style={{ position: "relative", width: "1200px" }}>
-                <div style={{ position: "absolute", right: "0", top: "0" }}>
-                    <RotateEngre activeEngre={activeEngre} SetActiveEngre={SetActiveEngre}>
-                        <div>
-                            <img className="rotateEngre" src={engrenagem} alt="" />
-                        </div>
-                    </RotateEngre>
-                    <div style={{ textAlign: "end", marginLeft: "40px" }}>
-                        <p><strong>Worker</strong></p>
-                        <p><strong>Thread Pool</strong></p>
-                    </div>
-                </div>
+      // CONTINUE ANIMAÇÃO ### ### ###
+      switch (playRequest01, playRequest02, playRequest03, playRequest04) {
+        case playRequest01 === true && playRequest02 === true && playRequest03 === true && playRequest04 === true:
+          SetPlayRequest01(false);
+          SetRequestResponse01(true);
+          break;
+        case playRequest01 === false && playRequest02 === true && playRequest03 === true && playRequest04 === true:
+        case playRequest01 === false && playRequest02 === false && playRequest03 === true && playRequest04 === true:
+        case playRequest01 === false && playRequest02 === false && playRequest03 === false && playRequest04 === true:
+          SetPlayRequest02(false);
+          SetRequestResponse02(true);
+          setTimeout(() => { SetPlayRequest03(false), SetRequestResponse03(true) }, 2000)
+          setTimeout(() => {
+            SetPlayRequest04(false)
+            SetActiveEngre(false)
+            SetCircleRotate(false)
+            SetRequestResponse04(true)
+          }, 8000)
+          break;
+      }
+
+      if (timeSeconds04 >= 10) setTimeSeconds04(0)
+    }
+  }, [timeSeconds01, timeSeconds02, timeSeconds03, timeSeconds04])
+
+  return (
+    <>
+      <Container playRequest01={playRequest01} playRequest02={playRequest02} playRequest03={playRequest03} playRequest04={playRequest04}>
+        <div style={{ position: "relative", width: "1200px" }}>
+          <div style={{ position: "absolute", right: "0", top: "0" }}>
+            <RotateEngre activeEngre={activeEngre} SetActiveEngre={SetActiveEngre}>
+              <div>
+                <img className="rotateEngre" src={engrenagem} alt="" />
+              </div>
+            </RotateEngre>
+            <div style={{ textAlign: "end", marginLeft: "40px" }}>
+              <p><strong>Worker</strong></p>
+              <p><strong>Thread Pool</strong></p>
             </div>
+          </div>
+        </div>
 
-            <div style={{ display: "flex", justifyContent: "space-around", alignItems: "center", height: "100%", width: "100%" }}>
-                {/* <Functions>
+        <div style={{ display: "flex", justifyContent: "space-around", alignItems: "center", height: "100%", width: "100%" }}>
+          {/* <Functions>
                     <p className="consoleInicio">{`console.log('início do programa')`}</p>
                     <p className="setTimeout2">{`setTimeout(() => console.log("aguardando 2 segundos"), 2000)`}</p>
                     <p className="setTimeout5">{`setTimeout(() => console.log("aguardando 5 segundos"), 5000)`}</p>
                     <p className="consoleFim">{`console.log('fim do programa')`}</p>
                 </Functions> */}
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <Boneco>
-                        <div className="cabeca"></div>
-                        <div className="corpo"></div>
-                    </Boneco>
-                    <p>Resquest 1</p><br />
-                    <div style={{ position: "absolute", display: "flex", top: "200px", left: "122px", alignItems: "center", transform: "rotate(210deg)" }}>
-                        <div className="trianguloLeft"></div>
-                        <div style={{ width: "90px", borderBottom: "2px solid #111", left: "140px" }}></div>
-                        <div className="trianguloRight"></div>
-                    </div>
-                    <Boneco>
-                        <div className="cabeca"></div>
-                        <div className="corpo"></div>
-                    </Boneco>
-                    <p>Resquest 2</p><br />
-                    <div style={{ position: "absolute", top: "270px", display: "flex", left: "122px", alignItems: "center", transform: "rotate(10deg)" }}>
-                        <div className="trianguloLeft"></div>
-                        <div style={{ width: "90px", borderBottom: "2px solid #111", left: "140px" }}></div>
-                        <div className="trianguloRight"></div>
-                    </div>
-                    <Boneco>
-                        <div className="cabeca"></div>
-                        <div className="corpo"></div>
-                    </Boneco>
-                    <p>Resquest 3</p><br />
-                    <div style={{ position: "absolute", top: "360px", display: "flex", left: "122px", alignItems: "center" }}>
-                        <div className="trianguloLeft"></div>
-                        <div style={{ width: "90px", borderBottom: "2px solid #111", left: "140px" }}></div>
-                        <div className="trianguloRight"></div>
-                    </div>
-                    <Boneco>
-                        <div className="cabeca"></div>
-                        <div className="corpo"></div>
-                    </Boneco>
-                    <p>Resquest 4</p><br />
-                    <div style={{ position: "absolute", top: "430px", display: "flex", left: "122px", alignItems: "center", transform: "rotate(-20deg)" }}>
-                        <div className="trianguloLeft"></div>
-                        <div style={{ width: "90px", borderBottom: "2px solid #111", left: "140px" }}></div>
-                        <div className="trianguloRight"></div>
-                    </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Boneco>
+              <div className="cabeca"></div>
+              <div className="corpo"></div>
+            </Boneco>
+            <p>Resquest 1</p><br />
+            <div style={{ position: "absolute", display: "flex", top: "200px", left: "122px", alignItems: "center", transform: "rotate(210deg)" }}>
+              <div className="trianguloLeft"></div>
+              <div style={{ width: "90px", borderBottom: "2px solid #111", left: "140px" }}></div>
+              <div className="trianguloRight"></div>
+            </div>
+            <Boneco>
+              <div className="cabeca"></div>
+              <div className="corpo"></div>
+            </Boneco>
+            <p>Resquest 2</p><br />
+            <div style={{ position: "absolute", top: "270px", display: "flex", left: "122px", alignItems: "center", transform: "rotate(10deg)" }}>
+              <div className="trianguloLeft"></div>
+              <div style={{ width: "90px", borderBottom: "2px solid #111", left: "140px" }}></div>
+              <div className="trianguloRight"></div>
+            </div>
+            <Boneco>
+              <div className="cabeca"></div>
+              <div className="corpo"></div>
+            </Boneco>
+            <p>Resquest 3</p><br />
+            <div style={{ position: "absolute", top: "360px", display: "flex", left: "122px", alignItems: "center" }}>
+              <div className="trianguloLeft"></div>
+              <div style={{ width: "90px", borderBottom: "2px solid #111", left: "140px" }}></div>
+              <div className="trianguloRight"></div>
+            </div>
+            <Boneco>
+              <div className="cabeca"></div>
+              <div className="corpo"></div>
+            </Boneco>
+            <p>Resquest 4</p><br />
+            <div style={{ position: "absolute", top: "430px", display: "flex", left: "122px", alignItems: "center", transform: "rotate(-20deg)" }}>
+              <div className="trianguloLeft"></div>
+              <div style={{ width: "90px", borderBottom: "2px solid #111", left: "140px" }}></div>
+              <div className="trianguloRight"></div>
+            </div>
+          </div>
+
+          <div>
+            <div style={{ backgroundColor: "green", height: "30px", textAlign: "center" }}>
+              <p style={{ color: "#fff" }}><strong>Call stack (Pilha de chamadas)</strong></p>
+            </div>
+            <CallStack>
+              <div className="requeste1">{arequestResponse01 === true ? "response" : "task 1"}</div>
+              <div className="requeste2">{arequestResponse02 === true ? "response" : "task 2"}</div>
+              <div className="requeste3">{arequestResponse03 === true ? "response" : "task 3"}</div>
+              <div className="requeste4">{arequestResponse04 === true ? "response" : "task 4"}</div>
+            </CallStack>
+          </div>
+
+          <p id="demo"></p>
+
+          <Rotate circleRotate={circleRotate}>
+            <CircleTop>
+              <div>
+                <p>Event Loop</p>
+                <p>sigle-threader</p>
+              </div>
+            </CircleTop>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div>
+                <div style={{ position: "relative", bottom: "-5px", width: "0", height: "0", transform: "skewX(20deg)" }}>
+                  <div style={{ height: "20px", width: 0, borderLeft: "10px solid #000" }}></div>
                 </div>
-
-                <div>
-                    <div style={{ backgroundColor: "green", height: "30px", textAlign: "center" }}>
-                        <p style={{ color: "#fff" }}><strong>Call stack (Pilha de chamadas)</strong></p>
-                    </div>
-                    <CallStack>
-                        <div className="requeste1">{arequestResponse01 === true ? "response" : "task 1"}</div>
-                        <div className="requeste2">{arequestResponse02 === true ? "response" : "task 2"}</div>
-                        <div className="requeste3">{arequestResponse03 === true ? "response" : "task 3"}</div>
-                        <div className="requeste4">{arequestResponse04 === true ? "response" : "task 4"}</div>
-                    </CallStack>
+                <div style={{ position: "relative", bottom: "-5px", width: "0", height: "0", transform: "skewX(-20deg)" }}>
+                  <div style={{ height: "20px", width: 0, borderLeft: "2px solid #000" }}></div>
                 </div>
-
-                <p id="demo"></p>
-
-                <Rotate circleRotate={circleRotate}>
-                    <CircleTop>
-                        <div>
-                            <p>Event Loop</p>
-                            <p>sigle-threader</p>
-                        </div>
-                    </CircleTop>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <div>
-                            <div style={{ position: "relative", bottom: "-5px", width: "0", height: "0", transform: "skewX(20deg)" }}>
-                                <div style={{ height: "20px", width: 0, borderLeft: "10px solid #000" }}></div>
-                            </div>
-                            <div style={{ position: "relative", bottom: "-5px", width: "0", height: "0", transform: "skewX(-20deg)" }}>
-                                <div style={{ height: "20px", width: 0, borderLeft: "2px solid #000" }}></div>
-                            </div>
-                        </div>
-                        <div className="rightCircle">
-                            <div style={{ position: "relative", bottom: "-5px", width: "0", height: "0", transform: "skewX(20deg)" }}>
-                                <div style={{ height: "20px", width: 0, borderLeft: "10px solid #000" }}></div>
-                            </div>
-                            <div style={{ position: "relative", bottom: "-5px", width: "0", height: "0", transform: "skewX(-20deg)" }}>
-                                <div style={{ height: "20px", width: 0, borderLeft: "2px solid #000" }}></div>
-                            </div>
-                        </div>
-                    </div>
-                    <CircleBotton></CircleBotton>
-                </Rotate>
+              </div>
+              <div className="rightCircle">
+                <div style={{ position: "relative", bottom: "-5px", width: "0", height: "0", transform: "skewX(20deg)" }}>
+                  <div style={{ height: "20px", width: 0, borderLeft: "10px solid #000" }}></div>
+                </div>
+                <div style={{ position: "relative", bottom: "-5px", width: "0", height: "0", transform: "skewX(-20deg)" }}>
+                  <div style={{ height: "20px", width: 0, borderLeft: "2px solid #000" }}></div>
+                </div>
+              </div>
+            </div>
+            <CircleBotton></CircleBotton>
+          </Rotate>
 
 
-                <div>
-                    <div style={{ backgroundColor: "green", height: "30px", textAlign: "center" }}>
-                        <p style={{ color: "#fff" }}><strong>Task queue (fila tarefas/eventos)</strong></p>
-                    </div>
-                    <TaskQueue>
-                        {/* <div className="task1">taks 1</div>
+          <div>
+            <div style={{ backgroundColor: "green", height: "30px", textAlign: "center" }}>
+              <p style={{ color: "#fff" }}><strong>Task queue (fila tarefas/eventos)</strong></p>
+            </div>
+            <TaskQueue>
+              {/* <div className="task1">taks 1</div>
                         <div className="task2">taks 2</div>
                         <div className="task3">taks 3</div>
                         <div className="task4">taks 4</div> */}
-                    </TaskQueue>
-                </div>
-            </div>
-        </Container>
+            </TaskQueue>
+          </div>
+        </div>
+      </Container>
 
-<img src={eventLoopAnimation}></img>
-        </>
-    )
+      <img src={eventLoopAnimation}></img>
+    </>
+  )
 }
 
 export default EventLoop

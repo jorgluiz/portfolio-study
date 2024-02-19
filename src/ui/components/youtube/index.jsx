@@ -16,8 +16,6 @@ import svgMinimize from "../../../assets/svg/minimize-screen.svg"
 
 import { playlistMock, rocketSeatMock } from "../../../data/mock"
 
-import SitesReference from "../search"
-
 // ##################### feature (Time Update) #####################
 const useTimeUpDate = () => {
     const [watchedBar, setWatchedBar] = useState({ percentage: 0 })
@@ -510,9 +508,6 @@ const ComponentVideo = () => {
             </VideoContainer>
 
             <Container>
-                <Primary>
-                    <SitesReference />
-                </Primary>
                 <Secondary>
                     {rocketSeatMock.map((el, index, arr) => {
                         return (

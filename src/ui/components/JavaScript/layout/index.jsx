@@ -1,17 +1,22 @@
 import Left from "../javaScript-left";
-import Center from "../javaScript-center"
-import Right from "../javaScript-right"
+import Center from "../javaScript-center";
+import Right from "../javaScript-right";
 
-import { Grid } from "./styles"
+import GridLayout from "../../layout/gridLayout";
 
-const LayoutJavaScript = ({ children }) => {
-    return (
-        <Grid>
-            <Left />
-            <Center>{children}</Center>
-            <Right />
-        </Grid>
-    )
-}
+import { Grid } from "./styles";
+import { Outlet } from "react-router-dom";
 
-export default LayoutJavaScript
+export const LayoutJavaScript = () => {
+  return (
+    <GridLayout>
+      <Grid>
+        <Left />
+        <Center>
+            <Outlet />
+        </Center>
+        <Right />
+      </Grid>
+    </GridLayout>
+  );
+};

@@ -21,6 +21,9 @@ const Header = () => {
                     <span style={{ color: "white", fontSize: "15px" }}>{"react-router-dom: ^6.3.0"}</span>
                 </div>
 
+                <div>
+                    <Link to={"/hospedagem-qual-escolher"} style={{color: "white"}}>Implantar projeto ( hospedagem )</Link>
+                </div>
                 <DivDropDown>
 
                 </DivDropDown>
