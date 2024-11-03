@@ -353,14 +353,21 @@ export const SecondaryContainerVideo = styled.div`
 
 display: flex;
 height:  auto;
-margin: 10px 0 10px 0;
-/* border: 1px solid black; */
+margin: 10px 0;
+border: 1px solid black;
 
-& video {
-    width: 130px;
+& .video-container {
+    width: 200px;
+    height: 75px;
+    overflow: hidden;
     border-radius: 5px;
-    cursor: pointer;
-}
+  }
+
+  & .video-play-list {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ou object-fit: fill */
+  }
 
 & .title {
     width: 100%;
@@ -368,12 +375,12 @@ margin: 10px 0 10px 0;
 }
 
 & p {
-    width: 200px;
+
     font-size: 12px;
     font-weight: bold;
     /* colocar tres pontinhos no texto */
     text-overflow: ellipsis;
-    white-space: nowrap;
+    
     overflow: hidden;
 }
 `;
