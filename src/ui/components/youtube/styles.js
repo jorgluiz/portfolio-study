@@ -355,6 +355,7 @@ display: flex;
 height:  auto;
 margin: 10px 0;
 border: 1px solid black;
+cursor: pointer;
 
 & .video-container {
     width: 200px;
@@ -452,7 +453,7 @@ justify-content: center;
 width: 100%;
 border: solid 3px #111;
 
-@media (max-width: 768px) {
+@media (max-width: 1016px) {
   display: none;
 }
 `;

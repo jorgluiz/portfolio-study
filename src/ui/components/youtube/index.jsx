@@ -712,16 +712,36 @@ const useFullScreen = () => {
 const usePlaylistSide = (togglePlay, setTogglePlay, stateActive, setStateActive) => {
   const [playlist, setPlayList] = useState([])
 
-  const Handleplaylist = (event) => {
+  const Handleplaylist = (event, index) => {
     setStateActive(false)
     window.scrollTo({ top: 0, behavior: 'instant' })
 
     setTogglePlay({ ...togglePlay, playVideo: true })
-    setPlayList(event.target.src); // Usa o src completo
+
+    // Verifica se o elemento clicado é <video> ou qualquer área de `SecondaryContainerVideo`
+    const videoElement = event.target.tagName === 'VIDEO' ? event.target : document.getElementById(index);
+
+    // Usa o src do vídeo
+    if (videoElement) {
+      setPlayList(videoElement.src);
+    }
   }
 
   return { playlist, setPlayList, Handleplaylist }
 }
+// const usePlaylistSide = (togglePlay, setTogglePlay, stateActive, setStateActive) => {
+//   const [playlist, setPlayList] = useState([])
+
+//   const Handleplaylist = (event) => {
+//     setStateActive(false)
+//     window.scrollTo({ top: 0, behavior: 'instant' })
+
+//     setTogglePlay({ ...togglePlay, playVideo: true })
+//     setPlayList(event.target.src); // Usa o src completo
+//   }
+
+//   return { playlist, setPlayList, Handleplaylist }
+// }
 
 //##################### feature (Play-List) #####################
 const usePlayList = () => {
@@ -1053,9 +1073,9 @@ const ComponentVideo = () => {
             return (
               <React.Fragment key={el.id}>
                 {/* solução para selecionar um item no map com ref é >>> https://stackoverflow.com/questions/63059962/reactjs-map-with-a-ref-to-each-component */}
-                <SecondaryContainerVideo>
+                <SecondaryContainerVideo onClick={(event) => Handleplaylist(event, index)}>
                   <div className="video-container">
-                    <video className="video-play-list" id={index} onClick={(event) => Handleplaylist(event)} onMouseEnter={(event) => mouseEnterPlayList(event)} onMouseLeave={(event) => mouseLeavePlayList(event)} type="video/mp4" src={el.video} />
+                    <video className="video-play-list" id={index} onMouseEnter={(event) => mouseEnterPlayList(event)} onMouseLeave={(event) => mouseLeavePlayList(event)} type="video/mp4" src={el.video} />
                   </div>
                   <div className="title">
                     <p>{el.title}</p>
