@@ -17,7 +17,7 @@ export const Video = styled.video`
     height: 100%;
 
     & + .state {
-        opacity: ${({opacity}) => opacity === true ? 1 : 0};
+        opacity: ${({ opacity }) => opacity === true ? 1 : 0};
     }
 `;
 
@@ -31,6 +31,8 @@ export const ControlsContainer = styled.div`
     margin: auto;
     cursor: pointer;
     transition-duration: 0.3s;
+    user-select: none; // Evita seleção do conteúdo
+    touch-action: manipulation; // Melhora interação em dispositivos móveis
 `;
 // ---------------------------------
 
@@ -86,20 +88,24 @@ export const WatchedBar = styled.div`
     background: #e31221;
     width: ${({ watchedBar }) => (`${watchedBar.percentage}%`)};
     height: 100%;
-    transition: height 0.2s;
+    /* transition: height 0.2s; */
 `;
 
 export const Playhead = styled.div`
 
-    position: absolute;
-    background: #e31221;
-    height: 0px;
-    width: 0px;
-    border-radius: 50%;
-    transform: translateX(-50%);
-    transition: width 0.2s, height 0.2s;
-
-    left: ${({ watchedBar }) => (`${watchedBar.percentage}%`)};
+  position: absolute;
+  background: #e31221;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: width 0.1s, height 0.1s;
+  left: ${({ watchedBar }) => `${watchedBar.percentage}%`};
+  
+  &:hover {
+    width: 16px;
+    height: 16px;
+  }
 `;
 
 export const Canvas = styled.canvas`
@@ -117,25 +123,47 @@ export const Controls = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    & .play-pause-btn{
+      /* display: flex; */
+      /* align-items: center; */
+    }
+
+    & .full-screen-btn {
+      display: flex;
+      align-items: center;
+    }
+
     & .btn {
+      display: flex;
+      justify-content: center;
+      height: 45px;
+      width: 48px;
+    }
+/* 
+    & .btn {
+      display: flex;
     background: none;
     width: 45px;
     height: 100%;
-    display: flex;
+    margin: 0 15px 0 15px;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     user-select: none;
-    }
+    } */
 
-    & .btn > .play {
+    /* & .btn > .play {
         display: ${({ togglePlay }) => togglePlay.playVideo ? "none" : "block"};
         z-index: 1000;
     }
     & .btn > .pause {
         display: ${({ togglePlay }) => togglePlay.playVideo ? "block" : "none"};
         z-index: 1000;
-    }
+    } */
+
+     & .no-select {
+      user-select: none;
+     }
 `;
 
 export const SettingsMenu = styled.div`
@@ -170,7 +198,7 @@ display: ${({ settings }) => settings === true ? "block" : "none"};
 
 export const LeftSideControls = styled.div`
     display: flex;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
     align-items: center;
     height: 100%;
     flex-grow: 2;
@@ -185,10 +213,9 @@ export const LeftSideControls = styled.div`
 
 // @@@ VolumeControl @@@
 export const VolumeControl = styled.div`
-    height: 100%;
-    display: flex;
-    /* margin: "0px 2px 0px 0px"; */
-    /* width: "52px"; */
+display: flex;
+align-items: center;
+    /* height: 100%; */
 `;
 
 // @@@ VolumePanel @@@
@@ -201,7 +228,7 @@ export const VolumePanel = styled.div`
 & input[type="range"] {
     margin: 0;
     padding: 0;
-    width: 52px;
+    width: 51px;
     height: 1.5em;
     background: transparent;
     outline: none;
@@ -262,7 +289,7 @@ export const VolumePanel = styled.div`
 export const RightSideControls = styled.div`
 
     display: flex;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
     align-items: center;
     height: 100%;
 
@@ -270,8 +297,16 @@ export const RightSideControls = styled.div`
         display: none;
     }
 
+    & .settings {
+      display: flex;
+      align-items: center;
+      /* padding: 0 30px; 
+      margin: 0 auto; */
+      /* padding: 0 5px 0 5px; */
+    }
+
     & .settings > img {
-        transform: rotate(10deg);
+        /* transform: rotate(10deg); */
         transition: all 100ms;
     }
 `;
@@ -293,9 +328,9 @@ export const TimeDisplay = styled.div`
 `;
 
 export const Container = styled.div`
-
 display: flex;
-height: 100vh;
+justify-content: space-between;
+border: 5px solid red;
 `;
 
 export const Primary = styled.div`
@@ -308,10 +343,10 @@ margin-left: 100px;
 
 export const Secondary = styled.div`
 
-height: 100%;
-width: 300px;
-margin-top: 24px;
-/* border: 1px solid black; */
+display: flex;
+flex-direction: column;
+/* justify-content: space-between; */
+/* width: 100%; */
 `;
 
 export const SecondaryContainerVideo = styled.div`
@@ -357,16 +392,16 @@ export const Circle = styled.div`
 
 height: 20px;
 width: 20px;
-position: absolute;
+/* position: absolute; */
 border-radius: 50px;
 /* border: 3px solid #ffffff; */
-border-left: 4px solid #ffffff;
-border-right: 4px solid #ffffff;
-border-bottom: 4px solid #ffffff;
-border-top: 4px solid #000000;
-transform: rotate(-70deg);
+border-left: 3px solid #ffffff;
+border-right: 3px solid #ffffff;
+border-bottom: 3px solid #ffffff;
+border-top: 2px solid transparent;
+transform: rotate(-50deg);
 
-/* opacity: ${({endVideo}) => endVideo === true ? 1 : 0}; */
+opacity: ${({ endVideo }) => endVideo === true ? 1 : 0};
 `;
 
 export const Triangulo = styled.div`
@@ -376,8 +411,30 @@ height: 0;
 border-left: 5px solid transparent;
 border-right: 5px solid transparent;
 border-bottom: 10px solid #ffffff;
-transform: rotate(80deg);
+transform: rotate(75deg);
 position: absolute;
 top: -5px;
 left: 8px;
+`;
+
+export const Spinner = styled.div`
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+
+            & .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+          }
+
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
 `;

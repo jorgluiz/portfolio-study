@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // styles
-import { VideoContainer, Video, ControlsContainer, ProgressControls, ProgressBar, Progress, WatchedProgress, WatchedBar, Playhead, Controls, SettingsMenu, LeftSideControls, VolumeControl, RightSideControls, TimeDisplay, VolumePanel, Container, Primary, Secondary, SecondaryContainerVideo, Circle, Triangulo } from "./styles"
+import { VideoContainer, Video, ControlsContainer, ProgressControls, ProgressBar, Progress, WatchedProgress, WatchedBar, Playhead, Controls, SettingsMenu, LeftSideControls, VolumeControl, RightSideControls, TimeDisplay, VolumePanel, Container, Primary, Secondary, SecondaryContainerVideo, Circle, Triangulo, Spinner } from "./styles"
 
 // img 
 import svgPlay from "../../../assets/svg/play.svg"
@@ -17,516 +17,1031 @@ import svgMinimize from "../../../assets/svg/minimize-screen.svg"
 import { playlistMock, rocketSeatMock } from "../../../data/mock"
 
 // ##################### feature (Time Update) #####################
-const useTimeUpDate = () => {
-    const [watchedBar, setWatchedBar] = useState({ percentage: 0 })
-    const [videoCurrentTime, setVideoCurrentTime] = useState()
-    const [videoDuration, setVideoDuration] = useState()
-    const video = document.querySelector(".video")
-    // setVideoCurrentTime(video.currentTime)
-    // setVideoDuration(video.duration)
+// ajustando o controle do progresso do vídeo manualmente
 
-    // video current time
-    const [currentHours, setCurrentHours] = useState(0)
-    const [currentMinutes, setCurrentMinutes] = useState(0)
-    const [currentSeconds, setCurrentSeconds] = useState(0)
+const useTimeUpdate = (togglePlay, setTogglePlay, videoRef) => {
+  const [watchedBar, setWatchedBar] = useState({ percentage: 0 });
+  const [videoCurrentTime, setVideoCurrentTime] = useState(0);
 
-    // video duration 
-    const [durationHours, setDurationHours] = useState(0)
-    const [durationMinutes, setDurationMinutes] = useState(0)
-    const [durationSeconds, setDurationSeconds] = useState(0)
+  // Estados de tempo atual do vídeo
+  const [currentHours, setCurrentHours] = useState(0);
+  const [currentMinutes, setCurrentMinutes] = useState(0);
+  const [currentSeconds, setCurrentSeconds] = useState(0);
 
-    const handlePercentualUpdate = () => {
-        setCurrentHours(Math.floor(video.currentTime / 3600))
-        setCurrentMinutes(Math.floor(video.currentTime / 60 % 60))
-        setCurrentSeconds(Math.floor(video.currentTime % 60))
+  // Estados de duração do vídeo
+  const [durationHours, setDurationHours] = useState(0);
+  const [durationMinutes, setDurationMinutes] = useState(0);
+  const [durationSeconds, setDurationSeconds] = useState(0);
 
-        setDurationHours(Math.floor(video.duration / 3600))
-        setDurationMinutes(Math.floor(video.duration / 60 % 60))
-        setDurationSeconds(Math.floor(video.duration % 60))
+  // Estado para controlar se o usuário está arrastando a barra de progresso
+  const [isDragging, setIsDragging] = useState(false);
 
-        setVideoCurrentTime(video.currentTime)
-        setVideoDuration(video.duration)
+  useEffect(() => {
+    const handleLoadedMetadata = () => {
+      const duration = videoRef.current.duration;
 
-        setWatchedBar({ ...watchedBar, percentage: Math.floor(100 / video.duration * video.currentTime) })   // setDurationTime({ ...duration, time: (video.current.currentTime / video.current.current.duration) * 100 })
-        // https://www.youtube.com/watch?v=5nf24no8dKU
+      // Configura a duração do vídeo em horas, minutos e segundos
+      setDurationHours(Math.floor(duration / 3600));
+      setDurationMinutes(Math.floor((duration / 60) % 60));
+      setDurationSeconds(Math.floor(duration % 60));
+
+    };
+
+    const handleVideoEnd = () => {
+      // Atualiza o estado de togglePlay para exibir o botão de play ao final do vídeo
+      setTogglePlay({ playVideo: false });
+      setWatchedBar({ percentage: 100 });
+      setVideoCurrentTime(videoRef.current.duration); // Ajusta o tempo atual para o final do vídeo
+    };
+
+    if (videoRef.current) {
+      videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+      videoRef.current.addEventListener('ended', handleVideoEnd);
     }
-    return { watchedBar, currentHours, currentMinutes, currentSeconds, durationHours, durationMinutes, durationSeconds, videoCurrentTime, videoDuration, handlePercentualUpdate }
-}
+
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        videoRef.current.removeEventListener('ended', handleVideoEnd);
+      }
+    };
+  }, [videoRef, setTogglePlay]);
+
+  const handlePercentualUpdate = () => {
+    if (isDragging || !videoRef.current) return;
+
+    const currentTime = videoRef.current.currentTime;
+    const duration = videoRef.current.duration;
+
+    setCurrentHours(Math.floor(currentTime / 3600));
+    setCurrentMinutes(Math.floor((currentTime / 60) % 60));
+    setCurrentSeconds(Math.floor(currentTime % 60));
+
+    setVideoCurrentTime(currentTime);
+    setWatchedBar({ percentage: (100 * currentTime) / duration });
+  };
+
+  useEffect(() => {
+    if (videoRef.current && !isDragging) {
+      videoRef.current.addEventListener('timeupdate', handlePercentualUpdate);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.removeEventListener('timeupdate', handlePercentualUpdate);
+      }
+    };
+  }, [videoRef, isDragging]);
+
+  const startDragging = (event) => {
+    event.preventDefault(); // Impede que outros componentes sejam selecionados
+
+    setIsDragging(true);
+    handleDrag(event);
+    window.addEventListener('mousemove', handleDrag);
+    window.addEventListener('mouseup', stopDragging);
+
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0; // Congela o progresso visual
+    }
+  };
+
+  const stopDragging = (event) => {
+    handleDrag(event);
+    setIsDragging(false);
+
+    if (togglePlay.playVideo) {
+      videoRef.current.playbackRate = 1;
+    }
+
+    window.removeEventListener('mousemove', handleDrag);
+    window.removeEventListener('mouseup', stopDragging);
+  };
+
+  const handleDrag = (event) => {
+    if (!videoRef.current) return;
+
+    const bar = document.querySelector(".progress-bar");
+    const rect = bar.getBoundingClientRect();
+    const pos = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+    const newTime = pos * videoRef.current.duration;
+
+    videoRef.current.currentTime = newTime;
+    setWatchedBar({ percentage: pos * 100 });
+  };
+
+  return {
+    watchedBar,
+    setWatchedBar,
+    currentHours,
+    currentMinutes,
+    currentSeconds,
+    durationHours,
+    durationMinutes,
+    durationSeconds,
+    videoCurrentTime,
+    isDragging,
+    startDragging,
+    stopDragging,
+    setIsDragging,
+    handlePercentualUpdate,
+  };
+};
+
+
+// 2.0
+
+// const useTimeUpdate = (togglePlay, videoRef) => {
+//   const [watchedBar, setWatchedBar] = useState({ percentage: 0 });
+//   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
+
+//   // Estados de tempo atual do vídeo
+//   const [currentHours, setCurrentHours] = useState(0);
+//   const [currentMinutes, setCurrentMinutes] = useState(0);
+//   const [currentSeconds, setCurrentSeconds] = useState(0);
+
+//   // Estados de duração do vídeo
+//   const [durationHours, setDurationHours] = useState(0);
+//   const [durationMinutes, setDurationMinutes] = useState(0);
+//   const [durationSeconds, setDurationSeconds] = useState(0);
+
+//   // Estado para controlar se o usuário está arrastando a barra de progresso
+//   const [isDragging, setIsDragging] = useState(false);
+//   const [wasPlaying, setWasPlaying] = useState(false); // Armazena o estado do vídeo (tocando/pausado)
+
+//   useEffect(() => {
+//     const handleLoadedMetadata = () => {
+//       const duration = videoRef.current.duration;
+
+//       // Configura a duração do vídeo em horas, minutos e segundos
+//       setDurationHours(Math.floor(duration / 3600));
+//       setDurationMinutes(Math.floor((duration / 60) % 60));
+//       setDurationSeconds(Math.floor(duration % 60));
+//     };
+
+//     if (videoRef.current) {
+//       videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+//     }
+
+//     return () => {
+//       if (videoRef.current) {
+//         videoRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+//       }
+//     };
+//   }, [videoRef]);
+
+//   const handlePercentualUpdate = () => {
+//     // Só atualiza o progresso se não estiver arrastando
+//     if (isDragging || !videoRef.current) return;
+
+//     const currentTime = videoRef.current.currentTime;
+//     const duration = videoRef.current.duration;
+
+//     // Atualiza os valores de horas, minutos e segundos do tempo atual do vídeo
+//     setCurrentHours(Math.floor(currentTime / 3600));
+//     setCurrentMinutes(Math.floor((currentTime / 60) % 60));
+//     setCurrentSeconds(Math.floor(currentTime % 60));
+
+//     setVideoCurrentTime(currentTime);
+
+//     // Atualiza a barra de progresso visual
+//     setWatchedBar({ percentage: Math.floor((100 / duration) * currentTime) });
+//   };
+
+//   // Ativa o listener 'timeupdate' somente quando não está arrastando a barra de progresso
+//   useEffect(() => {
+//     if (videoRef.current && !isDragging) {
+//       videoRef.current.addEventListener('timeupdate', handlePercentualUpdate);
+//     }
+
+//     return () => {
+//       if (videoRef.current) {
+//         videoRef.current.removeEventListener('timeupdate', handlePercentualUpdate);
+//       }
+//     };
+//   }, [videoRef, isDragging]);
+
+//   // ##################### feature (Progress Bar) #####################
+//   const startDragging = (event) => {
+//     setIsDragging(true);
+//     handleDrag(event); // Atualiza imediatamente ao clicar
+//     window.addEventListener('mousemove', handleDrag);
+//     window.addEventListener('mouseup', stopDragging);
+
+//     if (videoRef.current) {
+//       videoRef.current.playbackRate = 0; // Congela o progresso visual
+//     }
+//   };
+
+//   const stopDragging = (event) => {
+//     handleDrag(event); // Atualiza o tempo do vídeo ao soltar
+//     setIsDragging(false);
+
+//     if (togglePlay.playVideo) {
+//       videoRef.current.playbackRate = 1
+//     }
+
+//     window.removeEventListener('mousemove', handleDrag);
+//     window.removeEventListener('mouseup', stopDragging);
+//   };
+
+//   const handleDrag = (event) => {
+//     if (!videoRef.current) return;
+
+//     const bar = document.querySelector(".progress-bar");
+//     const rect = bar.getBoundingClientRect();
+//     const pos = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1); // Calcula a posição do mouse na barra
+//     const newTime = pos * videoRef.current.duration;
+
+//     // Atualiza o tempo do vídeo conforme o arraste
+//     videoRef.current.currentTime = newTime;
+
+//     // Atualiza a barra visual
+//     setWatchedBar({ percentage: pos * 100 });
+//   };
+
+//   return {
+//     watchedBar,
+//     setWatchedBar,
+//     currentHours,
+//     currentMinutes,
+//     currentSeconds,
+//     durationHours,
+//     durationMinutes,
+//     durationSeconds,
+//     videoCurrentTime,
+//     isDragging,
+//     startDragging,
+//     stopDragging,
+//     setIsDragging,
+//     handlePercentualUpdate,
+//   };
+// };
+
+// 1.0
+
+// const useTimeUpdate = (videoRef) => {
+//   const [watchedBar, setWatchedBar] = useState({ percentage: 0 });
+//   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
+
+//   // Estados de tempo atual do vídeo
+//   const [currentHours, setCurrentHours] = useState(0);
+//   const [currentMinutes, setCurrentMinutes] = useState(0);
+//   const [currentSeconds, setCurrentSeconds] = useState(0);
+
+//   // Estados de duração do vídeo
+//   const [durationHours, setDurationHours] = useState(0);
+//   const [durationMinutes, setDurationMinutes] = useState(0);
+//   const [durationSeconds, setDurationSeconds] = useState(0);
+
+//   // Estado para controlar se o usuário está arrastando a barra de progresso
+//   const [isDragging, setIsDragging] = useState(false);
+//   const [wasPlaying, setWasPlaying] = useState(false); // Armazena o estado do vídeo (tocando/pausado)
+
+//   useEffect(() => {
+//     const handleLoadedMetadata = () => {
+//       const duration = videoRef.current.duration;
+
+//       // Configura a duração do vídeo em horas, minutos e segundos
+//       setDurationHours(Math.floor(duration / 3600));
+//       setDurationMinutes(Math.floor((duration / 60) % 60));
+//       setDurationSeconds(Math.floor(duration % 60));
+//     };
+
+//     if (videoRef.current) {
+//       videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+//     }
+
+//     return () => {
+//       if (videoRef.current) {
+//         videoRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+//       }
+//     };
+//   }, [videoRef]);
+
+//   const handlePercentualUpdate = () => {
+//     // Só atualiza o progresso se não estiver arrastando
+//     if (isDragging || !videoRef.current) return;
+
+//     const currentTime = videoRef.current.currentTime;
+//     const duration = videoRef.current.duration;
+
+//     // Atualiza os valores de horas, minutos e segundos do tempo atual do vídeo
+//     setCurrentHours(Math.floor(currentTime / 3600));
+//     setCurrentMinutes(Math.floor((currentTime / 60) % 60));
+//     setCurrentSeconds(Math.floor(currentTime % 60));
+
+//     setVideoCurrentTime(currentTime);
+
+//     // Atualiza a barra de progresso visual
+//     setWatchedBar({ percentage: Math.floor((100 / duration) * currentTime) });
+//   };
+
+//   // Ativa o listener 'timeupdate' somente quando não está arrastando a barra de progresso
+//   useEffect(() => {
+//     if (videoRef.current && !isDragging) {
+//       videoRef.current.addEventListener('timeupdate', handlePercentualUpdate);
+//     }
+
+//     return () => {
+//       if (videoRef.current) {
+//         videoRef.current.removeEventListener('timeupdate', handlePercentualUpdate);
+//       }
+//     };
+//   }, [videoRef, isDragging]);
+
+//   // ##################### feature (Progress Bar) #####################
+//   const startDragging = (event) => {
+//     setIsDragging(true);
+//     handleDrag(event); // Atualiza imediatamente ao clicar
+//     window.addEventListener('mousemove', handleDrag);
+//     window.addEventListener('mouseup', stopDragging);
+
+//     if (videoRef.current) {
+//       setWasPlaying(!videoRef.current.paused);
+//       videoRef.current.playbackRate = 0; // Interrompe o progresso sem pausar
+//     }
+//   };
+
+//   const stopDragging = (event) => {
+//     handleDrag(event); // Atualiza o tempo do vídeo ao soltar
+//     setIsDragging(false);
+
+//     if (videoRef.current) {
+//       videoRef.current.playbackRate = 1; // Restaura a taxa de reprodução normal
+//     }
+
+//     window.removeEventListener('mousemove', handleDrag);
+//     window.removeEventListener('mouseup', stopDragging);
+//   };
+
+
+//   const handleDrag = (event) => {
+//     if (!videoRef.current) return;
+
+//     const bar = document.querySelector(".progress-bar");
+//     const rect = bar.getBoundingClientRect();
+//     const pos = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1); // Calcula a posição do mouse na barra
+//     const newTime = pos * videoRef.current.duration;
+
+//     // Atualiza o tempo do vídeo conforme o arraste
+//     videoRef.current.currentTime = newTime;
+
+//     // Atualiza a barra visual
+//     setWatchedBar({ percentage: pos * 100 });
+//   };
+
+//   return {
+//     watchedBar,
+//     setWatchedBar,
+//     currentHours,
+//     currentMinutes,
+//     currentSeconds,
+//     durationHours,
+//     durationMinutes,
+//     durationSeconds,
+//     videoCurrentTime,
+//     isDragging,
+//     startDragging,
+//     stopDragging,
+//     setIsDragging,
+//     handlePercentualUpdate,
+//   };
+// };
 
 // ##################### feature (Progress Bar) #####################
-const useProgress = () => {
-    const video = document.querySelector(".video")
-    const bar = document.querySelector(".progress-bar")
+const useProgress = (videoRef, setWatchedBar, setIsDragging) => {
+  const [wasPlaying, setWasPlaying] = useState(false);
 
-    const progressBar = (event) => {
-        const pos = (event.pageX + (bar.offsetLeft - bar.offsetParent.offsetLeft)) / bar.offsetWidth;
-        video.currentTime = pos * video.duration;
+  // Função para iniciar o arraste
+  const startDragging = (event) => {
+    setIsDragging(true); // Agora está arrastando
+    handleDrag(event); // Atualiza imediatamente ao clicar
+    window.addEventListener('mousemove', handleDrag); // Evento para mover
+    window.addEventListener('mouseup', stopDragging); // Evento para soltar
+
+    if (videoRef.current) {
+      setWasPlaying(!videoRef.current.paused); // Armazena se o vídeo estava tocando
+      videoRef.current.pause(); // Pausa ao começar a arrastar
     }
-    return { progressBar }
-}
+  };
+
+  // Função para parar o arraste
+  const stopDragging = (event) => {
+    handleDrag(event); // Atualiza o tempo final
+
+    setIsDragging(false); // Agora não está mais arrastando
+
+    // Retoma o estado anterior do vídeo
+    if (wasPlaying && videoRef.current) {
+      videoRef.current.play();
+    }
+
+    window.removeEventListener('mousemove', handleDrag); // Remove os listeners
+    window.removeEventListener('mouseup', stopDragging);
+  };
+
+  // Função para arrastar e atualizar a barra de progresso
+  const handleDrag = (event) => {
+    if (!videoRef.current) return;
+
+    const bar = document.querySelector(".progress-bar");
+    const rect = bar.getBoundingClientRect();
+    const pos = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+    const newTime = pos * videoRef.current.duration;
+
+    // Atualiza o tempo do vídeo
+    videoRef.current.currentTime = newTime;
+
+    // Atualiza a barra visual
+    setWatchedBar({ percentage: pos * 100 });
+  };
+
+  return { startDragging, stopDragging };
+};
 
 // ##################### feature (player paused) #####################
-const usePlayPaused = () => {
-    const [togglePlay, setTogglePlay] = useState({ playVideo: false }) // state
-    const [opacity, setOpacity] = useState(true)
-    const [stateActive, setStateActive] = useState()
+const usePlayPaused = (videoRef) => {
+  const [togglePlay, setTogglePlay] = useState({ playVideo: true }) // state
+  const [opacity, setOpacity] = useState(true)
+  const [stateActive, setStateActive] = useState()
+  const [endVideoPlay, setEndVideoPlay] = useState(false)
+  console.log(togglePlay.playVideo, "fora de useEffect togglePlay.playVideo")
 
-    useEffect(() => {
-        const video = document.querySelector(".video")
-
-        togglePlay.playVideo ? video.play() : video.pause()
-        console.log(togglePlay.playVideo, "togglePlay.playVideo")
-
-        if (togglePlay.playVideo === true) {
-            setStateActive(true)
-            setOpacity(true)
-            setTimeout(() => setOpacity(false), 4000)
-        }
-
-        if (togglePlay.playVideo === false) {
-            setOpacity(null)
-            setStateActive(false)
-        }
-
-    }, [togglePlay.playVideo])
-
-    const play = () => {
-        setTogglePlay({ ...togglePlay, playVideo: !togglePlay.playVideo })
-        window.scrollTo({ //scroll top
-            top: 0,
-            behavior: 'instant'
-        })
+  useEffect(() => {
+    // const video = document.querySelector(".video")
+    if (videoRef.current) {
+      togglePlay.playVideo ? videoRef.current.play() : videoRef.current.pause()
     }
-    return { stateActive, opacity, setOpacity, setStateActive, togglePlay, setTogglePlay, play }
+    console.log(togglePlay.playVideo, "dentro de useEffect")
+
+    if (togglePlay.playVideo) {
+      setStateActive(true)
+      setOpacity(true)
+      const timer = setTimeout(() => setOpacity(false), 4000);
+      return () => clearTimeout(timer); // limpar timeout quando o componente for desmontado
+    } else {
+      setOpacity(null)
+      setStateActive(false)
+    }
+
+  }, [togglePlay.playVideo])
+
+  const play = () => {
+    if (videoRef.current.playbackRate === 0) {
+      videoRef.current.playbackRate = 1
+    }
+
+    setEndVideoPlay(false)
+
+    // função para alternar em play e pause useEffect tem como dependência togglePlay.playVideo
+    setTogglePlay({ ...togglePlay, playVideo: !togglePlay.playVideo })
+
+    // essa condição está aqui evita quando o video terminar "chegar ao final" e o usuario clicar um video da lista que fica na lateral o video ele inciiar
+    if (endVideoPlay) {
+      return videoRef.current.play()
+    }
+  }
+  return { stateActive, opacity, setOpacity, setStateActive, togglePlay, setTogglePlay, play, setEndVideoPlay }
 }
 
 //##################### feature (next-video) #####################
-const useNextVideoPlayList = (playlist, togglePlay, setTogglePlay, setPlayList, stateActive, setStateActive) => {
-    const [playlistMain, setPlayListMain] = useState()
-    const [count, setCount] = useState(1)
+const useNextVideoPlayList = (playlist, togglePlay, setTogglePlay, setPlayList, stateActive, setStateActive, videoRef) => {
+  const [playlistMain, setPlayListMain] = useState();
+  const [count, setCount] = useState(1);
 
-    // iniciar a play list com um video
-    useEffect(() => {
-        const video = document.querySelector(".video")
+  const combinedPlaylist = [...playlistMock, ...rocketSeatMock];
+  console.log(combinedPlaylist);
 
-        playlistMock.map((el, i, arr) => {
-            if (count >= arr.length) setCount(1)
-            if (el.id === count) {
-                setPlayListMain(video.innerHTML = (playlist.length === 0 ? el.video : playlist))
-            }
-        })
-    })
-
-    // função
-    const nextVideo = () => {
-        const video = document.querySelector(".video")
-        setPlayList([])
-        setCount(prev => prev + 1)
-        if (togglePlay.playVideo === false) setTogglePlay({ ...togglePlay, playVideo: true })
-        if (stateActive === true) setStateActive(false)
-
-        playlistMock.map((el, i, arr) => {
-            if (count >= arr.length) setCount(1)
-            if (el.id === count) setPlayListMain(video.innerHTML = el.video)
-        })
+  const handleCanPlay = () => {
+    if (togglePlay.playVideo && videoRef.current) {
+      videoRef.current.play();
     }
-    return { playlistMain, nextVideo }
-}
+  };
+
+  useEffect(() => {
+    if (videoRef.current) {
+      const currentVideo = combinedPlaylist.find(el => el.id === count);
+      if (currentVideo) {
+        setPlayListMain(videoRef.current.src = (playlist.length === 0 ? currentVideo.video : playlist));
+        videoRef.current.addEventListener('canplay', handleCanPlay);
+      }
+      return () => {
+        videoRef.current.removeEventListener('canplay', handleCanPlay);
+      };
+    }
+  }, [count, playlist]);
+
+  const nextVideo = () => {
+    setCount(prev => {
+      const nextCount = (prev % combinedPlaylist.length) + 1; // Navega pela lista combinada
+      return nextCount > combinedPlaylist.length ? 1 : nextCount; // Reseta para 1 após o último vídeo
+    });
+
+    setPlayList([]);
+
+    if (!togglePlay.playVideo) {
+      setTogglePlay({ ...togglePlay, playVideo: true });
+    }
+
+    if (stateActive) {
+      setStateActive(false);
+    }
+  }
+
+  return { playlistMain, nextVideo };
+};
+
+// 1.0
+
+// const useNextVideoPlayList = (playlist, togglePlay, setTogglePlay, setPlayList, stateActive, setStateActive, videoRef) => {
+//   const [playlistMain, setPlayListMain] = useState()
+//   const [count, setCount] = useState(1)
+//   const [videoReady, setVideoReady] = useState(false);
+
+//   const handleCanPlay = () => {
+//     if (togglePlay.playVideo) {
+//       videoRef.current.play();
+//     }
+//   };
+
+//   // iniciar a play list com um video
+//   useEffect(() => {
+//     if (videoRef.current) {
+//       playlistMock.map((el, i, arr) => {
+//         if (count >= arr.length) setCount(1);
+//         if (el.id === count) {
+//           setPlayListMain(videoRef.current.src = (playlist.length === 0 ? el.video : playlist));
+//           const videoElement = videoRef.current;
+//           if (videoElement) {
+//             videoElement.addEventListener('canplay', handleCanPlay);
+//             return () => {
+//               videoElement.removeEventListener('canplay', handleCanPlay);
+//             };
+//           }
+//           // videoRef.current.play();
+//         }
+//       });
+//     }
+//   }, [count, playlist]);
+
+//   // função
+//   const nextVideo = () => {
+//     // const video = document.querySelector(".video")
+//     setCount(prev => (prev + 1) % playlistMock.length); // Correção do ciclo de vídeos
+//     setPlayList([])
+//     setCount(prev => prev + 1)
+//     if (togglePlay.playVideo === false) setTogglePlay({ ...togglePlay, playVideo: true })
+//     if (stateActive === true) setStateActive(false)
+
+//     playlistMock.map((el) => {
+//       if (el.id === count) setPlayListMain(videoRef.current.innerHTML = el.video)
+//     })
+//   }
+//   return { playlistMain, nextVideo }
+// }
 
 // ##################### feature (volume mute) #####################
-const useVolume = () => {
-    const [toggleVolume, setToggleVolume] = useState(true) // state
-    const [currentVolume, setCurrenVolume] = useState()     // state
+const useVolume = (inputRangeRef, videoRef) => {
+  const [toggleVolume, setToggleVolume] = useState(false); // estado para alternar entre som ativo/mudo
+  const [currentVolume, setCurrentVolume] = useState(1);  // estado para volume atual
+  const volumeRef = useRef(null); // referência para o input range de volume
 
-    const video = document.querySelector(".video")
-
-    const MuteVolume = () => {
-        if (video.volume) {
-            setCurrenVolume(video.volume = 0)
-            setToggleVolume(false)
-            video.value = 0
-        } else {
-            video.volume = 1
-            video.value = 1
-            setToggleVolume(true)
-        }
+  // Função para alternar entre mudo e som alto
+  const MuteVolume = () => {
+    if (videoRef.current.volume === 0 || videoRef.current.muted === true) {  // Verifica se o vídeo está mudo
+      videoRef.current.muted = false;
+      // videoRef.current.volume = currentVolume || 1; // Evita que o volume seja 0, define volume padrão se currentVolume for 0
+      videoRef.current.volume = currentVolume > 0 ? currentVolume : 1; // Define um volume padrão se estiver 0
+      setToggleVolume(true);
+      inputRangeRef.current.value = videoRef.current.volume; // Atualiza o range com o volume atual
+    } else {
+      setCurrentVolume(videoRef.current.volume); // Salva o volume atual ANTES de mutar
+      videoRef.current.muted = true;
+      setToggleVolume(false);
+      inputRangeRef.current.value = 0; // Define o range para 0 ao silenciar
     }
+  };
 
-    const rangeVolume = (e) => {
-        setCurrenVolume(video.volume = e.target.value)
+  // Função para ajustar o volume através do range
+  const rangeVolume = (e) => {
+    // console.log(videoRef.current.muted = false)
+    const volume = e.target.value;
+    setCurrentVolume(volume); // Atualiza currentVolume SEMPRE
+    videoRef.current.volume = volume; // Atualiza o volume do vídeo
 
-        if (video.volume >= 0.1) {
-            setToggleVolume(true)
-        } else {
-            setToggleVolume(false)
-        }
+    // if (videoRef.current.muted) {
+    //   setToggleVolume(true)
+    // }
+
+    // Controla o estado do som apenas com base no volume
+    if (volume > 0) {
+      setToggleVolume(true);
+      videoRef.current.muted = false; // Se houver volume, garante que o vídeo não está mudo
+    } else {
+      setToggleVolume(false);
+      videoRef.current.muted = true; // Se o volume for 0, define como mudo
     }
+  };
 
-    return { toggleVolume, currentVolume, MuteVolume, rangeVolume }
-}
+  return { toggleVolume, currentVolume, MuteVolume, rangeVolume };
+};
 
 // ##################### feature (width volume) #####################
 const useWidthVolume = () => {
-    const [width, setWidth] = useState(0)
+  const [width, setWidth] = useState(0)
 
-    const mouseEnter = () => {
-        setWidth(51)
-    }
-    const mouseLeave = () => {
-        setWidth(0)
-    }
-    return { width, mouseEnter, mouseLeave }
+  const mouseEnter = () => {
+    setWidth(51)
+  }
+  const mouseLeave = () => {
+    setWidth(0)
+  }
+  return { width, mouseEnter, mouseLeave }
 }
 
 //##################### feature (display settings) #####################
 const useDisplaySettings = () => {
-    const [settings, setSettings] = useState(false)
+  const [settings, setSettings] = useState(false)
 
-    return { settings, setSettings }
+  return { settings, setSettings }
 }
 
 // ##################### feature (full screen) #####################
 const useFullScreen = () => {
 
-    const toggleFullScreen = () => {
-        const videoContainer = document.querySelector(".video-Container")
+  const toggleFullScreen = () => {
+    const videoContainer = document.querySelector(".video-Container")
 
-        if (!document.fullscreenElement) {
-            // refVideoContainer.current.requestFullscreen()
-            videoContainer.requestFullscreen()
-        } else {
-            document.exitFullscreen()
-        }
+    if (!document.fullscreenElement) {
+      // refVideoContainer.current.requestFullscreen()
+      videoContainer.requestFullscreen()
+    } else {
+      document.exitFullscreen()
     }
-    return { toggleFullScreen }
+  }
+  return { toggleFullScreen }
 }
 
 //##################### feature (Play-List) #####################
-const usePlaylistSide = (togglePlay, setTogglePlay) => {
-    const [playlist, setPlayList] = useState([])
-    // useEffect(() => {
-    //     rocketSeatMock.map(vid => {
-    //         setPlayList(prev => [...prev, vid.video])
-    //         setPlayList([...playlist, vid.video])
-    //     })
-    // },[])
-    const Handleplaylist = (event) => {
-        window.scrollTo({ //scroll top
-            top: 0,
-            behavior: 'instant'
-        })
-        // parâmetros
-        // smooth: a rolagem deve ser animada suavemente
-        // instant: a rolagem deve acontecer instantaneamente em um único salto
-        // auto: o comportamento de rolagem é determinado pelo valor calculado
-        // element.scrollTo({
-        //     top: 100,
-        //     left: 100,
-        //     behavior: "smooth",
-        //   });
-        // https://developer.mozilla.org/pt-BR/docs/Web/API/Window/scroll
-        // 
-        // setTogglePlay({ ...togglePlay, playVideo: true })
-        setPlayList(event.target.currentSrc.substr(21)) // excluindo 21 caracteres e setando os restantes
-    }
+const usePlaylistSide = (togglePlay, setTogglePlay, stateActive, setStateActive) => {
+  const [playlist, setPlayList] = useState([])
 
-    return { playlist, setPlayList, Handleplaylist }
+  const Handleplaylist = (event) => {
+    setStateActive(false)
+    window.scrollTo({ top: 0, behavior: 'instant' })
+
+    setTogglePlay({ ...togglePlay, playVideo: true })
+    setPlayList(event.target.src); // Usa o src completo
+  }
+
+  return { playlist, setPlayList, Handleplaylist }
 }
 
 //##################### feature (Play-List) #####################
 const usePlayList = () => {
-    const video = document.querySelectorAll('.video-play-list');
-  
-    const mouseEnterPlayList = (e) => {
-        for (let i = 0; i < video.length; i++) {
-            if(video[i].id === e.target.id) {
-                video[i].play()
-                // video[i].muted = false
-            }
-        }
-    }
-    const mouseLeavePlayList = (e) => {
-        for (let i = 0; i < video.length; i++) {
-            if(video[i].id === e.target.id) {
-                video[i].pause()
-                video[i].currentTime = 0
-            }
-        }
-    }
+  const video = document.querySelectorAll('.video-play-list');
 
-    return { mouseEnterPlayList, mouseLeavePlayList }
+  const mouseEnterPlayList = (e) => {
+    for (let i = 0; i < video.length; i++) {
+      if (video[i].id === e.target.id) {
+        video[i].play()
+        // video[i].muted = false
+      }
+    }
+  }
+  const mouseLeavePlayList = (e) => {
+    for (let i = 0; i < video.length; i++) {
+      if (video[i].id === e.target.id) {
+        video[i].pause()
+        video[i].currentTime = 0
+      }
+    }
+  }
+
+  return { mouseEnterPlayList, mouseLeavePlayList }
 }
 
 // barra de progresso do download
 const useVideoLoaded = () => {
-    // const video = document.querySelector('.video')
-    // const videoProgress = () => {
-    //     if(video.duration > 0){
-    //         for(let i = 0; i < video.buffered.length; i++) {
-    //             if(video.buffered.start(video.buffered.length - 1 - i) < video.currentTime) {
-    //                 setVideoLoaded((video.buffered.end(video.buffered.length - 1 - i) * 100) / video.duration)
-    //             }
-    //         }
-    //     }
-    // }
-    const vid = document.querySelector('.video');
-    const canvas = document.getElementById('canvas');
+  const vid = document.querySelector('.video');
+  const canvas = document.getElementById('canvas');
 
-    function drawProgress(canvas, buffered, duration) {
-        // I've turned off anti-aliasing since we're just drawing rectangles.
-        const context = canvas.getContext('2d', { antialias: false });
-        context.fillStyle = 'rgba(192,192,192, 0.4)';
-        context.globalAlpha = 1
+  function drawProgress(canvas, buffered, duration) {
+    const context = canvas.getContext('2d', { antialias: false });
+    context.fillStyle = 'rgba(192,192,192, 0.4)';
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
-        let width = canvas.width;
-        let height = canvas.height;
-        if (!width || !height) throw "Canvas's width or height weren't set!";
-        context.clearRect(0, 0, width, height); // clear canvas
+    let loadedPercentage = 0;
 
+    if (buffered.length > 0) {
+      // Obtém o ponto final do último segmento carregado
+      const lastBufferedEnd = buffered.end(buffered.length - 1);
+      const progressWidth = (lastBufferedEnd / duration) * canvas.width;
+      context.fillRect(0, 0, progressWidth, canvas.height);
 
-        for (let i = 0; i < buffered.length; i++) {
-            let leadingEdge = buffered.start(i) / duration * width;
-            let trailingEdge = buffered.end(i) / duration * width;
-            context.fillRect(leadingEdge, 0, trailingEdge - leadingEdge, height)
-
-        }
+      // Calcula a porcentagem carregada
+      loadedPercentage = (lastBufferedEnd / duration) * 100;
     }
-    //   https://stackoverflow.com/questions/18422517/html5-video-buffered-attribute-features
 
-    const videoProgress = () => {
-        drawProgress(canvas, vid.buffered, vid.duration);
+    return loadedPercentage;
+  }
 
-        // if (video.buffered.length > 0) setVideoLoaded((video.buffered.end(0) / video.duration) * 100)
-        // if (video.buffered.length > 0) setVideoLoaded(100 * video.buffered.end(0) / video.duration)
-    }
-    return { videoProgress }
-    // https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/buffering_seeking_time_ranges
-    // https://css-tricks.com/some-innocent-fun-with-html-video-and-progress/
-    // https://stackoverflow.com/questions/75265880/how-to-show-the-progress-bar-when-video-play-100
-}
+  const videoProgress = () => {
+    const loadedPercentage = drawProgress(canvas, vid.buffered, vid.duration);
+    return loadedPercentage; // Retorna a porcentagem carregada
+  }
 
-// Chame uma função quando o vídeo estiver começando a carregar:
-// const useLoadstart = () => {
-//     const [start, setStart] = useState()
+  return { videoProgress };
+};
 
-//     const loadStart = () => {
-//         setStart(true)
+
+// const useVideoLoaded = () => {
+
+//   const vid = document.querySelector('.video');
+//   const canvas = document.getElementById('canvas');
+
+//   function drawProgress(canvas, buffered, duration) {
+
+//     const context = canvas.getContext('2d', { antialias: false });
+//     context.fillStyle = 'rgba(192,192,192, 0.4)';
+//     context.globalAlpha = 1
+
+//     let width = canvas.width;
+//     let height = canvas.height;
+//     if (!width || !height) throw "Canvas's width or height weren't set!";
+//     context.clearRect(0, 0, width, height); // clear canvas
+
+
+//     for (let i = 0; i < buffered.length; i++) {
+//       let leadingEdge = buffered.start(i) / duration * width;
+//       let trailingEdge = buffered.end(i) / duration * width;
+//       context.fillRect(leadingEdge, 0, trailingEdge - leadingEdge, height)
+
 //     }
-//     return { start, loadStart }
-// }
+//   }
 
-// Chame uma função quando um vídeo estiver pronto para começar a ser reproduzido:
-// const useCanplay = () => {
-//     const [fim, setFim] = useState()
 
-//     const canplay = () => {
-//         setFim(false)
-//     }
-//     return { fim, canplay }
-// }
+//   const videoProgress = () => {
+//     drawProgress(canvas, vid.buffered, vid.duration);
 
-// Chame uma função quando um usuário busca uma nova posição em um vídeo:
-// const useOnSeeked = (setVideoLoaded) => {
-//     const video = document.querySelector('.video')
 
-//     const onSeeked = () => {
+//   }
+//   return { videoProgress }
 
-//         setVideoLoaded(100 * (video.buffered.end(0) / video.duration))
-//     }
-//     return { onSeeked }
-// }
-
-// const useTimer = () => {
-
-// useEffect(() => {
-//     let myInterval = setInterval(() => {
-//         if (seconds > 0) {
-//             setSeconds(seconds + 1)
-//         }
-//     }, 1000)
-//     return () => {
-//         clearInterval(myInterval)
-//     }
-// })
 // }
 
 
 
 // component 
 
-const useRepeatVideo = (cTime, d, setStateActive) => {
-    const [endVideo, setEndvideo] = useState(false)
-    const [displayPausePlay, setDisplayPausePlay] = useState(true)
-    const video = document.querySelector('.video');
+const useRepeatVideo = (cTime, setStateActive, setEndVideoPlay, play, togglePlay, setTogglePlay, videoRef) => {
+  const [endVideo, setEndvideo] = useState(false);
+  const [displayPausePlay, setDisplayPausePlay] = useState(true);
+  const [videoDuration, setVideoDuration] = useState(0); // Estado para armazenar a duração do vídeo
 
-    const repeatPlay = () => {
-        video.play()
+  const repeatPlay = () => {
+    // Lógica para repetir o vídeo
+    setTogglePlay({ ...togglePlay, playVideo: true })
+    videoRef.current.play()
+    // return play()
+  };
+
+  useEffect(() => {
+    // Atualiza a duração do vídeo quando o vídeo está carregado
+    const updateVideoDuration = () => {
+      setVideoDuration(videoRef.current.duration);
+    };
+
+    // Garante que o evento seja registrado quando o vídeo carregar
+    videoRef.current.addEventListener('loadedmetadata', updateVideoDuration);
+
+    // Limpa o event listener quando o componente for desmontado
+    return () => {
+      videoRef.current.removeEventListener('loadedmetadata', updateVideoDuration);
+    };
+  }, [videoRef]);
+
+  useEffect(() => {
+    // A função será executada apenas quando cTime mudar
+    if (Math.floor(cTime) === Math.floor(videoDuration) && videoDuration > 0) {
+      setEndvideo(true);
+      setEndVideoPlay(true)
+      setDisplayPausePlay(false);
+      setStateActive(false);
+    } else {
+      setEndvideo(false);
+      setDisplayPausePlay(true);
+    }
+  }, [cTime, videoDuration, setStateActive]);
+
+  return { endVideo, displayPausePlay, repeatPlay, videoDuration };
+};
+
+const useLoading = (videoRef) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    const handleWaiting = () => setIsLoading(true);
+    const handleCanPlay = () => setIsLoading(false);
+
+    if (video) {
+      video.addEventListener('waiting', handleWaiting);
+      video.addEventListener('canplay', handleCanPlay);
     }
 
-    useEffect(() => {
-        if (Math.floor(cTime) === Math.floor(d)) {
-            setEndvideo(true)
-            setDisplayPausePlay(false)
-            setStateActive(false)
-        } else {
-            setEndvideo(false)
-            setDisplayPausePlay(true)
-        }
-    })
-    return { endVideo, displayPausePlay, repeatPlay }
-}
+    return () => {
+      if (video) {
+        video.removeEventListener('waiting', handleWaiting);
+        video.removeEventListener('canplay', handleCanPlay);
+      }
+    };
+  }, [videoRef]);
+
+  return isLoading;
+};
+
 
 const ComponentVideo = () => {
-    const { stateActive, setStateActive, opacity, setOpacity, togglePlay, setTogglePlay, play } = usePlayPaused()
-    const { toggleVolume, currentVolume, MuteVolume, rangeVolume } = useVolume()
-    const { toggleFullScreen } = useFullScreen()
-    const { videoProgress } = useVideoLoaded()
-    const { watchedBar, currentHours, currentMinutes, currentSeconds, durationHours, durationMinutes, durationSeconds, videoCurrentTime, videoDuration, handlePercentualUpdate } = useTimeUpDate()
-    const { progressBar } = useProgress()
-    const { width, mouseEnter, mouseLeave } = useWidthVolume()
-    const { settings, setSettings } = useDisplaySettings()
-    const { playlist, setPlayList, Handleplaylist } = usePlaylistSide(togglePlay, setTogglePlay)
-    const { playlistMain, nextVideo } = useNextVideoPlayList(playlist, togglePlay, setTogglePlay, setPlayList, stateActive, setStateActive)
-    const { endVideo, displayPausePlay, repeatPlay } = useRepeatVideo(videoCurrentTime, videoDuration, setStateActive)
-    const { mouseEnterPlayList, mouseLeavePlayList } = usePlayList()
+  const videoRef = useRef(null)
+  const inputRangeRef = useRef(null)
+  const { stateActive, setStateActive, opacity, setOpacity, togglePlay, setTogglePlay, play, setEndVideoPlay } = usePlayPaused(videoRef)
+  const { toggleVolume, currentVolume, MuteVolume, rangeVolume } = useVolume(inputRangeRef, videoRef)
+  const { toggleFullScreen } = useFullScreen()
+  const { videoProgress } = useVideoLoaded()
+  const { watchedBar, setWatchedBar, currentHours, currentMinutes, currentSeconds, durationHours, durationMinutes, durationSeconds, videoCurrentTime, isDragging, startDragging, stopDragging, setIsDragging, handlePercentualUpdate } = useTimeUpdate(togglePlay, setTogglePlay, videoRef)
+  useProgress(videoRef, setWatchedBar, setIsDragging)
+  const { width, mouseEnter, mouseLeave } = useWidthVolume()
+  const { settings, setSettings } = useDisplaySettings()
+  const { playlist, setPlayList, Handleplaylist } = usePlaylistSide(togglePlay, setTogglePlay, stateActive, setStateActive)
+  const { playlistMain, nextVideo } = useNextVideoPlayList(playlist, togglePlay, setTogglePlay, setPlayList, stateActive, setStateActive, videoRef)
+  const { endVideo, displayPausePlay, repeatPlay } = useRepeatVideo(videoCurrentTime, setStateActive, setEndVideoPlay, play, togglePlay, setTogglePlay, videoRef)
+  const { mouseEnterPlayList, mouseLeavePlayList } = usePlayList()
+  const isLoading = useLoading(videoRef); // Use the hook to get the loading state
 
-    // Chame uma função ao mover o ponteiro do mouse sobre um elemento <div>:
-    const mouseMove = () => {
-        console.log(opacity, "mouseMove")
-        if (opacity === false) {
-            setOpacity(true)
-            setTimeout(() => setOpacity(false), 4000)
-        }
+
+
+  // Chame uma função ao mover o ponteiro do mouse sobre um elemento <div>:
+  const mouseMove = () => {
+    console.log(opacity, "mouseMove")
+    if (opacity === false) {
+      setOpacity(true)
+      setTimeout(() => setOpacity(false), 4000)
     }
-    // Chame uma função ao mover o ponteiro do mouse sobre uma imagem ou elemento:
-    const mouseEnterFN = () => {
-        setStateActive(false)
-    }
-    // Chame uma função ao mover o ponteiro do mouse para fora de uma imagem ou elemento:
-    const mouseLeaveFN = () => {
-        if (togglePlay.playVideo === true) setStateActive(true)
-    }
+  }
+  // Chame uma função ao mover o ponteiro do mouse sobre uma imagem ou elemento:
+  const mouseEnterFN = () => {
+    setStateActive(false)
+  }
+  // Chame uma função ao mover o ponteiro do mouse para fora de uma imagem ou elemento:
+  const mouseLeaveFN = () => {
+    if (togglePlay.playVideo) setStateActive(true)
+  }
 
-    return (
-        <>
-            <VideoContainer className="video-Container" onClick={() => settings === true ? setSettings(false) : undefined}>
 
-                <Video onMouseMove={() => mouseMove()} opacity={opacity} onProgress={() => videoProgress()} onClick={() => { play() }} src={playlistMain} className={`video`} controlsList="nodownload" preload="auto|metadata|none" type="video/mp4" onTimeUpdate={handlePercentualUpdate} />
+  return (
+    <>
+      <VideoContainer className="video-Container" onClick={() => settings === true ? setSettings(false) : undefined}>
+        {isLoading && (
+          <Spinner>
+            <div className="spinner"></div>
+          </Spinner>
+        )}
 
-                <ControlsContainer onMouseOut={() => mouseLeaveFN()} onMouseOver={(e) => mouseEnterFN(e)} togglePlay={togglePlay.playVideo} className={`controls-container ${stateActive === true ? "state" : ""}`}>
-                    <ProgressControls>
-                        <ProgressBar className="progress-bar" onMouseDown={(e) => progressBar(e)}>
-                            <canvas id="canvas" style={{ width: "100%", height: "100%" }}></canvas>
-                            <Progress className="progress">
-                                <WatchedProgress>
-                                    <WatchedBar className="watched-bar" watchedBar={watchedBar}></WatchedBar>
-                                    <Playhead className="playhead" watchedBar={watchedBar}></Playhead>
-                                </WatchedProgress>
-                            </Progress>
-                        </ProgressBar>
-                    </ProgressControls>
 
-                    <Controls togglePlay={togglePlay}>
-                        <LeftSideControls onMouseLeave={() => mouseLeave()} toggleVolume={toggleVolume}>
-                            <div style={{ display: "flex" }}>
-                                <div className="play-pause-btn btn" onClick={() => play()}>
-                                    {displayPausePlay &&
-                                        <>
-                                            <img className="play" src={svgPlay} alt="" width="20px" />
-                                            <img className="pause" src={svgPause} draggable="false" alt="" width="20px" />
-                                        </>
-                                    }
-                                </div>
-                                <div onClick={() => repeatPlay()} style={{ display: "flex", justifyContent: "center", position: "absolute", alignItems: "center", width: "45px" }}>
-                                    <Circle endVideo={endVideo}>
-                                        <Triangulo />
-                                    </Circle>
-                                </div>
-                            </div>
-                            <div className="next-video-btn btn" onClick={() => nextVideo()}>
-                                <img draggable="false" src={svgNext} alt="" width="15px" />
-                            </div>
-                            <VolumeControl className="volume-control">
-                                <div className="volume-btn btn" onClick={() => MuteVolume()}>
-                                    <div onMouseEnter={() => mouseEnter()}>
-                                        <img className="full-volume" draggable="false" alt="" width="20px" src={currentVolume <= 0.5 ? svgHalfVolume : svgVolume} />
-                                        <img className="muted" src={svgMute} draggable="false" alt="" width="20px" />
-                                    </div>
-                                </div>
+        <Video ref={videoRef} muted onMouseMove={() => mouseMove()} opacity={opacity} onProgress={() => videoProgress()} onClick={() => play()} src={playlistMain} className={`video`} controlsList="nodownload" preload="auto" type="video/mp4" />
 
-                                <VolumePanel width={width}>
-                                    <div className="input-div">
-                                        <div className="volume-input-div">
-                                            <input onChange={(e) => rangeVolume(e)} type="range" max="1" min="0" step="0.1" />
-                                            <div className="volume-progress"></div>
-                                        </div>
-                                    </div>
-                                </VolumePanel>
-                            </VolumeControl>
+        <ControlsContainer onMouseOut={() => mouseLeaveFN()} onMouseOver={(e) => mouseEnterFN(e)} togglePlay={togglePlay.playVideo} className={`controlsContainer ${stateActive === true ? "state" : ""}`}>
+          <ProgressControls>
+            <ProgressBar
+              className="progress-bar"
+              onMouseDown={startDragging} // Inicia o arraste ao clicar e segurar em qualquer lugar da barra
 
-                            <TimeDisplay>
-                                {/* current time */}
-                                <span className="hours">{currentHours ? currentHours + ":" : ""}</span>
-                                <span className="minutes">{currentMinutes >= 10 ? currentMinutes : "0" + currentMinutes}</span>
-                                <span className="time-separator">{":"}</span>
-                                <span className="seconds">{currentSeconds >= 10 ? currentSeconds : "0" + currentSeconds}</span>
-                                <span className="bar-separator">{"/"}</span>
-                                {/* video duration  */}
-                                <span className="hours">{durationHours ? durationHours + ":" : ""}</span>
-                                <span className="minutes">{durationMinutes}</span>
-                                <span className="time-separator">{":"}</span>
-                                <span className="seconds">{durationSeconds >= 10 ? durationSeconds : "0" + durationSeconds}</span>
-                            </TimeDisplay>
-                        </LeftSideControls>
+            // onTouchStart={startDragging}
+            // onTouchMove={handleDrag}
+            // onTouchEnd={stopDragging}
+            >
+              <canvas id="canvas" style={{ width: "100%", height: "100%" }}></canvas>
+              <Progress className="progress">
+                <WatchedProgress>
+                  <WatchedBar className="watched-bar" watchedBar={watchedBar}></WatchedBar>
+                  <Playhead className="playhead" watchedBar={watchedBar}></Playhead>
+                </WatchedProgress>
+              </Progress>
+            </ProgressBar>
+          </ProgressControls>
 
-                        <RightSideControls>
-                            <div className="settings" onClick={() => setSettings(!settings)}>
-                                <img src={svgSettings} draggable="false" alt="" width="20px" />
-                            </div>
-                            <div className="full-screen-btn btn" onClick={() => toggleFullScreen()}>
-                                <img className="maximize" draggable="false" src={svgMaximize} alt="" width="18px" />
-                                <img className="minimize" draggable="false" src={svgMinimize} alt="" width="20px" />
-                            </div>
-                        </RightSideControls>
+          <Controls className="no-select" draggable="false" togglePlay={togglePlay}>
+            <LeftSideControls onMouseLeave={() => mouseLeave()} toggleVolume={toggleVolume}>
 
-                        <SettingsMenu className="settings-menu" settings={settings}>
-                            <div className="settings">
-                                <div className="playback-speed" target="settings">
-                                    <span>Speed</span>
-                                </div>
-                                <div className="subtitles" target="settings">
-                                    <span>subtitle/cc</span>
-                                </div>
-                                <div className="quality" target="settings">
-                                    <span>quality</span>
-                                </div>
-                            </div>
-                        </SettingsMenu>
-                    </Controls>
-                </ControlsContainer>
+              {displayPausePlay ? (
+                <div className="play-pause-btn btn no-select" onClick={() => play()}>
+                  {togglePlay.playVideo ? (
+                    <img className="pause" src={svgPause} draggable="false" alt="" width="20px" />
+                  ) : (
+                    <img className="play" src={svgPlay} alt="" width="20px" />
+                  )}
+                </div>
+              ) : (
+                <div className="no-select" onClick={() => repeatPlay()} style={{ display: "flex", justifyContent: "center", width: "48px" }}>
+                  <Circle endVideo={endVideo}>
+                    <Triangulo />
+                  </Circle>
+                </div>
+              )
+              }
 
-            </VideoContainer>
+              <div className="next-video-btn btn no-select" onClick={() => nextVideo()}>
+                <img draggable="false" src={svgNext} alt="" width="15px" />
+              </div>
 
-            <Container>
-                <Secondary>
-                    {rocketSeatMock.map((el, index, arr) => {
-                        return (
-                            <React.Fragment key={el.id}>
-                                {/* solução para selecionar um item no map com ref é >>> https://stackoverflow.com/questions/63059962/reactjs-map-with-a-ref-to-each-component */}
-                                <SecondaryContainerVideo>
-                                    {/* <video ref={ref =>  refPlaylist[index] = ref} id="videos-playlist"  onClick={() => Handleplaylist()}> */}
-                                    <video className="video-play-list" id={index} onClick={(event) => Handleplaylist(event)} onMouseEnter={(event) => mouseEnterPlayList(event)} onMouseLeave={(event) => mouseLeavePlayList(event)} muted type="video/mp4" src={el.video} />
-                                    <div className="title">
-                                        <p>{el.title}</p>
-                                    </div>
-                                </SecondaryContainerVideo>
-                            </React.Fragment>
-                        )
-                    })}
-                </Secondary>
-            </Container>
-        </>
-    )
+              <div style={{ display: "flex" }}>
+                <VolumeControl className="volume-control btn no-select" onClick={() => MuteVolume()} onMouseEnter={() => mouseEnter()}>
+                  <div className="volume-btn">
+                    <img className="full-volume" draggable="false" alt="" width="20px" src={currentVolume <= 0.5 ? svgHalfVolume : svgVolume} />
+                    <img className="muted" src={svgMute} draggable="false" alt="" width="20px" />
+                  </div>
+                </VolumeControl>
+                <VolumePanel width={width}>
+                  <div className="input-div">
+                    <div className="volume-input-div">
+                      <input ref={inputRangeRef} onChange={(e) => rangeVolume(e)} type="range" max="1" min="0" step="0.1" />
+                      <div className="volume-progress"></div>
+                    </div>
+                  </div>
+                </VolumePanel>
+              </div>
+
+              <TimeDisplay>
+                {/* current time */}
+                <span className="hours">{currentHours ? currentHours + ":" : ""}</span>
+                <span className="minutes">{currentMinutes >= 10 ? currentMinutes : "0" + currentMinutes}</span>
+                <span className="time-separator">{":"}</span>
+                <span className="seconds">{currentSeconds >= 10 ? currentSeconds : "0" + currentSeconds}</span>
+                <span className="bar-separator">{"/"}</span>
+                {/* video duration  */}
+                <span className="hours">{durationHours ? durationHours + ":" : ""}</span>
+                <span className="minutes">{durationMinutes}</span>
+                <span className="time-separator">{":"}</span>
+                <span className="seconds">{durationSeconds >= 10 ? durationSeconds : "0" + durationSeconds}</span>
+              </TimeDisplay>
+            </LeftSideControls>
+
+            <RightSideControls className="no-select">
+              <div className="settings btn no-select" onClick={() => setSettings(!settings)}>
+                <img src={svgSettings} draggable="false" alt="" width="18px" height="18px" />
+              </div>
+              <div className="full-screen-btn btn no-select" onClick={() => toggleFullScreen()}>
+                <img className="maximize no-select" draggable="false" src={svgMaximize} alt="" width="18px" height="18" />
+                {/* <img className="minimize no-select" draggable="false" src={svgMinimize} alt="" width="10px" /> */}
+              </div>
+            </RightSideControls>
+
+            <SettingsMenu className="settings-menu no-select" settings={settings}>
+              <div className="settings">
+                <div className="playback-speed" target="settings">
+                  <span>Speed</span>
+                </div>
+                <div className="subtitles" target="settings">
+                  <span>subtitle/cc</span>
+                </div>
+                <div className="quality" target="settings">
+                  <span>quality</span>
+                </div>
+              </div>
+            </SettingsMenu>
+          </Controls>
+        </ControlsContainer>
+
+      </VideoContainer>
+
+      <Container>
+        <div style={{ display: "flex", justifyContent: "center", width: "100%", border: "solid 5px #111" }}>
+          <coment>
+            <p>aqui fica caixa de comentários</p>
+          </coment>
+        </div>
+        <Secondary>
+          {rocketSeatMock.map((el, index, arr) => {
+            return (
+              <React.Fragment key={el.id}>
+                {/* solução para selecionar um item no map com ref é >>> https://stackoverflow.com/questions/63059962/reactjs-map-with-a-ref-to-each-component */}
+                <SecondaryContainerVideo>
+                  {/* <video ref={ref =>  refPlaylist[index] = ref} id="videos-playlist"  onClick={() => Handleplaylist()}> */}
+                  <video className="video-play-list" id={index} onClick={(event) => Handleplaylist(event)} onMouseEnter={(event) => mouseEnterPlayList(event)} onMouseLeave={(event) => mouseLeavePlayList(event)} type="video/mp4" src={el.video} />
+                  <div className="title">
+                    <p>{el.title}</p>
+                  </div>
+                </SecondaryContainerVideo>
+              </React.Fragment>
+            )
+          })}
+        </Secondary>
+      </Container>
+    </>
+  )
 }
 
 export default ComponentVideo
