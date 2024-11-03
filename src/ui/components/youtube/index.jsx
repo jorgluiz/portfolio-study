@@ -1,7 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
 
 // styles
-import { VideoContainer, Video, ControlsContainer, ProgressControls, ProgressBar, Progress, WatchedProgress, WatchedBar, Playhead, Controls, SettingsMenu, LeftSideControls, VolumeControl, RightSideControls, TimeDisplay, VolumePanel, Container, Primary, Secondary, SecondaryContainerVideo, Circle, Triangulo, Spinner } from "./styles"
+import {
+  VideoContainer,
+  Video,
+  ControlsContainer,
+  ProgressControls,
+  ProgressBar,
+  Progress,
+  WatchedProgress,
+  WatchedBar,
+  Playhead,
+  Controls,
+  SettingsMenu,
+  LeftSideControls,
+  VolumeControl,
+  RightSideControls,
+  TimeDisplay,
+  VolumePanel,
+  Container,
+  Primary,
+  Secondary,
+  SecondaryContainerVideo,
+  Circle,
+  Triangulo,
+  Spinner,
+  MessageBox,
+} from "./styles";
 
 // img 
 import svgPlay from "../../../assets/svg/play.svg"
@@ -1018,11 +1043,11 @@ const ComponentVideo = () => {
       </VideoContainer>
 
       <Container>
-        <div style={{ display: "flex", justifyContent: "center", width: "100%", border: "solid 5px #111" }}>
+        <MessageBox>
           <coment>
             <p>aqui fica caixa de comentários</p>
           </coment>
-        </div>
+        </MessageBox>
         <Secondary>
           {rocketSeatMock.map((el, index, arr) => {
             return (
