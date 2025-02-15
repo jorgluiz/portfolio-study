@@ -10,6 +10,8 @@ export const VideoContainer = styled.div`
     flex-direction: column;
     align-items: center;
     /* justify-content: center; */
+    z-index: 1000;
+    
 
     /* Remover realce azul no toque (Mobile e WebKit) */
     -webkit-tap-highlight-color: transparent;
@@ -23,6 +25,17 @@ export const VideoContainer = styled.div`
     & .disable {
       opacity: 0;
     }
+
+    &.activeProgress::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Fundo escuro com opacidade */
+    transition-duration: 0.5s;
+  }
 
     /* @media (min-width: 768px) {
   .controlsContainer, .progress-bar {
