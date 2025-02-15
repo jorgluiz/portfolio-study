@@ -39,7 +39,7 @@ import {
 import svgPlay from "../../../assets/svg/play.svg"
 import svgPause from "../../../assets/svg/pause.svg"
 import svgNext from "../../../assets/svg/next.svg"
-import buttonRepeat from "../../../assets/buttonRepeat.png"
+import buttonRepeat from "../../../assets/svg/buttonRepeat.svg"
 import svgVolume from "../../../assets/svg/volume.svg"
 import svgHalfVolume from "../../../assets/svg/half-volume.svg"
 import svgMute from "../../../assets/svg/mute.svg"
@@ -725,7 +725,7 @@ const ComponentVideo = () => {
                       <img draggable="false" src={svgNext} alt="" width="25px" />
                     </Prevideo>
                     <ImgCentral onClick={() => repeatPlay()}>
-                      <img draggable="false" src={buttonRepeat} alt="" />
+                      <img draggable="false" src={buttonRepeat} alt="" width="44px" />
                     </ImgCentral>
                     <NextVideo className="next-video-btn btn no-select" onClick={() => nextVideo()}>
                       <img draggable="false" src={svgNext} alt="" width="25px" />
