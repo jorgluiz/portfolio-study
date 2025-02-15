@@ -9,12 +9,15 @@ width: ${({ count }) => `${count}%`};
 `;
 // ---------------------------------------
 export const DivExternaGreen = styled.div`
+position: relative; // Adicionado para posicionar o elemento Posterior
 display: flex;
 align-items: center;
 justify-content: center;
+width: 200px;
+height: 200px;
 
 ${({ toggle }) => toggle &&
-        css`
+    css`
         & > div {
             background-color: ${toggle};
         }
@@ -22,11 +25,8 @@ ${({ toggle }) => toggle &&
 `;
 
 export const Posterior = styled.div`
-/* display: flex;
-align-items: center;
-justify-content: center; */
-
-height: 0%;
+position: absolute; // Adicionado para posicionamento absoluto
+height: 0;
 width: 0;
 border-radius: 50%;
 background-color: green;
@@ -38,8 +38,8 @@ animation-iteration-count: infinite;
 animation-timing-function: ease-in-out;
 
 @keyframes posterior {
-    from {height: 0%; width: 0;}
-    to {height: 100%; width: 50px;}
+    from { height: 0; width: 0; }
+    to { height: 40px; width: 40px; } // Valores aumentados para melhor visualização
 }
 `;
 
@@ -90,7 +90,11 @@ margin: 10px;
 
 export const Pause = styled.div``;
 
-export const DivFlexBox = styled.div``;
+export const DivFlexBox = styled.div`
+display: flex;
+justify-content: space-around;
+width: 500px;
+`;
 
 export const Iframe = styled.div``;
 

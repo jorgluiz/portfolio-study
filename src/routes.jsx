@@ -51,7 +51,8 @@ import UseMemo from "./pages/frontend/useMemo";
 import UseCallback from "./pages/frontend/useCallback";
 import UseState from "./pages/frontend/useState";
 import MudandoEstadoArray from "./pages/frontend/mudandoEstadoArray";
-import ComponentVideo from "./ui/components/youtube";
+import ComponentVideoDesktop from "./ui/components/ytDesktop";
+import ComponentVideo from "./ui/components/ytMobile04";
 import Test from "./pages/tests";
 import DirectTopage from "./ui/components/directTopage";
 import Catalogo from "./pages/templates/catalogo";
@@ -208,7 +209,8 @@ const AppRoutes = () => {
             path="grid-template-fixe-header"
             element={<GridtemplateFixeHeader />}
           />
-          <Route path="/video" element={<ComponentVideo />}></Route>
+          <Route path="/yt-mobile" element={<ComponentVideo />}></Route>
+          <Route path="/yt-desktop" element={<ComponentVideoDesktop />}></Route>
           <Route path="/java-script" element={<LayoutJavaScript />}>
             <Route index element={<Paradigma />} />
             <Route path="operators" element={<Operators />} />
@@ -258,13 +260,13 @@ const AppRoutes = () => {
           <Route path="/conteudos-new-skills" element={<Conteudos />}></Route>
           <Route path="/git-hub" element={<GitHub />}></Route>
           <Route path="/skills" element={<LayoutSkill />}>
-          <Route  index element={<SkillHome/>} />
+            <Route index element={<SkillHome />} />
           </Route>
 
           <Route path="sites-pesquisa" element={<Sites />}>
-          <Route index element={<SitesPage />}></Route>
+            <Route index element={<SitesPage />}></Route>
           </Route>
-          <Route path="/arquitetura-node-js-entenda-loop-de-eventos" element={<EventLoop />}/>
+          <Route path="/arquitetura-node-js-entenda-loop-de-eventos" element={<EventLoop />} />
 
           <Route path="/hospedagem-qual-escolher" element={<Hospedagem />}></Route>
         </Routes>

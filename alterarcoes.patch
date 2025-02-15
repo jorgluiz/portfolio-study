@@ -1,0 +1,2648 @@
+diff --git a/src/assets/videos/1.mp4 b/src/assets/videos/1.mp4
+index 56933a8..fb0624c 100644
+Binary files a/src/assets/videos/1.mp4 and b/src/assets/videos/1.mp4 differ
+diff --git a/src/pages/backend/dadosEntreRotas/index.jsx b/src/pages/backend/dadosEntreRotas/index.jsx
+index 9e4e213..3765ec1 100644
+--- a/src/pages/backend/dadosEntreRotas/index.jsx
++++ b/src/pages/backend/dadosEntreRotas/index.jsx
+@@ -1,47 +1,47 @@
+ import locals from "../../../assets/locals.png"
+ 
+ const passarDadosEntreRotas = () => {
+-    return (
+-        <>
+-            <h1>Passar dados entre rotas</h1><br /><br />
+-
+-            <div>
+-                <span style={{ fontWeight: "700" }}>1. Middleware:</span><br /><br />
+-                <p><span style={{ fontWeight: "700" }}>Cenário Adequado:</span> O uso de middleware é adequado quando você precisa processar ou modificar os dados da requisição antes que cheguem à rota final. Pode ser útil para autenticação, validação de dados, etc.</p><br />
+-                <p><span style={{ fontWeight: "700" }}>Vantagens:</span> Permite a execução de lógica antes que a rota seja alcançada.</p><br />
+-                <p><span style={{ fontWeight: "700" }}>Desvantagens:</span> Os dados podem ser perdidos se o servidor for reiniciado.</p><br /><br />
+-
+-                <span style={{ fontWeight: "700" }}>1. Banco de Dados:</span><br /><br />
+-                <p><span style={{ fontWeight: "700" }}>Cenário Adequado:</span> Útil quando você precisa armazenar dados de forma persistente e acessá-los mesmo após reinicializações do servidor.</p><br />
+-                <p><span style={{ fontWeight: "700" }}>Vantagens:</span> Dados persistem entre reinicializações do servidor.</p><br />
+-                <p><span style={{ fontWeight: "700" }}>Desvantagens:</span> Pode ser mais complexo de configurar e manter, especialmente para casos simples.</p><br /><br />
+-
+-                <span style={{ fontWeight: "700" }}>1. Arquivo (File System - fs):</span><br /><br />
+-                <p><span style={{ fontWeight: "700" }}>Cenário Adequado:</span> Ideal para casos simples onde não é necessário persistência de longo prazo, mas você ainda deseja manter os dados temporariamente.</p><br />
+-                <p><span style={{ fontWeight: "700" }}>Vantagens:</span> Simples de implementar para dados temporários.</p><br />
+-                <p><span style={{ fontWeight: "700" }}>Desvantagens:</span> Os dados são perdidos se o servidor for reiniciado.</p><br /><br />
+-
+-                <span style={{ fontWeight: "700" }}>1. Memória Cache:</span><br /><br />
+-                <p><span style={{ fontWeight: "700" }}>Cenário Adequado:</span>  A memória cache é adequada quando você precisa armazenar dados temporários de forma eficiente em memória, evitando acesso repetido a recursos mais lentos, como banco de dados ou sistemas externos.</p><br />
+-                <p><span style={{ fontWeight: "700" }}>Vantagens:</span> Permite acesso rápido aos dados temporários, reduzindo a carga no servidor e melhorando o desempenho da aplicação.</p><br />
+-                <p><span style={{ fontWeight: "700" }}>Desvantagens:</span> Os dados armazenados na memória cache podem ser perdidos se o servidor for reiniciado, e a capacidade de armazenamento é limitada pela memória disponível no servidor.</p><br /><br /><br />
+-
+-                <p style={{ lineHeight: "25px" }}>Esses são os cenários mais comuns e suas respectivas vantagens e desvantagens. A escolha do método de armazenamento depende das necessidades específicas da sua aplicação, como requisitos de desempenho, complexidade de implementação e durabilidade dos dados.</p><br /><br />
+-
+-                <h3>E por último não menos importante, o uso do <span style={{ fontWeight: "700" }}>`app.locals`</span></h3><br />
+-                <p>O uso de <span style={{fontWeight: "700"}}>app.locals</span> em Node.js tem algumas vantagens específicas em comparação com outras formas de armazenamento de dados:</p><br />
+-                <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "700", lineHeight: "30px" }}>Acesso Global:</span>  As variáveis definidas em app.locals estão disponíveis globalmente em toda a aplicação Express. Isso significa que você pode acessar essas variáveis de qualquer rota, middleware ou template sem precisar passá-las explicitamente entre eles.</p><br />
+-                <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "700", lineHeight: "30px" }}>Eficiência de Memória:</span> Os dados armazenados em app.locals são mantidos na memória durante toda a vida útil do aplicativo Node.js. Isso evita a necessidade de recarregar ou recalcular os dados a cada requisição, o que pode melhorar o desempenho e reduzir a carga no servidor.</p><br />
+-                <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "700", lineHeight: "30px" }}>Facilidade de Uso:</span> É simples definir e acessar variáveis em app.locals. Você pode atribuir valores a essas variáveis em qualquer lugar do seu código, e elas serão imediatamente disponíveis em toda a aplicação.</p><br />
+-                <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "700", lineHeight: "30px" }}>Não Persistência:</span> Ao contrário do armazenamento em banco de dados ou em arquivos, os dados em app.locals não são persistentes entre reinicializações do servidor. Isso pode ser uma vantagem em alguns casos, especialmente para dados temporários que não precisam ser mantidos a longo prazo.</p><br />
+-                <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "700", lineHeight: "30px" }}>Escopo Controlado:</span> Embora as variáveis em app.locals sejam acessíveis globalmente, elas ainda têm um escopo controlado dentro do contexto da aplicação Express. Isso ajuda a evitar poluição do namespace global e facilita a organização e manutenção do código.</p><br /><br />
+-
+-                <p style={{ lineHeight: "30px" }}>Em resumo, app.locals é uma opção conveniente e eficiente para armazenar dados globais em uma aplicação Express, especialmente para dados temporários ou de configuração que não precisam ser persistentes entre reinicializações do servidor.</p>
+-                <p style={{fontWeight: "700"}}>Ex: usando app.locals</p>
+-                <img src={locals}></img>
+-            </div>
+-        </>
+-    )
++  return (
++    <>
++      <h1>Passar dados entre rotas</h1><br /><br />
++
++      <div>
++        <span style={{ fontWeight: "900" }}>1. Middleware:</span><br /><br />
++        <p><span style={{ fontWeight: "800" }}>Cenário Adequado:</span> O uso de middleware é adequado quando você precisa processar ou modificar os dados da requisição antes que cheguem à rota final. Pode ser útil para autenticação, validação de dados, etc.</p><br />
++        <p><span style={{ fontWeight: "800" }}>Vantagens:</span> Permite a execução de lógica antes que a rota seja alcançada.</p><br />
++        <p><span style={{ fontWeight: "800" }}>Desvantagens:</span> Os dados podem ser perdidos se o servidor for reiniciado.</p><br /><br />
++
++        <span style={{ fontWeight: "900" }}>1. Banco de Dados:</span><br /><br />
++        <p><span style={{ fontWeight: "800" }}>Cenário Adequado:</span> Útil quando você precisa armazenar dados de forma persistente e acessá-los mesmo após reinicializações do servidor.</p><br />
++        <p><span style={{ fontWeight: "800" }}>Vantagens:</span> Dados persistem entre reinicializações do servidor.</p><br />
++        <p><span style={{ fontWeight: "800" }}>Desvantagens:</span> Pode ser mais complexo de configurar e manter, especialmente para casos simples.</p><br /><br />
++
++        <span style={{ fontWeight: "900" }}>1. Arquivo (File System - fs):</span><br /><br />
++        <p><span style={{ fontWeight: "800" }}>Cenário Adequado:</span> Ideal para casos simples onde não é necessário persistência de longo prazo, mas você ainda deseja manter os dados temporariamente.</p><br />
++        <p><span style={{ fontWeight: "800" }}>Vantagens:</span> Simples de implementar para dados temporários.</p><br />
++        <p><span style={{ fontWeight: "800" }}>Desvantagens:</span> Os dados são perdidos se o servidor for reiniciado.</p><br /><br />
++
++        <span style={{ fontWeight: "900" }}>1. Memória Cache:</span><br /><br />
++        <p><span style={{ fontWeight: "800" }}>Cenário Adequado:</span>  A memória cache é adequada quando você precisa armazenar dados temporários de forma eficiente em memória, evitando acesso repetido a recursos mais lentos, como banco de dados ou sistemas externos.</p><br />
++        <p><span style={{ fontWeight: "800" }}>Vantagens:</span> Permite acesso rápido aos dados temporários, reduzindo a carga no servidor e melhorando o desempenho da aplicação.</p><br />
++        <p><span style={{ fontWeight: "800" }}>Desvantagens:</span> Os dados armazenados na memória cache podem ser perdidos se o servidor for reiniciado, e a capacidade de armazenamento é limitada pela memória disponível no servidor.</p><br /><br /><br />
++
++        <p style={{ lineHeight: "25px" }}>Esses são os cenários mais comuns e suas respectivas vantagens e desvantagens. A escolha do método de armazenamento depende das necessidades específicas da sua aplicação, como requisitos de desempenho, complexidade de implementação e durabilidade dos dados.</p><br /><br />
++
++        <h3>E por último não menos importante, o uso do <span style={{ fontWeight: "700" }}>`app.locals`</span></h3><br />
++        <p>O uso de <span style={{ fontWeight: "700" }}>app.locals</span> em Node.js tem algumas vantagens específicas em comparação com outras formas de armazenamento de dados:</p><br />
++        <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "800", lineHeight: "30px" }}>Acesso Global:</span>  As variáveis definidas em app.locals estão disponíveis globalmente em toda a aplicação Express. Isso significa que você pode acessar essas variáveis de qualquer rota, middleware ou template sem precisar passá-las explicitamente entre eles.</p><br />
++        <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "800", lineHeight: "30px" }}>Eficiência de Memória:</span> Os dados armazenados em app.locals são mantidos na memória durante toda a vida útil do aplicativo Node.js. Isso evita a necessidade de recarregar ou recalcular os dados a cada requisição, o que pode melhorar o desempenho e reduzir a carga no servidor.</p><br />
++        <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "800", lineHeight: "30px" }}>Facilidade de Uso:</span> É simples definir e acessar variáveis em app.locals. Você pode atribuir valores a essas variáveis em qualquer lugar do seu código, e elas serão imediatamente disponíveis em toda a aplicação.</p><br />
++        <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "800", lineHeight: "30px" }}>Não Persistência:</span> Ao contrário do armazenamento em banco de dados ou em arquivos, os dados em app.locals não são persistentes entre reinicializações do servidor. Isso pode ser uma vantagem em alguns casos, especialmente para dados temporários que não precisam ser mantidos a longo prazo.</p><br />
++        <p style={{ lineHeight: "30px" }}><span style={{ fontWeight: "800", lineHeight: "30px" }}>Escopo Controlado:</span> Embora as variáveis em app.locals sejam acessíveis globalmente, elas ainda têm um escopo controlado dentro do contexto da aplicação Express. Isso ajuda a evitar poluição do namespace global e facilita a organização e manutenção do código.</p><br /><br />
++
++        <p style={{ lineHeight: "30px" }}>Em resumo, app.locals é uma opção conveniente e eficiente para armazenar dados globais em uma aplicação Express, especialmente para dados temporários ou de configuração que não precisam ser persistentes entre reinicializações do servidor.</p>
++        <p style={{ fontWeight: "800" }}>Ex: usando app.locals</p>
++        <img src={locals}></img>
++      </div>
++    </>
++  )
+ }
+ 
+ export default passarDadosEntreRotas
+\ No newline at end of file
+diff --git a/src/pages/frontend/efeitoMatriz/index.jsx b/src/pages/frontend/efeitoMatriz/index.jsx
+index 0b9d6d0..628bf0a 100644
+--- a/src/pages/frontend/efeitoMatriz/index.jsx
++++ b/src/pages/frontend/efeitoMatriz/index.jsx
+@@ -1,106 +1,97 @@
+-import { useState, useEffect } from 'react';
+-import styled from "styled-components"
++import React, { useEffect, useState } from "react";
++import styled, { createGlobalStyle, keyframes } from "styled-components";
++
++// Animação para os caracteres individuais
++const rainAnimation = keyframes`
++  0% {
++    transform: translateY(-100%);
++    opacity: 0;
++  }
++  50% {
++    opacity: 1;
++  }
++  100% {
++    transform: translateY(100%);
++    opacity: 0;
++  }
++`;
+ 
++// Contêiner principal
+ const Container = styled.div`
+-height: 100vh;
+-background-color: black;
+-display: flex;
++  position: relative;
++  width: 100vw;
++  height: 100vh;
++  overflow: hidden;
++  background-color: #000;
+ `;
+ 
+-const P1 = styled.p`
+-
+-&[target=p1] {
+-
+-writing-mode: vertical-lr;
+-text-orientation: upright;
+-color: green;
+-
+-
+-/* position: relative;
+-
+-animation-name: Paragrafo;
+-animation-timing-function: linear;
+-animation-iteration-count: infinite;
+-animation-duration: 4s;
+-
+-@keyframes Paragrafo {
+-  from {
+-       bottom: 0px;
+-      }
+-
+-       to {
+-        bottom: -400px;
+-        
+-       }
+-}; */
+-}
+-
+-&[target=p2] {
+-
+-}
++// Cada coluna de texto
++const Column = styled.div`
++  position: absolute;
++  left: ${(props) => props.left}%;
++  top: 0;
++  font-size: ${(props) => props.fontSize}px;
++  color: #00ff00;
++  animation: none;
+ `;
+ 
++// Cada caractere da coluna
++const Character = styled.div`
++  animation: ${rainAnimation} ${(props) => props.duration}s linear infinite;
++  animation-delay: ${(props) => props.delay}s;
++  opacity: 0;
++`;
+ 
+ const EfeitoMatriz = () => {
+-    const [numberRnd, setNumberRnd] = useState([0])
+-
+-    // function getRndInteger() {
+-    //     return Math.floor(Math.random() * 10);
+-    // }
+-
+-    // useEffect(() => {
+-    //     setNumberRnd(setInterval(getRndInteger, 1))
+-    // }, [numberRnd])
+-
+-    // setNumberRnd([...numberRnd, aleatory])
+-    useEffect(() => {
+-
+-            setNumberRnd([...numberRnd, 22])
+-    
+-    }, [])
+-    console.log(numberRnd)
+-    
+-    return (
+-        <Container>
+-            <div>
+-                {numberRnd.map((el) => {
+-                    return (
+-                        <>
+-                        <P1 target="p1">{el}</P1>
+-                        </>
+-                    )
+-                })}
+-            </div>
+-            {/* <div>
+-                {numberRnd.map((el) => {
+-                    return (
+-                        <P1 target="p2">{el}</P1>
+-                    )
+-                })}
+-            </div>
+-            <div>
+-                {numberRnd.map((el) => {
+-                    return (
+-                        <P1>{el}</P1>
+-                    )
+-                })}
+-            </div>
+-            <div>
+-                {numberRnd.map((el) => {
+-                    return (
+-                        <P1 target="p3">{el}</P1>
+-                    )
+-                })}
+-            </div>
+-            <div>
+-                {numberRnd.map((el) => {
+-                    return (
+-                        <P1>{el}</P1>
+-                    )
+-                })}
+-            </div> */}
+-        </Container>
+-    )
+-}
+-
+-export default EfeitoMatriz
+\ No newline at end of file
++  const [columns, setColumns] = useState([]);
++
++  useEffect(() => {
++    // Gera a lista de colunas com configurações
++    const generateColumns = () => {
++      const cols = [];
++      const columnCount = Math.floor(window.innerWidth / 20); // Número de colunas baseado na largura da tela
++      for (let i = 0; i < columnCount; i++) {
++        cols.push({
++          left: (i / columnCount) * 100, // Posição horizontal da coluna
++          fontSize: Math.random() * 15 + 10, // Tamanho aleatório da fonte
++          duration: Math.random() * 2 + 1, // Velocidade da queda
++        });
++      }
++      setColumns(cols);
++    };
++
++    generateColumns();
++    window.addEventListener("resize", generateColumns);
++    return () => window.removeEventListener("resize", generateColumns);
++  }, []);
++
++  // Função para gerar caracteres aleatórios
++  const randomCharacter = () => {
++    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
++    return chars[Math.floor(Math.random() * chars.length)];
++  };
++
++  return (
++    <>
++      <Container>
++        {columns.map((col, index) => (
++          <Column key={index} left={col.left} fontSize={col.fontSize}>
++            {Array(30)
++              .fill()
++              .map((_, charIndex) => (
++                <Character
++                  key={charIndex}
++                  duration={col.duration}
++                  delay={charIndex * 0.2} // Atraso para cada caractere
++                >
++                  {randomCharacter()}
++                </Character>
++              ))}
++          </Column>
++        ))}
++      </Container>
++    </>
++  );
++};
++
++export default EfeitoMatriz;
+diff --git a/src/pages/tests/index.jsx b/src/pages/tests/index.jsx
+index c963ff9..cfb4ebe 100644
+--- a/src/pages/tests/index.jsx
++++ b/src/pages/tests/index.jsx
+@@ -1,212 +1,60 @@
+-import  { useState, useEffect, useRef } from "react";
+-// import eminemWithoutMe from "../../assets/videos/EminemWithoutMe.mp4"
++import { useState, useEffect } from "react";
+ 
+-import { H1, DivExternaGreen, Sobrepor, Posterior, Progresso, Play, Pause, DivFlexBox, ControlsVideo, Ranger, Advance, Rewind, Video, ContainerVideo } from "./styles";
++import { H1, DivExternaGreen, Sobrepor, Posterior, DivFlexBox } from "./styles";
+ 
+-// img capa
+-import capavideo from "../../assets/videos/capaVideo/eminem.jpg"
+-
+-// const [videoRef, setVideoRef] = useState() //useReducer é um "objeto" que armazena varios state menores
+-
+-// ##################### feature (player video) #####################
+-const usePlayerState = (refVideo) => {
+-    // state
+-    const [playerState, setPlayerState] = useState({
+-        playing: false
+-    })
+-
+-    useEffect(() => {
+-        playerState.playing ? refVideo.current.play() : refVideo.current.pause()
+-    }, [playerState.playing])
+-
+-    const toggleVideoPlay = () => {
+-        setPlayerState({ ...playerState, playing: !playerState.playing })
+-    }
+-
+-    return { playerState, toggleVideoPlay }
+-}
+-
+-// ##################### feature (percentual video) #####################
+-const usePercentual = (refVideo) => {
+-    // state
+-    const [currentTime, setCurrentTime] = useState({ percentage: 0 })
+-
+-    const handleTimeUpdate = () => {
+-        const currentPercentual = (refVideo.current.currentTime / refVideo.current.duration) * 100
+-        setCurrentTime({ ...currentTime, percentage: currentPercentual })
+-    }
+-
+-    return { handleTimeUpdate, currentTime }
+-}
+-
+-// ##################### feature (duração video) #####################
+-const useCurrentTimeDuration = (refVideo) => {
+-    // state
+-    const [currentTimeDuration, setCurrentTimeDuration] = useState(0)
+-
+-    useEffect(() => {
+-        setCurrentTimeDuration(refVideo.current.currentTime)
+-    })
+-
+-    return { currentTimeDuration }
+-}
+-
+-// ##################### feature (audio video) #####################
+-const useVolume = (refVideo) => {
+-    // state
+-    const [targetVolume, setTargetVolume] = useState(1)
+-
+-    const handleVolume = (e) => {
+-        setTargetVolume(refVideo.current.volume = e.target.value)
+-    }
+-
+-    return { handleVolume, targetVolume }
+-}
+-
+-// ##################### feature (avançar video) #####################
+-const useAdvanceTime = (refVideo) => {
+-    const [time10, setTime10] = useState()
+-
+-    const advance = () => {
+-        setTime10(refVideo.current.currentTime = refVideo.current.currentTime + 10)
+-    }
+-
+-    return { advance }
+-}
+-
+-// ##################### feature (retroceder video) #####################
+-const useRewindTime = (refVideo) => {
+-    const [time10, setTime10] = useState()
+-
+-    const rewind = () => {
+-        if (refVideo.current.currentTime > 0)
+-            setTime10(refVideo.current.currentTime = refVideo.current.currentTime - 10)
+-    }
+-
+-    return { rewind }
+-}
+-
+-const useFullScreen = (refVideo) => {
+-
+-    const handleFullScreen = () => {
+-        refVideo.current.requestFullscreen()
+-        // console.log(refVideo)
+-        // refVideo.current.webkitDisplayingFullscreen = true
+-    }
+-
+-    // console.log(refVideo.current.videoHeight)
+-    // console.log(refVideo.current.videoWidth)
+-    return { handleFullScreen }
+-}
+ 
+ // ### component ###
+ const Tests = () => {
+ 
+-    // state
+-    const [count, setCount] = useState(0)
+-    const [toggle, setToggle] = useState("green")
+-
+-    useEffect(() => {
+-        if (count === 100) setCount(0)
+-    }, [count])
+-
+-    // ref element
+-    const refVideo = useRef(0)
+-
+-    // function
+-    const { playerState, toggleVideoPlay } = usePlayerState(refVideo)
+-    const { handleTimeUpdate, currentTime } = usePercentual(refVideo)
+-    const { handleVolume, targetVolume } = useVolume(refVideo)
+-    const { advance } = useAdvanceTime(refVideo)
+-    const { rewind } = useRewindTime(refVideo)
+-    const { currentTimeDuration } = useCurrentTimeDuration(refVideo)
+-    const { handleFullScreen } = useFullScreen(refVideo)
+-
+-    return (
+-        <div style={{ display: "column", marginTop: "30px" }}>
+-            <div style={{ display: "flex", marginBottom: "30px", justifyContent: "space-between", flexWrap: "wrap" }}>
+-                <div style={{ marginRight: "50px" }}>
+-                    <div style={{ width: "100px", overflow: "hidden" }}>
+-                        <H1 count={count}>{count.toFixed(0).concat("%")}</H1>
+-                    </div>
+-                    <button onClick={() => setCount((prev) => prev + 1)}>Increment</button>
+-                </div>
+-
+-                <DivExternaGreen toggle={toggle} onClick={() => toggle === "green" ? setToggle("red") : setToggle("green")}>
+-                    <Sobrepor></Sobrepor>
+-                    <Posterior></Posterior>
+-                </DivExternaGreen>
+-
+-                <div>
+-                    <p style={{ color: "blueviolet" }}>align-items: center = blueviolet</p> <p>justify-content: center = black</p>
+-                    <DivFlexBox>
+-                        <div></div>
+-                    </DivFlexBox>
+-                </div>
+-
+-                {/* <div style={{width: '350px', border: "1px solid black"}}>opaaaaa</div> */}
+-            </div>
++  // state
++  const [count, setCount] = useState(0)
++  const [toggle, setToggle] = useState("green")
+ 
+-            <span style={{ marginTop: "30px" }}><a href="https://developers.google.com/youtube/player_parameters?hl=pt-br">YouTube API do iframe</a></span>
++  useEffect(() => {
++    if (count === 100) setCount(0)
++  }, [count])
+ 
+-            <div style={{ display: "flex", flexDirection: "column", marginTop: "30px" }}>
+-                <span style={{ marginBottom: "24px" }}><strong>Carregar um vídeo</strong></span>
+-                <iframe allowFullScreen width="450" height="500" title="youtube video" src="http://www.youtube.com/embed/eVwTlOuzT0Q" />
+-            </div>
++  return (
++    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-around", height: "100vh" }}>
+ 
+-            <div style={{ display: "flex", flexDirection: "column", margin: "30px 0 30px 0" }}>
+-                <span style={{ marginBottom: "24px" }}><strong>Carregar uma playlist</strong></span>
+-                <iframe allowFullScreen width="450" height="500" title="youtube video playList" src="http://www.youtube.com/embed?listType=playlist&list=PL85ITvJ7FLognHmYKYmHPZEr47nNqLjRh" />
+-            </div>
+-
+-            {/* ============================================================================================================================================================ */}
+-
+-            <span style={{ display: "block" }}>Tag video</span>
+-            <a href="https://www.youtube.com/watch?v=ZaYvwn9nBD4">referência</a>
+-
+-            <div style={{ display: "flex", flexDirection: "column", marginTop: "30px" }}>
+-
+-                <ControlsVideo>
+-                    <ContainerVideo>
+-                        <Progresso percentage={currentTime.percentage.toFixed(1)}>
+-                            <div>{currentTime.percentage.toFixed(1)}</div>
+-                        </Progresso>
+-
+-                        <Play onClick={toggleVideoPlay}>
+-                            {playerState.playing ? "Pause" : "Play"}
+-                        </Play>
+-
+-                        <Ranger type="range" max="1" min="0" step="0.1" onChange={(e) => handleVolume(e)}></Ranger>
+-                        {/* <Ranger type="range" max="1" min="0" value={targetVolume} step="0.1" onChange={(e) => handleVolume(e)}></Ranger> */}
++      <div style={{ marginRight: "50px" }}>
++        <div style={{ width: "100px", overflow: "hidden" }}>
++          <H1 count={count}>{count.toFixed(0).concat("%")}</H1>
++        </div>
++        <button onClick={() => setCount((prev) => prev + 1)}>Increment</button>
++      </div>
+ 
+-                        <div>Duração vídeo: {currentTimeDuration.toFixed(0)}</div>
++      <DivExternaGreen toggle={toggle} onClick={() => toggle === "green" ? setToggle("red") : setToggle("green")}>
++        <Sobrepor></Sobrepor>
++        <Posterior></Posterior>
++      </DivExternaGreen>
+ 
+-                        <Advance onClick={() => advance()}>{">>"} 10</Advance>
+-                        <Rewind onClick={() => rewind()}>10 {"<<"}</Rewind>
++      <div>
+ 
+-                        <div onClick={() => handleFullScreen()} style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+-                            <div style={{ display: "flex", marginBottom: "5px" }}>
+-                                <div style={{ width: "10px", height: "10px", borderLeft: "solid 3px #000000", borderTop: "solid 3px #000000", marginRight: "5px" }}></div>
+-                                <div style={{ width: "10px", height: "10px", borderRight: "solid 3px #000000", borderTop: "solid 3px #000000" }}></div>
+-                            </div>
+-                            <div style={{ display: "flex" }}>
+-                                <div style={{ width: "10px", height: "10px", borderLeft: "solid 3px #000000", borderBottom: "solid 3px #000000", marginRight: "5px" }}></div>
+-                                <div style={{ width: "10px", height: "10px", borderRight: "solid 3px #000000", borderBottom: "solid 3px #000000" }}></div>
+-                            </div>
+-                        </div>
+-                    </ContainerVideo>
+ 
+-                    <div className="html5-video-container" data-layer="0">
+-                        {/* obtendo referencia do elemento video >>>  ref={refVideo} */}
+-                        <Video ref={refVideo} controlsList="nodownload" autoPlay preload="auto" width="450" height="100%" onTimeUpdate={handleTimeUpdate} poster={capavideo} src={""} />
+-                    </div>
+-                </ControlsVideo>
++        <DivFlexBox>
++          <div>
++            <p style={{ color: "blueviolet" }}>align-items: center</p>
++            <div style={{ display: "flex", alignItems: "center", height: "140px", width: "140px", backgroundColor: "blueviolet" }}>
++              <div>items 1</div>
++              <div>items 2</div>
++              <div>items 3</div>
+             </div>
+-            {/* ============================================================================================================================================================ */}
++          </div>
++          <div>
++            <p>justify-content: center</p>
++            <div style={{ display: "flex", justifyContent: "center", height: "140px", width: "300px", backgroundColor: "black" }}>
++              <div style={{ color: "#fff" }}>content 1</div>
++              <div style={{ color: "#fff" }}>content 2</div>
++              <div style={{ color: "#fff" }}>content 3</div>
++            </div>
++          </div>
++        </DivFlexBox>
++      </div>
+ 
+-            
+-        </div>
+-    )
++      {/* <div style={{width: '350px', border: "1px solid black"}}>opaaaaa</div> */}
++    </div>
++  )
+ }
+ 
+ export default Tests
+diff --git a/src/pages/tests/styles.js b/src/pages/tests/styles.js
+index 06cf140..e95e0c9 100644
+--- a/src/pages/tests/styles.js
++++ b/src/pages/tests/styles.js
+@@ -9,12 +9,15 @@ width: ${({ count }) => `${count}%`};
+ `;
+ // ---------------------------------------
+ export const DivExternaGreen = styled.div`
++position: relative; // Adicionado para posicionar o elemento Posterior
+ display: flex;
+ align-items: center;
+ justify-content: center;
++width: 200px;
++height: 200px;
+ 
+ ${({ toggle }) => toggle &&
+-        css`
++    css`
+         & > div {
+             background-color: ${toggle};
+         }
+@@ -22,11 +25,8 @@ ${({ toggle }) => toggle &&
+ `;
+ 
+ export const Posterior = styled.div`
+-/* display: flex;
+-align-items: center;
+-justify-content: center; */
+-
+-height: 0%;
++position: absolute; // Adicionado para posicionamento absoluto
++height: 0;
+ width: 0;
+ border-radius: 50%;
+ background-color: green;
+@@ -38,8 +38,8 @@ animation-iteration-count: infinite;
+ animation-timing-function: ease-in-out;
+ 
+ @keyframes posterior {
+-    from {height: 0%; width: 0;}
+-    to {height: 100%; width: 50px;}
++    from { height: 0; width: 0; }
++    to { height: 40px; width: 40px; } // Valores aumentados para melhor visualização
+ }
+ `;
+ 
+@@ -90,7 +90,11 @@ margin: 10px;
+ 
+ export const Pause = styled.div``;
+ 
+-export const DivFlexBox = styled.div``;
++export const DivFlexBox = styled.div`
++display: flex;
++justify-content: space-around;
++width: 500px;
++`;
+ 
+ export const Iframe = styled.div``;
+ 
+diff --git a/src/routes.jsx b/src/routes.jsx
+index 26976e1..f2cba2f 100644
+--- a/src/routes.jsx
++++ b/src/routes.jsx
+@@ -51,7 +51,8 @@ import UseMemo from "./pages/frontend/useMemo";
+ import UseCallback from "./pages/frontend/useCallback";
+ import UseState from "./pages/frontend/useState";
+ import MudandoEstadoArray from "./pages/frontend/mudandoEstadoArray";
+-import ComponentVideo from "./ui/components/youtube";
++import ComponentVideoDesktop from "./ui/components/ytDesktop";
++import ComponentVideo from "./ui/components/ytMobile04";
+ import Test from "./pages/tests";
+ import DirectTopage from "./ui/components/directTopage";
+ import Catalogo from "./pages/templates/catalogo";
+@@ -208,7 +209,8 @@ const AppRoutes = () => {
+             path="grid-template-fixe-header"
+             element={<GridtemplateFixeHeader />}
+           />
+-          <Route path="/video" element={<ComponentVideo />}></Route>
++          <Route path="/yt-mobile" element={<ComponentVideo />}></Route>
++          <Route path="/yt-desktop" element={<ComponentVideoDesktop />}></Route>
+           <Route path="/java-script" element={<LayoutJavaScript />}>
+             <Route index element={<Paradigma />} />
+             <Route path="operators" element={<Operators />} />
+@@ -258,13 +260,13 @@ const AppRoutes = () => {
+           <Route path="/conteudos-new-skills" element={<Conteudos />}></Route>
+           <Route path="/git-hub" element={<GitHub />}></Route>
+           <Route path="/skills" element={<LayoutSkill />}>
+-          <Route  index element={<SkillHome/>} />
++            <Route index element={<SkillHome />} />
+           </Route>
+ 
+           <Route path="sites-pesquisa" element={<Sites />}>
+-          <Route index element={<SitesPage />}></Route>
++            <Route index element={<SitesPage />}></Route>
+           </Route>
+-          <Route path="/arquitetura-node-js-entenda-loop-de-eventos" element={<EventLoop />}/>
++          <Route path="/arquitetura-node-js-entenda-loop-de-eventos" element={<EventLoop />} />
+ 
+           <Route path="/hospedagem-qual-escolher" element={<Hospedagem />}></Route>
+         </Routes>
+diff --git a/src/ui/components/frontend/frontend-left/index.jsx b/src/ui/components/frontend/frontend-left/index.jsx
+index 223f2af..f78e5c2 100644
+--- a/src/ui/components/frontend/frontend-left/index.jsx
++++ b/src/ui/components/frontend/frontend-left/index.jsx
+@@ -11,211 +11,214 @@ import { ReactRoutes, HookRoutes } from "../../../../data/mock"
+ import warning from "../../../../assets/warning.ico"
+ 
+ const Left = () => {
+-    const [chooseColor, setChooseColor] = useState("")
+-    // console.log(chooseColor)
+-    const refspan = useRef()
+-
+-    const [targetReactRoutes, setTargetReactRoutes] = useState('');
+-    const [targetHookRoutes, setTargetHookRoutes] = useState('');
+-
+-    const [openDropdownReact, setOpenDropdownReact] = useState(false)
+-    const [openDropdownHook, setOpenDropdownHook] = useState(false)
+-    const [openDropdownState, setOpenDropdownState] = useState(false)
+-    // const [displayLeft, setDisplayLeft] = useState(true)
+-
+-    return (
+-        <Container chooseColor={chooseColor}>
+-            <input type="text" onChange={(e) => setChooseColor(e.target.value)} placeholder="escreva a cor" style={{ display: "flex", textAlign: "center" }}></input>
+-
+-            {/* <Input01 type="text" chooseColor={chooseColor} value={chooseColor} onChange={(e) => setChooseColor(e.target.value)} placeholder="cor aqui"/> */}
+-
+-            <NavbarLinkContainerUl target="frontend-left01">
+-                <li>
+-                    <Link to="projetos-para-implementar">Projetos para implementar</Link>
+-                </li>
+-                <li>
+-                    <Link to="tests">Tests</Link>
+-                </li>
+-                <li>
+-                    <Link to="triangulo">triangulo</Link>
+-                </li>
+-                <li className="templates">
+-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+-                        <span>Templates</span>
+-                        <IoIosArrowForward className="icon" />
+-                    </div>
+-                    <ul style={{ margin: "0 0 0 20px" }}>
+-                        <li>
+-                            <Link to="catalogo">catalogo</Link>
+-                        </li>
+-                        <li>
+-                            <Link to="cod3r">cod3r</Link>
+-                        </li>
+-                    </ul>
+-                </li>
+-                <li>
+-                    <Link to="direcionar-para-pagina">Direcionar pagina</Link>
+-                </li>
+-                <li>
+-                    <Link to="/video">YouTube</Link>
+-                </li>
+-                <li>
+-                    <Link to="image-full-window">Image full window</Link>
+-                </li>
+-                <li>
+-                    <Link to="video-upload">Video upload</Link>
+-                </li>
+-                <li>
+-                    <Link to="coracao-batendo">Coração batendo</Link>
+-                </li>
+-                <li>
+-                    <Link to="fundamentos-web">Fundamentos Web</Link>
+-                </li>
+-                <div className="grid">
+-                    <strong>Grid-templates</strong>
+-                    <HandAnimation />
+-                    <ul className="ul-secundary">
+-                        <a target="_blank" href="https://www.origamid.com/projetos/css-grid-layout-guia-completo/" rel="noreferrer">referência</a>
+-                        <div className="li01">
+-                            <li>
+-                                <Link to="/display">display</Link>
+-                            </li>
+-                        </div>
+-                        <li className="li02">
+-                            <Link to="/grid-template-rows">grid-template-rows</Link>
+-                        </li>
+-                        <li className="li03">
+-                            <Link to="/grid-template-areas">grid-template-areas</Link>
+-                        </li>
+-                        <li className="li04">
+-                            <Link to="/grid-template">grid-template</Link>
+-                        </li>
+-                        <li className="li05">
+-                            <Link to="/grid-template-fixe-header">grid-template-fixe-header</Link>
+-                        </li>
+-                    </ul>
+-                </div>
+-            </NavbarLinkContainerUl>
+-
+-            {/* margin */}
+-            <div style={{ margin: "10px 0 10px 0" }}></div>
+-            {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
+-            <Button onClick={() => (openDropdownReact ? setOpenDropdownReact(false) : setOpenDropdownReact(true))}>
+-                ReactJs
+-                <ContainerIcon>
+-                    <ArrowDiv openDropdownReact={openDropdownReact}>
+-                        <ArrowIcon /> {/* icon */}
+-                    </ArrowDiv>
+-                </ContainerIcon>
+-            </Button>
+-
+-            {openDropdownReact &&
+-
+-                <FadeInDown duration="0.8s">
+-                    <NavbarLinkContainerUl>
+-                        {ReactRoutes.map((item, index) => {
+-
+-                            return (
+-                                <li key={index}>
+-                                    <Link to={item.path}>
+-                                        <span ref={refspan} onClick={(e) => (setTargetReactRoutes(e.currentTarget.textContent))} titletargetreact={targetReactRoutes === item.title ? true : ''}>{item.title}</span>
+-                                        {item.title === "Dicas-react" &&
+-                                            <img height="20px" className="warning" src={warning}></img>}
+-                                    </Link>
+-                                </li>
+-                            )
+-                        })}
+-                    </NavbarLinkContainerUl>
+-                </FadeInDown>
+-            }
+-            {/* margin */}
+-            <div style={{ margin: "10px 0 10px 0" }}></div>
+-
+-            {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
+-            <Button onClick={() => (openDropdownHook ? setOpenDropdownHook(false) : setOpenDropdownHook(true))}>
+-                Hooks
+-                <ContainerIcon>
+-                    <ArrowDiv openDropdownHook={openDropdownHook}>
+-                        <ArrowIcon />
+-                    </ArrowDiv>
+-                </ContainerIcon>
+-            </Button>
+-
+-            {openDropdownHook &&
+-                <FadeInDown duration="0.8s">
+-                    <NavbarLinkContainerUl>
+-                        {HookRoutes.map((item, index) => {
+-                            return (
+-                                <li key={index}>
+-                                    <Link to={item.path}>
+-                                        {index + 1 + '.'}
+-                                        <SpanHooks onClick={(e) => (setTargetHookRoutes(e.currentTarget.textContent))} titletargethook={targetHookRoutes === item.title ? true : ''}>{item.title}</SpanHooks>
+-                                        {item.title === "useContext" &&
+-                                            <p><Link to="context">- Context</Link></p>}
+-                                        {item.title === "useContext" &&
+-                                            <p><Link to="redux">- Redux</Link></p>}
+-                                    </Link>
+-                                </li>
+-                            )
+-                        })}
+-                    </NavbarLinkContainerUl>
+-                </FadeInDown>}
+-            <div style={{ margin: "10px 0 10px 0" }}></div>
+-
+-            {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
+-            <Button onClick={() => setOpenDropdownState(openDropdownState ? false : true)}>State</Button>
+-
+-            {openDropdownState &&
+-
+-                <NavbarLinkContainerUl target="frontend-left03">
+-                    <li>
+-                        <Link to="localization">Get Localization</Link>
+-                    </li>
+-                    <li>
+-                        <Link to="tipos-dados-argumentos">tipos dados arguments</Link>
+-                    </li>
+-                    <li>
+-                        <Link to="mudando-estado-array" style={{ color: "#323232", fontSize: "14px" }}>Mudando o estado de um array </Link>
+-                    </li>
+-                    <li>
+-                        <Link to="list" style={{ color: "#323232" }}>LIST [ ]</Link>
+-                    </li>
+-                    <li>
+-                        <Link to="crud" style={{ color: "#323232" }}>CRUD</Link>
+-                    </li>
+-                </NavbarLinkContainerUl>
+-            }
+-
+-            <div style={{ margin: "10px 0 10px 0" }}></div>
+-
+-            <NavbarLinkContainerUl target="frontend-left02">
+-                <li>
+-                    <Link to="drop-down-3-formas">três tipos dropDown</Link>
+-                </li>
+-                <li>
+-                    <Link to="pseudo-element-before-after">Pseudo Element</Link>
+-                </li>
+-                <li>
+-                    <Link to="efeito-matriz">Efeito Matriz</Link>
+-                </li>
+-                <li>
+-                    <Link to="degrade">Degradê</Link>
+-                </li>
+-                <li>
+-                    <Link to="transforms">Transform</Link>
+-                </li>
+-                <li>
+-                    <Link to="transitions">Transition</Link>
+-                </li>
+-                <li>
+-                    <Link to="animations">Animations</Link>
+-                </li>
+-            </NavbarLinkContainerUl>
+-
+-            <div style={{ margin: "10px 0 10px 0" }}></div>
+-
+-        </Container>
+-    )
++  const [chooseColor, setChooseColor] = useState("")
++  // console.log(chooseColor)
++  const refspan = useRef()
++
++  const [targetReactRoutes, setTargetReactRoutes] = useState('');
++  const [targetHookRoutes, setTargetHookRoutes] = useState('');
++
++  const [openDropdownReact, setOpenDropdownReact] = useState(false)
++  const [openDropdownHook, setOpenDropdownHook] = useState(false)
++  const [openDropdownState, setOpenDropdownState] = useState(false)
++  // const [displayLeft, setDisplayLeft] = useState(true)
++
++  return (
++    <Container chooseColor={chooseColor}>
++      <input type="text" onChange={(e) => setChooseColor(e.target.value)} placeholder="escreva a cor" style={{ display: "flex", textAlign: "center" }}></input>
++
++      {/* <Input01 type="text" chooseColor={chooseColor} value={chooseColor} onChange={(e) => setChooseColor(e.target.value)} placeholder="cor aqui"/> */}
++
++      <NavbarLinkContainerUl target="frontend-left01">
++        <li>
++          <Link to="projetos-para-implementar">Projetos para implementar</Link>
++        </li>
++        <li>
++          <Link to="tests">Tests</Link>
++        </li>
++        <li>
++          <Link to="triangulo">triangulo</Link>
++        </li>
++        <li className="templates">
++          <div style={{ display: "flex", justifyContent: "space-between" }}>
++            <span>Templates</span>
++            <IoIosArrowForward className="icon" />
++          </div>
++          <ul style={{ margin: "0 0 0 20px" }}>
++            <li>
++              <Link to="catalogo">catalogo</Link>
++            </li>
++            <li>
++              <Link to="cod3r">cod3r</Link>
++            </li>
++          </ul>
++        </li>
++        <li>
++          <Link to="direcionar-para-pagina">Direcionar pagina</Link>
++        </li>
++        <li>
++          <Link to="/yt-mobile">YouTube mobile</Link>
++        </li>
++        <li>
++          <Link to="/yt-desktop">YouTube Desktop</Link>
++        </li>
++        <li>
++          <Link to="image-full-window">Image full window</Link>
++        </li>
++        <li>
++          <Link to="video-upload">Video upload</Link>
++        </li>
++        <li>
++          <Link to="coracao-batendo">Coração batendo</Link>
++        </li>
++        <li>
++          <Link to="fundamentos-web">Fundamentos Web</Link>
++        </li>
++        <div className="grid">
++          <strong>Grid-templates</strong>
++          <HandAnimation />
++          <ul className="ul-secundary">
++            <a target="_blank" href="https://www.origamid.com/projetos/css-grid-layout-guia-completo/" rel="noreferrer">referência</a>
++            <div className="li01">
++              <li>
++                <Link to="/display">display</Link>
++              </li>
++            </div>
++            <li className="li02">
++              <Link to="/grid-template-rows">grid-template-rows</Link>
++            </li>
++            <li className="li03">
++              <Link to="/grid-template-areas">grid-template-areas</Link>
++            </li>
++            <li className="li04">
++              <Link to="/grid-template">grid-template</Link>
++            </li>
++            <li className="li05">
++              <Link to="/grid-template-fixe-header">grid-template-fixe-header</Link>
++            </li>
++          </ul>
++        </div>
++      </NavbarLinkContainerUl>
++
++      {/* margin */}
++      <div style={{ margin: "10px 0 10px 0" }}></div>
++      {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
++      <Button onClick={() => (openDropdownReact ? setOpenDropdownReact(false) : setOpenDropdownReact(true))}>
++        ReactJs
++        <ContainerIcon>
++          <ArrowDiv openDropdownReact={openDropdownReact}>
++            <ArrowIcon /> {/* icon */}
++          </ArrowDiv>
++        </ContainerIcon>
++      </Button>
++
++      {openDropdownReact &&
++
++        <FadeInDown duration="0.8s">
++          <NavbarLinkContainerUl>
++            {ReactRoutes.map((item, index) => {
++
++              return (
++                <li key={index}>
++                  <Link to={item.path}>
++                    <span ref={refspan} onClick={(e) => (setTargetReactRoutes(e.currentTarget.textContent))} titletargetreact={targetReactRoutes === item.title ? true : ''}>{item.title}</span>
++                    {item.title === "Dicas-react" &&
++                      <img height="20px" className="warning" src={warning}></img>}
++                  </Link>
++                </li>
++              )
++            })}
++          </NavbarLinkContainerUl>
++        </FadeInDown>
++      }
++      {/* margin */}
++      <div style={{ margin: "10px 0 10px 0" }}></div>
++
++      {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
++      <Button onClick={() => (openDropdownHook ? setOpenDropdownHook(false) : setOpenDropdownHook(true))}>
++        Hooks
++        <ContainerIcon>
++          <ArrowDiv openDropdownHook={openDropdownHook}>
++            <ArrowIcon />
++          </ArrowDiv>
++        </ContainerIcon>
++      </Button>
++
++      {openDropdownHook &&
++        <FadeInDown duration="0.8s">
++          <NavbarLinkContainerUl>
++            {HookRoutes.map((item, index) => {
++              return (
++                <li key={index}>
++                  <Link to={item.path}>
++                    {index + 1 + '.'}
++                    <SpanHooks onClick={(e) => (setTargetHookRoutes(e.currentTarget.textContent))} titletargethook={targetHookRoutes === item.title ? true : ''}>{item.title}</SpanHooks>
++                    {item.title === "useContext" &&
++                      <p><Link to="context">- Context</Link></p>}
++                    {item.title === "useContext" &&
++                      <p><Link to="redux">- Redux</Link></p>}
++                  </Link>
++                </li>
++              )
++            })}
++          </NavbarLinkContainerUl>
++        </FadeInDown>}
++      <div style={{ margin: "10px 0 10px 0" }}></div>
++
++      {/* ------------------------------------------------------------------------------------------------------------------------------------- */}
++      <Button onClick={() => setOpenDropdownState(openDropdownState ? false : true)}>State</Button>
++
++      {openDropdownState &&
++
++        <NavbarLinkContainerUl target="frontend-left03">
++          <li>
++            <Link to="localization">Get Localization</Link>
++          </li>
++          <li>
++            <Link to="tipos-dados-argumentos">tipos dados arguments</Link>
++          </li>
++          <li>
++            <Link to="mudando-estado-array" style={{ color: "#323232", fontSize: "14px" }}>Mudando o estado de um array </Link>
++          </li>
++          <li>
++            <Link to="list" style={{ color: "#323232" }}>LIST [ ]</Link>
++          </li>
++          <li>
++            <Link to="crud" style={{ color: "#323232" }}>CRUD</Link>
++          </li>
++        </NavbarLinkContainerUl>
++      }
++
++      <div style={{ margin: "10px 0 10px 0" }}></div>
++
++      <NavbarLinkContainerUl target="frontend-left02">
++        <li>
++          <Link to="drop-down-3-formas">três tipos dropDown</Link>
++        </li>
++        <li>
++          <Link to="pseudo-element-before-after">Pseudo Element</Link>
++        </li>
++        <li>
++          <Link to="efeito-matriz">Efeito Matriz</Link>
++        </li>
++        <li>
++          <Link to="degrade">Degradê</Link>
++        </li>
++        <li>
++          <Link to="transforms">Transform</Link>
++        </li>
++        <li>
++          <Link to="transitions">Transition</Link>
++        </li>
++        <li>
++          <Link to="animations">Animations</Link>
++        </li>
++      </NavbarLinkContainerUl>
++
++      <div style={{ margin: "10px 0 10px 0" }}></div>
++
++    </Container>
++  )
+ }
+ 
+ export default Left
+\ No newline at end of file
+diff --git a/src/ui/components/youtube/index.jsx b/src/ui/components/youtube/index.jsx
+deleted file mode 100644
+index 1ddc0b8..0000000
+--- a/src/ui/components/youtube/index.jsx
++++ /dev/null
+@@ -1,1093 +0,0 @@
+-import React, { useState, useEffect, useRef } from "react";
+-
+-// styles
+-import {
+-  VideoContainer,
+-  Video,
+-  ControlsContainer,
+-  ProgressControls,
+-  ProgressBar,
+-  Progress,
+-  WatchedProgress,
+-  WatchedBar,
+-  Playhead,
+-  Controls,
+-  SettingsMenu,
+-  LeftSideControls,
+-  VolumeControl,
+-  RightSideControls,
+-  TimeDisplay,
+-  VolumePanel,
+-  Container,
+-  Primary,
+-  Secondary,
+-  SecondaryContainerVideo,
+-  Circle,
+-  Triangulo,
+-  Spinner,
+-  MessageBox,
+-} from "./styles";
+-
+-// img 
+-import svgPlay from "../../../assets/svg/play.svg"
+-import svgPause from "../../../assets/svg/pause.svg"
+-import svgNext from "../../../assets/svg/next.svg"
+-import svgVolume from "../../../assets/svg/volume.svg"
+-import svgHalfVolume from "../../../assets/svg/half-volume.svg"
+-import svgMute from "../../../assets/svg/mute.svg"
+-import svgSettings from "../../../assets/svg/settings.svg"
+-import svgMaximize from "../../../assets/svg/maximize-screen.svg"
+-import svgMinimize from "../../../assets/svg/minimize-screen.svg"
+-
+-import { playlistMock, rocketSeatMock } from "../../../data/mock"
+-
+-// ##################### feature (Time Update) #####################
+-// ajustando o controle do progresso do vídeo manualmente
+-
+-const useTimeUpdate = (togglePlay, setTogglePlay, videoRef) => {
+-  const [watchedBar, setWatchedBar] = useState({ percentage: 0 });
+-  const [videoCurrentTime, setVideoCurrentTime] = useState(0);
+-
+-  // Estados de tempo atual do vídeo
+-  const [currentHours, setCurrentHours] = useState(0);
+-  const [currentMinutes, setCurrentMinutes] = useState(0);
+-  const [currentSeconds, setCurrentSeconds] = useState(0);
+-
+-  // Estados de duração do vídeo
+-  const [durationHours, setDurationHours] = useState(0);
+-  const [durationMinutes, setDurationMinutes] = useState(0);
+-  const [durationSeconds, setDurationSeconds] = useState(0);
+-
+-  // Estado para controlar se o usuário está arrastando a barra de progresso
+-  const [isDragging, setIsDragging] = useState(false);
+-
+-  useEffect(() => {
+-    const handleLoadedMetadata = () => {
+-      const duration = videoRef.current.duration;
+-
+-      // Configura a duração do vídeo em horas, minutos e segundos
+-      setDurationHours(Math.floor(duration / 3600));
+-      setDurationMinutes(Math.floor((duration / 60) % 60));
+-      setDurationSeconds(Math.floor(duration % 60));
+-
+-    };
+-
+-    const handleVideoEnd = () => {
+-      // Atualiza o estado de togglePlay para exibir o botão de play ao final do vídeo
+-      setTogglePlay({ playVideo: false });
+-      setWatchedBar({ percentage: 100 });
+-      setVideoCurrentTime(videoRef.current.duration); // Ajusta o tempo atual para o final do vídeo
+-    };
+-
+-    if (videoRef.current) {
+-      videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+-      videoRef.current.addEventListener('ended', handleVideoEnd);
+-    }
+-
+-    return () => {
+-      if (videoRef.current) {
+-        videoRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+-        videoRef.current.removeEventListener('ended', handleVideoEnd);
+-      }
+-    };
+-  }, [videoRef, setTogglePlay]);
+-
+-  const handlePercentualUpdate = () => {
+-    if (isDragging || !videoRef.current) return;
+-
+-    const currentTime = videoRef.current.currentTime;
+-    const duration = videoRef.current.duration;
+-
+-    setCurrentHours(Math.floor(currentTime / 3600));
+-    setCurrentMinutes(Math.floor((currentTime / 60) % 60));
+-    setCurrentSeconds(Math.floor(currentTime % 60));
+-
+-    setVideoCurrentTime(currentTime);
+-    setWatchedBar({ percentage: (100 * currentTime) / duration });
+-  };
+-
+-  useEffect(() => {
+-    if (videoRef.current && !isDragging) {
+-      videoRef.current.addEventListener('timeupdate', handlePercentualUpdate);
+-    }
+-
+-    return () => {
+-      if (videoRef.current) {
+-        videoRef.current.removeEventListener('timeupdate', handlePercentualUpdate);
+-      }
+-    };
+-  }, [videoRef, isDragging]);
+-
+-  const startDragging = (event) => {
+-    event.preventDefault(); // Impede que outros componentes sejam selecionados
+-
+-    setIsDragging(true);
+-    handleDrag(event);
+-    window.addEventListener('mousemove', handleDrag);
+-    window.addEventListener('mouseup', stopDragging);
+-
+-    if (videoRef.current) {
+-      videoRef.current.playbackRate = 0; // Congela o progresso visual
+-    }
+-  };
+-
+-  const stopDragging = (event) => {
+-    handleDrag(event);
+-    setIsDragging(false);
+-
+-    if (togglePlay.playVideo) {
+-      videoRef.current.playbackRate = 1;
+-    }
+-
+-    window.removeEventListener('mousemove', handleDrag);
+-    window.removeEventListener('mouseup', stopDragging);
+-  };
+-
+-  const handleDrag = (event) => {
+-    if (!videoRef.current) return;
+-
+-    const bar = document.querySelector(".progress-bar");
+-    const rect = bar.getBoundingClientRect();
+-    const pos = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+-    const newTime = pos * videoRef.current.duration;
+-
+-    videoRef.current.currentTime = newTime;
+-    setWatchedBar({ percentage: pos * 100 });
+-  };
+-
+-  return {
+-    watchedBar,
+-    setWatchedBar,
+-    currentHours,
+-    currentMinutes,
+-    currentSeconds,
+-    durationHours,
+-    durationMinutes,
+-    durationSeconds,
+-    videoCurrentTime,
+-    isDragging,
+-    startDragging,
+-    stopDragging,
+-    setIsDragging,
+-    handlePercentualUpdate,
+-  };
+-};
+-
+-
+-// 2.0
+-
+-// const useTimeUpdate = (togglePlay, videoRef) => {
+-//   const [watchedBar, setWatchedBar] = useState({ percentage: 0 });
+-//   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
+-
+-//   // Estados de tempo atual do vídeo
+-//   const [currentHours, setCurrentHours] = useState(0);
+-//   const [currentMinutes, setCurrentMinutes] = useState(0);
+-//   const [currentSeconds, setCurrentSeconds] = useState(0);
+-
+-//   // Estados de duração do vídeo
+-//   const [durationHours, setDurationHours] = useState(0);
+-//   const [durationMinutes, setDurationMinutes] = useState(0);
+-//   const [durationSeconds, setDurationSeconds] = useState(0);
+-
+-//   // Estado para controlar se o usuário está arrastando a barra de progresso
+-//   const [isDragging, setIsDragging] = useState(false);
+-//   const [wasPlaying, setWasPlaying] = useState(false); // Armazena o estado do vídeo (tocando/pausado)
+-
+-//   useEffect(() => {
+-//     const handleLoadedMetadata = () => {
+-//       const duration = videoRef.current.duration;
+-
+-//       // Configura a duração do vídeo em horas, minutos e segundos
+-//       setDurationHours(Math.floor(duration / 3600));
+-//       setDurationMinutes(Math.floor((duration / 60) % 60));
+-//       setDurationSeconds(Math.floor(duration % 60));
+-//     };
+-
+-//     if (videoRef.current) {
+-//       videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+-//     }
+-
+-//     return () => {
+-//       if (videoRef.current) {
+-//         videoRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+-//       }
+-//     };
+-//   }, [videoRef]);
+-
+-//   const handlePercentualUpdate = () => {
+-//     // Só atualiza o progresso se não estiver arrastando
+-//     if (isDragging || !videoRef.current) return;
+-
+-//     const currentTime = videoRef.current.currentTime;
+-//     const duration = videoRef.current.duration;
+-
+-//     // Atualiza os valores de horas, minutos e segundos do tempo atual do vídeo
+-//     setCurrentHours(Math.floor(currentTime / 3600));
+-//     setCurrentMinutes(Math.floor((currentTime / 60) % 60));
+-//     setCurrentSeconds(Math.floor(currentTime % 60));
+-
+-//     setVideoCurrentTime(currentTime);
+-
+-//     // Atualiza a barra de progresso visual
+-//     setWatchedBar({ percentage: Math.floor((100 / duration) * currentTime) });
+-//   };
+-
+-//   // Ativa o listener 'timeupdate' somente quando não está arrastando a barra de progresso
+-//   useEffect(() => {
+-//     if (videoRef.current && !isDragging) {
+-//       videoRef.current.addEventListener('timeupdate', handlePercentualUpdate);
+-//     }
+-
+-//     return () => {
+-//       if (videoRef.current) {
+-//         videoRef.current.removeEventListener('timeupdate', handlePercentualUpdate);
+-//       }
+-//     };
+-//   }, [videoRef, isDragging]);
+-
+-//   // ##################### feature (Progress Bar) #####################
+-//   const startDragging = (event) => {
+-//     setIsDragging(true);
+-//     handleDrag(event); // Atualiza imediatamente ao clicar
+-//     window.addEventListener('mousemove', handleDrag);
+-//     window.addEventListener('mouseup', stopDragging);
+-
+-//     if (videoRef.current) {
+-//       videoRef.current.playbackRate = 0; // Congela o progresso visual
+-//     }
+-//   };
+-
+-//   const stopDragging = (event) => {
+-//     handleDrag(event); // Atualiza o tempo do vídeo ao soltar
+-//     setIsDragging(false);
+-
+-//     if (togglePlay.playVideo) {
+-//       videoRef.current.playbackRate = 1
+-//     }
+-
+-//     window.removeEventListener('mousemove', handleDrag);
+-//     window.removeEventListener('mouseup', stopDragging);
+-//   };
+-
+-//   const handleDrag = (event) => {
+-//     if (!videoRef.current) return;
+-
+-//     const bar = document.querySelector(".progress-bar");
+-//     const rect = bar.getBoundingClientRect();
+-//     const pos = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1); // Calcula a posição do mouse na barra
+-//     const newTime = pos * videoRef.current.duration;
+-
+-//     // Atualiza o tempo do vídeo conforme o arraste
+-//     videoRef.current.currentTime = newTime;
+-
+-//     // Atualiza a barra visual
+-//     setWatchedBar({ percentage: pos * 100 });
+-//   };
+-
+-//   return {
+-//     watchedBar,
+-//     setWatchedBar,
+-//     currentHours,
+-//     currentMinutes,
+-//     currentSeconds,
+-//     durationHours,
+-//     durationMinutes,
+-//     durationSeconds,
+-//     videoCurrentTime,
+-//     isDragging,
+-//     startDragging,
+-//     stopDragging,
+-//     setIsDragging,
+-//     handlePercentualUpdate,
+-//   };
+-// };
+-
+-// 1.0
+-
+-// const useTimeUpdate = (videoRef) => {
+-//   const [watchedBar, setWatchedBar] = useState({ percentage: 0 });
+-//   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
+-
+-//   // Estados de tempo atual do vídeo
+-//   const [currentHours, setCurrentHours] = useState(0);
+-//   const [currentMinutes, setCurrentMinutes] = useState(0);
+-//   const [currentSeconds, setCurrentSeconds] = useState(0);
+-
+-//   // Estados de duração do vídeo
+-//   const [durationHours, setDurationHours] = useState(0);
+-//   const [durationMinutes, setDurationMinutes] = useState(0);
+-//   const [durationSeconds, setDurationSeconds] = useState(0);
+-
+-//   // Estado para controlar se o usuário está arrastando a barra de progresso
+-//   const [isDragging, setIsDragging] = useState(false);
+-//   const [wasPlaying, setWasPlaying] = useState(false); // Armazena o estado do vídeo (tocando/pausado)
+-
+-//   useEffect(() => {
+-//     const handleLoadedMetadata = () => {
+-//       const duration = videoRef.current.duration;
+-
+-//       // Configura a duração do vídeo em horas, minutos e segundos
+-//       setDurationHours(Math.floor(duration / 3600));
+-//       setDurationMinutes(Math.floor((duration / 60) % 60));
+-//       setDurationSeconds(Math.floor(duration % 60));
+-//     };
+-
+-//     if (videoRef.current) {
+-//       videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+-//     }
+-
+-//     return () => {
+-//       if (videoRef.current) {
+-//         videoRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+-//       }
+-//     };
+-//   }, [videoRef]);
+-
+-//   const handlePercentualUpdate = () => {
+-//     // Só atualiza o progresso se não estiver arrastando
+-//     if (isDragging || !videoRef.current) return;
+-
+-//     const currentTime = videoRef.current.currentTime;
+-//     const duration = videoRef.current.duration;
+-
+-//     // Atualiza os valores de horas, minutos e segundos do tempo atual do vídeo
+-//     setCurrentHours(Math.floor(currentTime / 3600));
+-//     setCurrentMinutes(Math.floor((currentTime / 60) % 60));
+-//     setCurrentSeconds(Math.floor(currentTime % 60));
+-
+-//     setVideoCurrentTime(currentTime);
+-
+-//     // Atualiza a barra de progresso visual
+-//     setWatchedBar({ percentage: Math.floor((100 / duration) * currentTime) });
+-//   };
+-
+-//   // Ativa o listener 'timeupdate' somente quando não está arrastando a barra de progresso
+-//   useEffect(() => {
+-//     if (videoRef.current && !isDragging) {
+-//       videoRef.current.addEventListener('timeupdate', handlePercentualUpdate);
+-//     }
+-
+-//     return () => {
+-//       if (videoRef.current) {
+-//         videoRef.current.removeEventListener('timeupdate', handlePercentualUpdate);
+-//       }
+-//     };
+-//   }, [videoRef, isDragging]);
+-
+-//   // ##################### feature (Progress Bar) #####################
+-//   const startDragging = (event) => {
+-//     setIsDragging(true);
+-//     handleDrag(event); // Atualiza imediatamente ao clicar
+-//     window.addEventListener('mousemove', handleDrag);
+-//     window.addEventListener('mouseup', stopDragging);
+-
+-//     if (videoRef.current) {
+-//       setWasPlaying(!videoRef.current.paused);
+-//       videoRef.current.playbackRate = 0; // Interrompe o progresso sem pausar
+-//     }
+-//   };
+-
+-//   const stopDragging = (event) => {
+-//     handleDrag(event); // Atualiza o tempo do vídeo ao soltar
+-//     setIsDragging(false);
+-
+-//     if (videoRef.current) {
+-//       videoRef.current.playbackRate = 1; // Restaura a taxa de reprodução normal
+-//     }
+-
+-//     window.removeEventListener('mousemove', handleDrag);
+-//     window.removeEventListener('mouseup', stopDragging);
+-//   };
+-
+-
+-//   const handleDrag = (event) => {
+-//     if (!videoRef.current) return;
+-
+-//     const bar = document.querySelector(".progress-bar");
+-//     const rect = bar.getBoundingClientRect();
+-//     const pos = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1); // Calcula a posição do mouse na barra
+-//     const newTime = pos * videoRef.current.duration;
+-
+-//     // Atualiza o tempo do vídeo conforme o arraste
+-//     videoRef.current.currentTime = newTime;
+-
+-//     // Atualiza a barra visual
+-//     setWatchedBar({ percentage: pos * 100 });
+-//   };
+-
+-//   return {
+-//     watchedBar,
+-//     setWatchedBar,
+-//     currentHours,
+-//     currentMinutes,
+-//     currentSeconds,
+-//     durationHours,
+-//     durationMinutes,
+-//     durationSeconds,
+-//     videoCurrentTime,
+-//     isDragging,
+-//     startDragging,
+-//     stopDragging,
+-//     setIsDragging,
+-//     handlePercentualUpdate,
+-//   };
+-// };
+-
+-// ##################### feature (Progress Bar) #####################
+-const useProgress = (videoRef, setWatchedBar, setIsDragging) => {
+-  const [wasPlaying, setWasPlaying] = useState(false);
+-
+-  // Função para iniciar o arraste
+-  const startDragging = (event) => {
+-    setIsDragging(true); // Agora está arrastando
+-    handleDrag(event); // Atualiza imediatamente ao clicar
+-    window.addEventListener('mousemove', handleDrag); // Evento para mover
+-    window.addEventListener('mouseup', stopDragging); // Evento para soltar
+-
+-    if (videoRef.current) {
+-      setWasPlaying(!videoRef.current.paused); // Armazena se o vídeo estava tocando
+-      videoRef.current.pause(); // Pausa ao começar a arrastar
+-    }
+-  };
+-
+-  // Função para parar o arraste
+-  const stopDragging = (event) => {
+-    handleDrag(event); // Atualiza o tempo final
+-
+-    setIsDragging(false); // Agora não está mais arrastando
+-
+-    // Retoma o estado anterior do vídeo
+-    if (wasPlaying && videoRef.current) {
+-      videoRef.current.play();
+-    }
+-
+-    window.removeEventListener('mousemove', handleDrag); // Remove os listeners
+-    window.removeEventListener('mouseup', stopDragging);
+-  };
+-
+-  // Função para arrastar e atualizar a barra de progresso
+-  const handleDrag = (event) => {
+-    if (!videoRef.current) return;
+-
+-    const bar = document.querySelector(".progress-bar");
+-    const rect = bar.getBoundingClientRect();
+-    const pos = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+-    const newTime = pos * videoRef.current.duration;
+-
+-    // Atualiza o tempo do vídeo
+-    videoRef.current.currentTime = newTime;
+-
+-    // Atualiza a barra visual
+-    setWatchedBar({ percentage: pos * 100 });
+-  };
+-
+-  return { startDragging, stopDragging };
+-};
+-
+-// ##################### feature (player paused) #####################
+-const usePlayPaused = (videoRef) => {
+-  const [togglePlay, setTogglePlay] = useState({ playVideo: true }) // state
+-  const [opacity, setOpacity] = useState(true)
+-  const [stateActive, setStateActive] = useState()
+-  const [endVideoPlay, setEndVideoPlay] = useState(false)
+-  console.log(togglePlay.playVideo, "fora de useEffect togglePlay.playVideo")
+-
+-  useEffect(() => {
+-    // const video = document.querySelector(".video")
+-    if (videoRef.current) {
+-      togglePlay.playVideo ? videoRef.current.play() : videoRef.current.pause()
+-    }
+-    console.log(togglePlay.playVideo, "dentro de useEffect")
+-
+-    if (togglePlay.playVideo) {
+-      setStateActive(true)
+-      setOpacity(true)
+-      const timer = setTimeout(() => setOpacity(false), 4000);
+-      return () => clearTimeout(timer); // limpar timeout quando o componente for desmontado
+-    } else {
+-      setOpacity(null)
+-      setStateActive(false)
+-    }
+-
+-  }, [togglePlay.playVideo])
+-
+-  const play = () => {
+-    if (videoRef.current.playbackRate === 0) {
+-      videoRef.current.playbackRate = 1
+-    }
+-
+-    setEndVideoPlay(false)
+-
+-    // função para alternar em play e pause useEffect tem como dependência togglePlay.playVideo
+-    setTogglePlay({ ...togglePlay, playVideo: !togglePlay.playVideo })
+-
+-    // essa condição está aqui evita quando o video terminar "chegar ao final" e o usuario clicar um video da lista que fica na lateral o video ele inciiar
+-    if (endVideoPlay) {
+-      return videoRef.current.play()
+-    }
+-  }
+-  return { stateActive, opacity, setOpacity, setStateActive, togglePlay, setTogglePlay, play, setEndVideoPlay }
+-}
+-
+-//##################### feature (next-video) #####################
+-const useNextVideoPlayList = (playlist, togglePlay, setTogglePlay, setPlayList, stateActive, setStateActive, videoRef) => {
+-  const [playlistMain, setPlayListMain] = useState();
+-  const [count, setCount] = useState(1);
+-
+-  const combinedPlaylist = [...playlistMock, ...rocketSeatMock];
+-  console.log(combinedPlaylist);
+-
+-  const handleCanPlay = () => {
+-    if (togglePlay.playVideo && videoRef.current) {
+-      videoRef.current.play();
+-    }
+-  };
+-
+-  useEffect(() => {
+-    if (videoRef.current) {
+-      const currentVideo = combinedPlaylist.find(el => el.id === count);
+-      if (currentVideo) {
+-        setPlayListMain(videoRef.current.src = (playlist.length === 0 ? currentVideo.video : playlist));
+-        videoRef.current.addEventListener('canplay', handleCanPlay);
+-      }
+-      return () => {
+-        videoRef.current.removeEventListener('canplay', handleCanPlay);
+-      };
+-    }
+-  }, [count, playlist]);
+-
+-  const nextVideo = () => {
+-    setCount(prev => {
+-      const nextCount = (prev % combinedPlaylist.length) + 1; // Navega pela lista combinada
+-      return nextCount > combinedPlaylist.length ? 1 : nextCount; // Reseta para 1 após o último vídeo
+-    });
+-
+-    setPlayList([]);
+-
+-    if (!togglePlay.playVideo) {
+-      setTogglePlay({ ...togglePlay, playVideo: true });
+-    }
+-
+-    if (stateActive) {
+-      setStateActive(false);
+-    }
+-  }
+-
+-  return { playlistMain, nextVideo };
+-};
+-
+-// 1.0
+-
+-// const useNextVideoPlayList = (playlist, togglePlay, setTogglePlay, setPlayList, stateActive, setStateActive, videoRef) => {
+-//   const [playlistMain, setPlayListMain] = useState()
+-//   const [count, setCount] = useState(1)
+-//   const [videoReady, setVideoReady] = useState(false);
+-
+-//   const handleCanPlay = () => {
+-//     if (togglePlay.playVideo) {
+-//       videoRef.current.play();
+-//     }
+-//   };
+-
+-//   // iniciar a play list com um video
+-//   useEffect(() => {
+-//     if (videoRef.current) {
+-//       playlistMock.map((el, i, arr) => {
+-//         if (count >= arr.length) setCount(1);
+-//         if (el.id === count) {
+-//           setPlayListMain(videoRef.current.src = (playlist.length === 0 ? el.video : playlist));
+-//           const videoElement = videoRef.current;
+-//           if (videoElement) {
+-//             videoElement.addEventListener('canplay', handleCanPlay);
+-//             return () => {
+-//               videoElement.removeEventListener('canplay', handleCanPlay);
+-//             };
+-//           }
+-//           // videoRef.current.play();
+-//         }
+-//       });
+-//     }
+-//   }, [count, playlist]);
+-
+-//   // função
+-//   const nextVideo = () => {
+-//     // const video = document.querySelector(".video")
+-//     setCount(prev => (prev + 1) % playlistMock.length); // Correção do ciclo de vídeos
+-//     setPlayList([])
+-//     setCount(prev => prev + 1)
+-//     if (togglePlay.playVideo === false) setTogglePlay({ ...togglePlay, playVideo: true })
+-//     if (stateActive === true) setStateActive(false)
+-
+-//     playlistMock.map((el) => {
+-//       if (el.id === count) setPlayListMain(videoRef.current.innerHTML = el.video)
+-//     })
+-//   }
+-//   return { playlistMain, nextVideo }
+-// }
+-
+-// ##################### feature (volume mute) #####################
+-const useVolume = (inputRangeRef, videoRef) => {
+-  const [toggleVolume, setToggleVolume] = useState(false); // estado para alternar entre som ativo/mudo
+-  const [currentVolume, setCurrentVolume] = useState(1);  // estado para volume atual
+-  const volumeRef = useRef(null); // referência para o input range de volume
+-
+-  // Função para alternar entre mudo e som alto
+-  const MuteVolume = () => {
+-    if (videoRef.current.volume === 0 || videoRef.current.muted === true) {  // Verifica se o vídeo está mudo
+-      videoRef.current.muted = false;
+-      // videoRef.current.volume = currentVolume || 1; // Evita que o volume seja 0, define volume padrão se currentVolume for 0
+-      videoRef.current.volume = currentVolume > 0 ? currentVolume : 1; // Define um volume padrão se estiver 0
+-      setToggleVolume(true);
+-      inputRangeRef.current.value = videoRef.current.volume; // Atualiza o range com o volume atual
+-    } else {
+-      setCurrentVolume(videoRef.current.volume); // Salva o volume atual ANTES de mutar
+-      videoRef.current.muted = true;
+-      setToggleVolume(false);
+-      inputRangeRef.current.value = 0; // Define o range para 0 ao silenciar
+-    }
+-  };
+-
+-  // Função para ajustar o volume através do range
+-  const rangeVolume = (e) => {
+-    // console.log(videoRef.current.muted = false)
+-    const volume = e.target.value;
+-    setCurrentVolume(volume); // Atualiza currentVolume SEMPRE
+-    videoRef.current.volume = volume; // Atualiza o volume do vídeo
+-
+-    // if (videoRef.current.muted) {
+-    //   setToggleVolume(true)
+-    // }
+-
+-    // Controla o estado do som apenas com base no volume
+-    if (volume > 0) {
+-      setToggleVolume(true);
+-      videoRef.current.muted = false; // Se houver volume, garante que o vídeo não está mudo
+-    } else {
+-      setToggleVolume(false);
+-      videoRef.current.muted = true; // Se o volume for 0, define como mudo
+-    }
+-  };
+-
+-  return { toggleVolume, currentVolume, MuteVolume, rangeVolume };
+-};
+-
+-// ##################### feature (width volume) #####################
+-const useWidthVolume = () => {
+-  const [width, setWidth] = useState(0)
+-
+-  const mouseEnter = () => {
+-    setWidth(51)
+-  }
+-  const mouseLeave = () => {
+-    setWidth(0)
+-  }
+-  return { width, mouseEnter, mouseLeave }
+-}
+-
+-//##################### feature (display settings) #####################
+-const useDisplaySettings = () => {
+-  const [settings, setSettings] = useState(false)
+-
+-  return { settings, setSettings }
+-}
+-
+-// ##################### feature (full screen) #####################
+-const useFullScreen = () => {
+-
+-  const toggleFullScreen = () => {
+-    const videoContainer = document.querySelector(".video-Container")
+-
+-    if (!document.fullscreenElement) {
+-      // refVideoContainer.current.requestFullscreen()
+-      videoContainer.requestFullscreen()
+-    } else {
+-      document.exitFullscreen()
+-    }
+-  }
+-  return { toggleFullScreen }
+-}
+-
+-//##################### feature (Play-List) #####################
+-const usePlaylistSide = (togglePlay, setTogglePlay, stateActive, setStateActive) => {
+-  const [playlist, setPlayList] = useState([])
+-
+-  const Handleplaylist = (event, index) => {
+-    setStateActive(false)
+-    window.scrollTo({ top: 0, behavior: 'instant' })
+-
+-    setTogglePlay({ ...togglePlay, playVideo: true })
+-
+-    // Verifica se o elemento clicado é <video> ou qualquer área de `SecondaryContainerVideo`
+-    const videoElement = event.target.tagName === 'VIDEO' ? event.target : document.getElementById(index);
+-
+-    // Usa o src do vídeo
+-    if (videoElement) {
+-      setPlayList(videoElement.src);
+-    }
+-  }
+-
+-  return { playlist, setPlayList, Handleplaylist }
+-}
+-// const usePlaylistSide = (togglePlay, setTogglePlay, stateActive, setStateActive) => {
+-//   const [playlist, setPlayList] = useState([])
+-
+-//   const Handleplaylist = (event) => {
+-//     setStateActive(false)
+-//     window.scrollTo({ top: 0, behavior: 'instant' })
+-
+-//     setTogglePlay({ ...togglePlay, playVideo: true })
+-//     setPlayList(event.target.src); // Usa o src completo
+-//   }
+-
+-//   return { playlist, setPlayList, Handleplaylist }
+-// }
+-
+-//##################### feature (Play-List) #####################
+-const usePlayList = () => {
+-  const video = document.querySelectorAll('.video-play-list');
+-
+-  const mouseEnterPlayList = (e) => {
+-    for (let i = 0; i < video.length; i++) {
+-      if (video[i].id === e.target.id) {
+-        video[i].play()
+-        // video[i].muted = false
+-      }
+-    }
+-  }
+-  const mouseLeavePlayList = (e) => {
+-    for (let i = 0; i < video.length; i++) {
+-      if (video[i].id === e.target.id) {
+-        video[i].pause()
+-        video[i].currentTime = 0
+-      }
+-    }
+-  }
+-
+-  return { mouseEnterPlayList, mouseLeavePlayList }
+-}
+-
+-// barra de progresso do download
+-const useVideoLoaded = () => {
+-  const vid = document.querySelector('.video');
+-  const canvas = document.getElementById('canvas');
+-
+-  function drawProgress(canvas, buffered, duration) {
+-    const context = canvas.getContext('2d', { antialias: false });
+-    context.fillStyle = 'rgba(192,192,192, 0.4)';
+-    context.clearRect(0, 0, canvas.width, canvas.height);
+-
+-    let loadedPercentage = 0;
+-
+-    if (buffered.length > 0) {
+-      // Obtém o ponto final do último segmento carregado
+-      const lastBufferedEnd = buffered.end(buffered.length - 1);
+-      const progressWidth = (lastBufferedEnd / duration) * canvas.width;
+-      context.fillRect(0, 0, progressWidth, canvas.height);
+-
+-      // Calcula a porcentagem carregada
+-      loadedPercentage = (lastBufferedEnd / duration) * 100;
+-    }
+-
+-    return loadedPercentage;
+-  }
+-
+-  const videoProgress = () => {
+-    const loadedPercentage = drawProgress(canvas, vid.buffered, vid.duration);
+-    return loadedPercentage; // Retorna a porcentagem carregada
+-  }
+-
+-  return { videoProgress };
+-};
+-
+-
+-// const useVideoLoaded = () => {
+-
+-//   const vid = document.querySelector('.video');
+-//   const canvas = document.getElementById('canvas');
+-
+-//   function drawProgress(canvas, buffered, duration) {
+-
+-//     const context = canvas.getContext('2d', { antialias: false });
+-//     context.fillStyle = 'rgba(192,192,192, 0.4)';
+-//     context.globalAlpha = 1
+-
+-//     let width = canvas.width;
+-//     let height = canvas.height;
+-//     if (!width || !height) throw "Canvas's width or height weren't set!";
+-//     context.clearRect(0, 0, width, height); // clear canvas
+-
+-
+-//     for (let i = 0; i < buffered.length; i++) {
+-//       let leadingEdge = buffered.start(i) / duration * width;
+-//       let trailingEdge = buffered.end(i) / duration * width;
+-//       context.fillRect(leadingEdge, 0, trailingEdge - leadingEdge, height)
+-
+-//     }
+-//   }
+-
+-
+-//   const videoProgress = () => {
+-//     drawProgress(canvas, vid.buffered, vid.duration);
+-
+-
+-//   }
+-//   return { videoProgress }
+-
+-// }
+-
+-
+-
+-// component 
+-
+-const useRepeatVideo = (cTime, setStateActive, setEndVideoPlay, play, togglePlay, setTogglePlay, videoRef) => {
+-  const [endVideo, setEndvideo] = useState(false);
+-  const [displayPausePlay, setDisplayPausePlay] = useState(true);
+-  const [videoDuration, setVideoDuration] = useState(0); // Estado para armazenar a duração do vídeo
+-
+-  const repeatPlay = () => {
+-    // Lógica para repetir o vídeo
+-    setTogglePlay({ ...togglePlay, playVideo: true })
+-    videoRef.current.play()
+-    // return play()
+-  };
+-
+-  useEffect(() => {
+-    // Atualiza a duração do vídeo quando o vídeo está carregado
+-    const updateVideoDuration = () => {
+-      setVideoDuration(videoRef.current.duration);
+-    };
+-
+-    // Garante que o evento seja registrado quando o vídeo carregar
+-    videoRef.current.addEventListener('loadedmetadata', updateVideoDuration);
+-
+-    // Limpa o event listener quando o componente for desmontado
+-    return () => {
+-      videoRef.current.removeEventListener('loadedmetadata', updateVideoDuration);
+-    };
+-  }, [videoRef]);
+-
+-  useEffect(() => {
+-    // A função será executada apenas quando cTime mudar
+-    if (Math.floor(cTime) === Math.floor(videoDuration) && videoDuration > 0) {
+-      setEndvideo(true);
+-      setEndVideoPlay(true)
+-      setDisplayPausePlay(false);
+-      setStateActive(false);
+-    } else {
+-      setEndvideo(false);
+-      setDisplayPausePlay(true);
+-    }
+-  }, [cTime, videoDuration, setStateActive]);
+-
+-  return { endVideo, displayPausePlay, repeatPlay, videoDuration };
+-};
+-
+-const useLoading = (videoRef) => {
+-  const [isLoading, setIsLoading] = useState(true);
+-
+-  useEffect(() => {
+-    const video = videoRef.current;
+-
+-    const handleWaiting = () => setIsLoading(true);
+-    const handleCanPlay = () => setIsLoading(false);
+-
+-    if (video) {
+-      video.addEventListener('waiting', handleWaiting);
+-      video.addEventListener('canplay', handleCanPlay);
+-    }
+-
+-    return () => {
+-      if (video) {
+-        video.removeEventListener('waiting', handleWaiting);
+-        video.removeEventListener('canplay', handleCanPlay);
+-      }
+-    };
+-  }, [videoRef]);
+-
+-  return isLoading;
+-};
+-
+-
+-const ComponentVideo = () => {
+-  const videoRef = useRef(null)
+-  const inputRangeRef = useRef(null)
+-  const { stateActive, setStateActive, opacity, setOpacity, togglePlay, setTogglePlay, play, setEndVideoPlay } = usePlayPaused(videoRef)
+-  const { toggleVolume, currentVolume, MuteVolume, rangeVolume } = useVolume(inputRangeRef, videoRef)
+-  const { toggleFullScreen } = useFullScreen()
+-  const { videoProgress } = useVideoLoaded()
+-  const { watchedBar, setWatchedBar, currentHours, currentMinutes, currentSeconds, durationHours, durationMinutes, durationSeconds, videoCurrentTime, isDragging, startDragging, stopDragging, setIsDragging, handlePercentualUpdate } = useTimeUpdate(togglePlay, setTogglePlay, videoRef)
+-  useProgress(videoRef, setWatchedBar, setIsDragging)
+-  const { width, mouseEnter, mouseLeave } = useWidthVolume()
+-  const { settings, setSettings } = useDisplaySettings()
+-  const { playlist, setPlayList, Handleplaylist } = usePlaylistSide(togglePlay, setTogglePlay, stateActive, setStateActive)
+-  const { playlistMain, nextVideo } = useNextVideoPlayList(playlist, togglePlay, setTogglePlay, setPlayList, stateActive, setStateActive, videoRef)
+-  const { endVideo, displayPausePlay, repeatPlay } = useRepeatVideo(videoCurrentTime, setStateActive, setEndVideoPlay, play, togglePlay, setTogglePlay, videoRef)
+-  const { mouseEnterPlayList, mouseLeavePlayList } = usePlayList()
+-  const isLoading = useLoading(videoRef); // Use the hook to get the loading state
+-
+-
+-
+-  // Chame uma função ao mover o ponteiro do mouse sobre um elemento <div>:
+-  const mouseMove = () => {
+-    console.log(opacity, "mouseMove")
+-    if (opacity === false) {
+-      setOpacity(true)
+-      setTimeout(() => setOpacity(false), 4000)
+-    }
+-  }
+-  // Chame uma função ao mover o ponteiro do mouse sobre uma imagem ou elemento:
+-  const mouseEnterFN = () => {
+-    setStateActive(false)
+-  }
+-  // Chame uma função ao mover o ponteiro do mouse para fora de uma imagem ou elemento:
+-  const mouseLeaveFN = () => {
+-    if (togglePlay.playVideo) setStateActive(true)
+-  }
+-
+-
+-  return (
+-    <>
+-      <VideoContainer className="video-Container" onClick={() => settings === true ? setSettings(false) : undefined}>
+-        {isLoading && (
+-          <Spinner>
+-            <div className="spinner"></div>
+-          </Spinner>
+-        )}
+-
+-
+-        <Video ref={videoRef} muted onMouseMove={() => mouseMove()} opacity={opacity} onProgress={() => videoProgress()} onClick={() => play()} src={playlistMain} className={`video`} controlsList="nodownload" preload="auto" type="video/mp4" />
+-
+-        <ControlsContainer onMouseOut={() => mouseLeaveFN()} onMouseOver={(e) => mouseEnterFN(e)} togglePlay={togglePlay.playVideo} className={`controlsContainer ${stateActive === true ? "state" : ""}`}>
+-          <ProgressControls>
+-            <ProgressBar
+-              className="progress-bar"
+-              onMouseDown={startDragging} // Inicia o arraste ao clicar e segurar em qualquer lugar da barra
+-
+-            // onTouchStart={startDragging}
+-            // onTouchMove={handleDrag}
+-            // onTouchEnd={stopDragging}
+-            >
+-              <canvas id="canvas" style={{ width: "100%", height: "100%" }}></canvas>
+-              <Progress className="progress">
+-                <WatchedProgress>
+-                  <WatchedBar className="watched-bar" watchedBar={watchedBar}></WatchedBar>
+-                  <Playhead className="playhead" watchedBar={watchedBar}></Playhead>
+-                </WatchedProgress>
+-              </Progress>
+-            </ProgressBar>
+-          </ProgressControls>
+-
+-          <Controls className="no-select" draggable="false" togglePlay={togglePlay}>
+-            <LeftSideControls onMouseLeave={() => mouseLeave()} toggleVolume={toggleVolume}>
+-
+-              {displayPausePlay ? (
+-                <div className="play-pause-btn btn no-select" onClick={() => play()}>
+-                  {togglePlay.playVideo ? (
+-                    <img className="pause" src={svgPause} draggable="false" alt="" width="20px" />
+-                  ) : (
+-                    <img className="play" src={svgPlay} alt="" width="20px" />
+-                  )}
+-                </div>
+-              ) : (
+-                <div className="no-select" onClick={() => repeatPlay()} style={{ display: "flex", justifyContent: "center", width: "48px" }}>
+-                  <Circle endVideo={endVideo}>
+-                    <Triangulo />
+-                  </Circle>
+-                </div>
+-              )
+-              }
+-
+-              <div className="next-video-btn btn no-select" onClick={() => nextVideo()}>
+-                <img draggable="false" src={svgNext} alt="" width="15px" />
+-              </div>
+-
+-              <div style={{ display: "flex" }}>
+-                <VolumeControl className="volume-control btn no-select" onClick={() => MuteVolume()} onMouseEnter={() => mouseEnter()}>
+-                  <div className="volume-btn">
+-                    <img className="full-volume" draggable="false" alt="" width="20px" src={currentVolume <= 0.5 ? svgHalfVolume : svgVolume} />
+-                    <img className="muted" src={svgMute} draggable="false" alt="" width="20px" />
+-                  </div>
+-                </VolumeControl>
+-                <VolumePanel width={width}>
+-                  <div className="input-div">
+-                    <div className="volume-input-div">
+-                      <input ref={inputRangeRef} onChange={(e) => rangeVolume(e)} type="range" max="1" min="0" step="0.1" />
+-                      <div className="volume-progress"></div>
+-                    </div>
+-                  </div>
+-                </VolumePanel>
+-              </div>
+-
+-              <TimeDisplay>
+-                {/* current time */}
+-                <span className="hours">{currentHours ? currentHours + ":" : ""}</span>
+-                <span className="minutes">{currentMinutes >= 10 ? currentMinutes : "0" + currentMinutes}</span>
+-                <span className="time-separator">{":"}</span>
+-                <span className="seconds">{currentSeconds >= 10 ? currentSeconds : "0" + currentSeconds}</span>
+-                <span className="bar-separator">{"/"}</span>
+-                {/* video duration  */}
+-                <span className="hours">{durationHours ? durationHours + ":" : ""}</span>
+-                <span className="minutes">{durationMinutes}</span>
+-                <span className="time-separator">{":"}</span>
+-                <span className="seconds">{durationSeconds >= 10 ? durationSeconds : "0" + durationSeconds}</span>
+-              </TimeDisplay>
+-            </LeftSideControls>
+-
+-            <RightSideControls className="no-select">
+-              <div className="settings btn no-select" onClick={() => setSettings(!settings)}>
+-                <img src={svgSettings} draggable="false" alt="" width="18px" height="18px" />
+-              </div>
+-              <div className="full-screen-btn btn no-select" onClick={() => toggleFullScreen()}>
+-                <img className="maximize no-select" draggable="false" src={svgMaximize} alt="" width="18px" height="18" />
+-                {/* <img className="minimize no-select" draggable="false" src={svgMinimize} alt="" width="10px" /> */}
+-              </div>
+-            </RightSideControls>
+-
+-            <SettingsMenu className="settings-menu no-select" settings={settings}>
+-              <div className="settings">
+-                <div className="playback-speed" target="settings">
+-                  <span>Speed</span>
+-                </div>
+-                <div className="subtitles" target="settings">
+-                  <span>subtitle/cc</span>
+-                </div>
+-                <div className="quality" target="settings">
+-                  <span>quality</span>
+-                </div>
+-              </div>
+-            </SettingsMenu>
+-          </Controls>
+-        </ControlsContainer>
+-
+-      </VideoContainer>
+-
+-      <Container>
+-        <MessageBox>
+-          <coment>
+-            <p>aqui fica caixa de comentários</p>
+-          </coment>
+-        </MessageBox>
+-        <Secondary>
+-          {rocketSeatMock.map((el, index, arr) => {
+-            return (
+-              <React.Fragment key={el.id}>
+-                {/* solução para selecionar um item no map com ref é >>> https://stackoverflow.com/questions/63059962/reactjs-map-with-a-ref-to-each-component */}
+-                <SecondaryContainerVideo onClick={(event) => Handleplaylist(event, index)}>
+-                  <div className="video-container">
+-                    <video className="video-play-list" id={index} onMouseEnter={(event) => mouseEnterPlayList(event)} onMouseLeave={(event) => mouseLeavePlayList(event)} type="video/mp4" src={el.video} />
+-                  </div>
+-                  <div className="title">
+-                    <p>{el.title}</p>
+-                  </div>
+-                </SecondaryContainerVideo>
+-              </React.Fragment>
+-            )
+-          })}
+-        </Secondary>
+-      </Container>
+-    </>
+-  )
+-}
+-
+-export default ComponentVideo
+\ No newline at end of file
+diff --git a/src/ui/components/youtube/styles.js b/src/ui/components/youtube/styles.js
+deleted file mode 100644
+index 0b96a51..0000000
+--- a/src/ui/components/youtube/styles.js
++++ /dev/null
+@@ -1,459 +0,0 @@
+-import styled from "styled-components";
+-
+-export const VideoContainer = styled.div`
+-
+-    position: relative;
+-    width: 100%;
+-    height: 80vh;
+-    background: #000000;
+-    display: flex;
+-    flex-direction: column;
+-    align-items: center;
+-    /* justify-content: center; */
+-`;
+-
+-export const Video = styled.video`
+-    width: 100%;
+-    height: 100%;
+-
+-    & + .state {
+-        opacity: ${({ opacity }) => opacity === true ? 1 : 0};
+-    }
+-`;
+-
+-// ---------------------------------
+-
+-export const ControlsContainer = styled.div`
+-
+-    width: 95vw;
+-    position: absolute;
+-    bottom: 0;
+-    margin: auto;
+-    cursor: pointer;
+-    transition-duration: 0.3s;
+-    user-select: none; // Evita seleção do conteúdo
+-    touch-action: manipulation; // Melhora interação em dispositivos móveis
+-`;
+-// ---------------------------------
+-
+-export const ProgressControls = styled.div`
+-
+-    width: 100%;
+-    height: 6px;
+-    display: flex;
+-    align-items: center;
+-
+-    &:hover > .progress-bar {
+-        height: 5px;
+-    }
+-
+-    &:hover > .progress-bar .progress .playhead {
+-    height: 15px;
+-    width: 15px;
+-    }
+-`;
+-
+-export const ProgressBar = styled.div`
+-    position: relative;
+-    width: 100%;
+-    height: 3.5px;
+-    background: #424242;
+-    display: flex;
+-    align-items: center;
+-`;
+-
+-export const Progress = styled.div`
+-
+-    position: absolute;
+-    left: 0;
+-    display: flex;
+-    align-items: center;
+-    width: 100%;
+-    height: 100%;
+-    cursor: pointer;
+-`;
+-
+-export const WatchedProgress = styled.div`
+-
+-    position: relative;
+-    display: flex;
+-    align-items: center;
+-    width: 100%;
+-    height: 100%;
+-    cursor: pointer;
+-`;
+-
+-export const WatchedBar = styled.div`
+-
+-    background: #e31221;
+-    width: ${({ watchedBar }) => (`${watchedBar.percentage}%`)};
+-    height: 100%;
+-    /* transition: height 0.2s; */
+-`;
+-
+-export const Playhead = styled.div`
+-
+-  position: absolute;
+-  background: #e31221;
+-  height: 12px;
+-  width: 12px;
+-  border-radius: 50%;
+-  transform: translateX(-50%);
+-  transition: width 0.1s, height 0.1s;
+-  left: ${({ watchedBar }) => `${watchedBar.percentage}%`};
+-  
+-  &:hover {
+-    width: 16px;
+-    height: 16px;
+-  }
+-`;
+-
+-export const Canvas = styled.canvas`
+-
+-height: 100%;
+-width: ${({ loadingBuffe }) => loadingBuffe};
+-/* background: rgba(192,192,192, 0.4) */
+-`;
+-
+-export const Controls = styled.div`
+-
+-    position: relative;
+-    height: 45px;
+-    display: flex;
+-    justify-content: space-between;
+-    align-items: center;
+-
+-    & .play-pause-btn{
+-      /* display: flex; */
+-      /* align-items: center; */
+-    }
+-
+-    & .full-screen-btn {
+-      display: flex;
+-      align-items: center;
+-    }
+-
+-    & .btn {
+-      display: flex;
+-      justify-content: center;
+-      height: 45px;
+-      width: 48px;
+-    }
+-/* 
+-    & .btn {
+-      display: flex;
+-    background: none;
+-    width: 45px;
+-    height: 100%;
+-    margin: 0 15px 0 15px;
+-    justify-content: center;
+-    align-items: center;
+-    cursor: pointer;
+-    user-select: none;
+-    } */
+-
+-    /* & .btn > .play {
+-        display: ${({ togglePlay }) => togglePlay.playVideo ? "none" : "block"};
+-        z-index: 1000;
+-    }
+-    & .btn > .pause {
+-        display: ${({ togglePlay }) => togglePlay.playVideo ? "block" : "none"};
+-        z-index: 1000;
+-    } */
+-
+-     & .no-select {
+-      user-select: none;
+-     }
+-`;
+-
+-export const SettingsMenu = styled.div`
+-
+-position: absolute;
+-height: auto;
+-right: 0;
+-bottom: 50px;
+-border-radius: 10px;
+-background: rgb(28, 28, 28, 0.9);
+-display: ${({ settings }) => settings === true ? "block" : "none"};
+-
+-& .playback-speed{
+-}
+-
+-& span {
+-    color: #ffffff;
+-}
+-
+-& [target="settings"] {
+-    display: flex;
+-    align-items: center;
+-    width:  250px;
+-    height: 40px;
+-    margin: 5px 0 5px 0;
+-}
+-
+-& [target="settings"]:hover {
+-    background: rgb(255, 255, 255, 0.1);
+-}
+-`;
+-
+-export const LeftSideControls = styled.div`
+-    display: flex;
+-    /* justify-content: flex-start; */
+-    align-items: center;
+-    height: 100%;
+-    flex-grow: 2;
+-
+-    & .full-volume {
+-        display: ${({ toggleVolume }) => (toggleVolume ? "block" : "none")};
+-    }
+-    & .full-volume + .muted {
+-        display: ${({ toggleVolume }) => (toggleVolume ? "none" : "block")};
+-    }
+-`;
+-
+-// @@@ VolumeControl @@@
+-export const VolumeControl = styled.div`
+-display: flex;
+-align-items: center;
+-    /* height: 100%; */
+-`;
+-
+-// @@@ VolumePanel @@@
+-export const VolumePanel = styled.div`
+-    position: relative;
+-    width: ${({ width }) => `${width}px`};
+-    transition: width .2s;
+-    overflow: hidden;
+-
+-& input[type="range"] {
+-    margin: 0;
+-    padding: 0;
+-    width: 51px;
+-    height: 1.5em;
+-    background: transparent;
+-    outline: none;
+-}
+-
+-& input[type="range"],
+-& input[type="range"]::-webkit-slider-thumb {
+-    -webkit-appearance: none;
+-}
+-
+-& input[type="range"]::-webkit-slider-thumb {
+-    box-sizing: border-box;
+-    border: none;
+-    width: 12px;
+-    height: 12px;
+-    border-radius: 50%;
+-    background: #fff;
+-}
+-
+-& input[type="range"]::-moz-range-thumb {
+-    box-sizing: border-box;
+-    border: none;
+-    width: 12px;
+-    height: 12px;
+-    border-radius: 50%;
+-    background: #fff;
+-}
+-
+-& .input-div {
+-    position: absolute;
+-    top: 50%;
+-    transform: translateY(-50%);
+-    cursor: pointer;
+-    width: 52px;
+-    height: 3px;
+-}
+-
+-& .volume-input-div {
+-    position: relative;
+-    width: 100%;
+-    height: 100%;
+-    background: #424242;
+-}
+-
+-& input{
+-    position: absolute;
+-    top: -8.5px;
+-    cursor: pointer;
+-}
+-
+-& .volume-progress{
+-    background: #fff;
+-    width: 52px;
+-    height: 100%;
+-}
+-`;
+-
+-export const RightSideControls = styled.div`
+-
+-    display: flex;
+-    /* justify-content: flex-end; */
+-    align-items: center;
+-    height: 100%;
+-
+-    & .minimize {
+-        display: none;
+-    }
+-
+-    & .settings {
+-      display: flex;
+-      align-items: center;
+-      /* padding: 0 30px; 
+-      margin: 0 auto; */
+-      /* padding: 0 5px 0 5px; */
+-    }
+-
+-    & .settings > img {
+-        /* transform: rotate(10deg); */
+-        transition: all 100ms;
+-    }
+-`;
+-
+-export const TimeDisplay = styled.div`
+-
+-    color: #ffffff;
+-    font-size: 13px;
+-    padding: 0 5px;
+-    height: 100%;
+-    display: flex;
+-    align-items: center;
+-    pointer-events: none;
+-    user-select: none;
+-
+-    & .bar-separator{
+-        margin: 0 5px 0 5px;
+-    }
+-`;
+-
+-export const Container = styled.div`
+-display: flex;
+-justify-content: space-between;
+-border: 5px solid red;
+-`;
+-
+-export const Primary = styled.div`
+-
+-height: 100%;
+-width: 900px;
+-margin-left: 100px;
+-/* border: 1px solid black; */
+-`;
+-
+-export const Secondary = styled.div`
+-
+-display: flex;
+-flex-direction: column;
+-/* justify-content: space-between; */
+-/* width: 100%; */
+-`;
+-
+-export const SecondaryContainerVideo = styled.div`
+-
+-display: flex;
+-height:  auto;
+-margin: 10px 0;
+-border: 1px solid black;
+-cursor: pointer;
+-
+-& .video-container {
+-    width: 200px;
+-    height: 75px;
+-    overflow: hidden;
+-    border-radius: 5px;
+-  }
+-
+-  & .video-play-list {
+-    width: 100%;
+-    height: 100%;
+-    object-fit: cover; /* Ou object-fit: fill */
+-  }
+-
+-& .title {
+-    width: 100%;
+-    height: 20px;
+-}
+-
+-& p {
+-
+-    font-size: 12px;
+-    font-weight: bold;
+-    /* colocar tres pontinhos no texto */
+-    text-overflow: ellipsis;
+-    
+-    overflow: hidden;
+-}
+-`;
+-
+-export const DivProgress = styled.div`
+-
+-
+-margin-top: 20px;
+-height: 50px;
+-/* width: 0; */
+-width: ${({ videoLoaded }) => (`${videoLoaded}%`)};
+-background: #111111;
+-`;
+-
+-export const Circle = styled.div`
+-
+-height: 20px;
+-width: 20px;
+-/* position: absolute; */
+-border-radius: 50px;
+-/* border: 3px solid #ffffff; */
+-border-left: 3px solid #ffffff;
+-border-right: 3px solid #ffffff;
+-border-bottom: 3px solid #ffffff;
+-border-top: 2px solid transparent;
+-transform: rotate(-50deg);
+-
+-opacity: ${({ endVideo }) => endVideo === true ? 1 : 0};
+-`;
+-
+-export const Triangulo = styled.div`
+-
+-width: 0;
+-height: 0;
+-border-left: 5px solid transparent;
+-border-right: 5px solid transparent;
+-border-bottom: 10px solid #ffffff;
+-transform: rotate(75deg);
+-position: absolute;
+-top: -5px;
+-left: 8px;
+-`;
+-
+-export const Spinner = styled.div`
+-position: absolute;
+-top: 50%;
+-left: 50%;
+-transform: translate(-50%, -50%);
+-z-index: 10;
+-
+-& .spinner {
+-width: 60px;
+-height: 60px;
+-border: 5px solid rgba(255, 255, 255, 0.3);
+-border-top: 5px solid #fff;
+-border-radius: 50%;
+-animation: spin 1s linear infinite;
+-}
+-
+-@keyframes spin {
+-0% { transform: rotate(0deg); }
+-100% { transform: rotate(360deg); }
+-}
+-`;
+-
+-export const MessageBox = styled.div`
+-display: flex;
+-justify-content: center;
+-width: 100%;
+-border: solid 3px #111;
+-
+-@media (max-width: 1016px) {
+-  display: none;
+-}
+-`;
+\ No newline at end of file
