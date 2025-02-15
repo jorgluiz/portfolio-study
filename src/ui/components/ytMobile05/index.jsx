@@ -367,13 +367,18 @@ const useNextVideoPlayList = (playlist, togglePlay, setTogglePlay, setPlayList, 
 
 
 // ##################### feature (volume mute) #####################
-const useVolume = (inputRangeRef, videoRef) => {
+const useVolume = (inputRangeRef, videoRef, timeoutIdRef, setStateActive) => {
   const [toggleVolume, setToggleVolume] = useState(false); // estado para alternar entre som ativo/mudo
   const [currentVolume, setCurrentVolume] = useState(1);  // estado para volume atual
   const volumeRef = useRef(null); // referência para o input range de volume
 
   // Função para alternar entre mudo e som alto
   const MuteVolume = () => {
+
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current)
+    }
+
     if (videoRef.current.volume === 0 || videoRef.current.muted === true) {  // Verifica se o vídeo está mudo
       videoRef.current.muted = false;
       // videoRef.current.volume = currentVolume || 1; // Evita que o volume seja 0, define volume padrão se currentVolume for 0
@@ -386,18 +391,24 @@ const useVolume = (inputRangeRef, videoRef) => {
       setToggleVolume(false);
       inputRangeRef.current.value = 0; // Define o range para 0 ao silenciar
     }
+
+    timeoutIdRef.current = setTimeout(() => {
+      setStateActive(false)
+    }, 2500)
+
   };
 
   // Função para ajustar o volume através do range
   const rangeVolume = (e) => {
+
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current)
+    }
+
     // console.log(videoRef.current.muted = false)
     const volume = e.target.value;
     setCurrentVolume(volume); // Atualiza currentVolume SEMPRE
     videoRef.current.volume = volume; // Atualiza o volume do vídeo
-
-    // if (videoRef.current.muted) {
-    //   setToggleVolume(true)
-    // }
 
     // Controla o estado do som apenas com base no volume
     if (volume > 0) {
@@ -407,6 +418,11 @@ const useVolume = (inputRangeRef, videoRef) => {
       setToggleVolume(false);
       videoRef.current.muted = true; // Se o volume for 0, define como mudo
     }
+
+    timeoutIdRef.current = setTimeout(() => {
+      setStateActive(false)
+    }, 2500)
+
   };
 
   return { toggleVolume, currentVolume, MuteVolume, rangeVolume };
@@ -620,7 +636,7 @@ const ComponentVideo = () => {
   const inputRangeRef = useRef(null)
   const timeoutIdRef = useRef(null);  // Ref para armazenar o ID do timeout
   const { stateActive, setStateActive, togglePlay, setTogglePlay, videoPlay, videoPaused, setEndVideoPlay } = usePlayPaused(videoRef, timeoutIdRef)
-  const { toggleVolume, currentVolume, MuteVolume, rangeVolume } = useVolume(inputRangeRef, videoRef)
+  const { toggleVolume, currentVolume, MuteVolume, rangeVolume } = useVolume(inputRangeRef, videoRef, timeoutIdRef, setStateActive)
   const { toggleFullScreen } = useFullScreen()
   const { videoProgress } = useVideoLoaded()
   const { watchedBar, setWatchedBar, currentHours, currentMinutes, currentSeconds, durationHours, durationMinutes, durationSeconds, videoCurrentTime, startDragging, stopDragging, handleDrag } = useTimeUpdate(togglePlay, setTogglePlay, videoRef, progressBarRef, stateActive, setStateActive, timeoutIdRef)
