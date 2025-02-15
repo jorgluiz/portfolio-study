@@ -825,7 +825,7 @@ const ComponentVideo = () => {
             return (
               <React.Fragment key={el.id}>
                 {/* solução para selecionar um item no map com ref é >>> https://stackoverflow.com/questions/63059962/reactjs-map-with-a-ref-to-each-component */}
-                <SecondaryContainerVideo onTouchStart={(event) => Handleplaylist(event, index)}>
+                <SecondaryContainerVideo onClick={(event) => Handleplaylist(event, index)}>
                   <div className="video-container">
                     <video ref={(el) => videoPlayListRef.current[index] = el} className="video-play-list" type="video/mp4" src={el.video} />
                   </div>
