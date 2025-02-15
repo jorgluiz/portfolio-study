@@ -1,0 +1,13 @@
+diff --git a/src/ui/components/ytMobile05/index.jsx b/src/ui/components/ytMobile05/index.jsx
+index b64a4c3..fd04884 100644
+--- a/src/ui/components/ytMobile05/index.jsx
++++ b/src/ui/components/ytMobile05/index.jsx
+@@ -679,7 +679,7 @@ const ComponentVideo = () => {
+ 
+   return (
+     <>
+-      <VideoContainer className={`${stateActive === true ? "activeProgress" : "disable"}`} >
++      <VideoContainer className={`${stateActive === true ? "activeProgress" : "disable"} video-Container`} >
+         {/* <Video ref={videoRef} muted opacity={opacity} onProgress={() => videoProgress()} onClick={() => play()} src={playlistMain} className={`video`} controlsList="nodownload" preload="auto" type="video/mp4" /> */}
+         <Video ref={videoRef} muted onTouchStart={() => opacityPlay()} onProgress={() => videoProgress()} src={playlistMain} className={`video`} controlsList="nodownload" type="video/mp4" />
+         {isLoading === true ? (

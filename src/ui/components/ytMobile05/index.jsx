@@ -679,7 +679,7 @@ const ComponentVideo = () => {
 
   return (
     <>
-      <VideoContainer className={`${stateActive === true ? "activeProgress" : "disable"}`} >
+      <VideoContainer className={`${stateActive === true ? "activeProgress" : "disable"} video-Container`} >
         {/* <Video ref={videoRef} muted opacity={opacity} onProgress={() => videoProgress()} onClick={() => play()} src={playlistMain} className={`video`} controlsList="nodownload" preload="auto" type="video/mp4" /> */}
         <Video ref={videoRef} muted onTouchStart={() => opacityPlay()} onProgress={() => videoProgress()} src={playlistMain} className={`video`} controlsList="nodownload" type="video/mp4" />
         {isLoading === true ? (
