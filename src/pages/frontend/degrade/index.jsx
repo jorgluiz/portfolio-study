@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { FaRegEnvelope } from "react-icons/fa"
 
-import face01 from "../../../assets/face/face01.jpg"
-import face02 from "../../../assets/face/face02.jpg"
-import face03 from "../../../assets/face/face03.jpg"
-import face04 from "../../../assets/face/face04.jpg"
+import face01 from "../../../assets/face/face01.png"
+import face02 from "../../../assets/face/face02.png"
+import face03 from "../../../assets/face/face03.png"
+import face04 from "../../../assets/face/face04.png"
 import React from "react";
 
 // sem efeito   ### 
@@ -51,7 +51,7 @@ border: solid 1px #000000;
 overflow: hidden;
 `;
 
-const DivTransparent02= styled.div`
+const DivTransparent02 = styled.div`
   position: relative;
 
   &::after, &::before {
@@ -96,53 +96,53 @@ animation: moveBottom 5s linear  infinite;
 // ==========  ==========
 
 const Degrade = () => {
-    const list = [
-        { id: 1, img: face01, nome: "01" },
-        { id: 2, img: face02, nome: "02" },
-        { id: 3, img: face03, nome: "03" },
-        { id: 4, img: face04, nome: "04" },
-    ]
-    return (
-        <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-            <h1>DivTransparent01</h1>
-            <ContainerNoEffect>
-                <DivTransparent01>
-                    <ul>
-                        {list.map((el, i) => {
-                            return (
-                                <React.Fragment key={i}>
-                                    <li style={{ display: "flex", alignItems: "center" }}>
-                                        <Img src={el.img} />
-                                        <span>{el.nome}</span>
-                                        <span><FaRegEnvelope /></span>
-                                    </li>
-                                </React.Fragment>
-                            )
-                        })}
-                    </ul>
-                </DivTransparent01>
-            </ContainerNoEffect><br /><br /><br /><br />
+  const list = [
+    { id: 1, img: face01, nome: "01" },
+    { id: 2, img: face02, nome: "02" },
+    { id: 3, img: face03, nome: "03" },
+    { id: 4, img: face04, nome: "04" },
+  ]
+  return (
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+      <h1>DivTransparent01</h1>
+      <ContainerNoEffect>
+        <DivTransparent01>
+          <ul>
+            {list.map((el, i) => {
+              return (
+                <React.Fragment key={i}>
+                  <li style={{ display: "flex", alignItems: "center" }}>
+                    <Img src={el.img} />
+                    <span>{el.nome}</span>
+                    <span><FaRegEnvelope /></span>
+                  </li>
+                </React.Fragment>
+              )
+            })}
+          </ul>
+        </DivTransparent01>
+      </ContainerNoEffect><br /><br /><br /><br />
 
-            <h1>DivTransparent02</h1>
-            <ContainerIndeed>
-                <DivTransparent02>
-                    <ul>
-                        {list.map((el, i) => {
-                            return (
-                                <React.Fragment key={i}>
-                                    <Li style={{ display: "flex", alignItems: "center" }}>
-                                        <Img01 src={el.img} />
-                                        <span>{el.nome}</span>
-                                        <span><FaRegEnvelope /></span>
-                                    </Li>
-                                </React.Fragment>
-                            )
-                        })}
-                    </ul>
-                </DivTransparent02>
-            </ContainerIndeed>
-        </div>
-    )
+      <h1>DivTransparent02</h1>
+      <ContainerIndeed>
+        <DivTransparent02>
+          <ul>
+            {list.map((el, i) => {
+              return (
+                <React.Fragment key={i}>
+                  <Li style={{ display: "flex", alignItems: "center" }}>
+                    <Img01 src={el.img} />
+                    <span>{el.nome}</span>
+                    <span><FaRegEnvelope /></span>
+                  </Li>
+                </React.Fragment>
+              )
+            })}
+          </ul>
+        </DivTransparent02>
+      </ContainerIndeed>
+    </div>
+  )
 }
 
 export default Degrade
