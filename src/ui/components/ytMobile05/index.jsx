@@ -477,11 +477,16 @@ const usePlaylistSide = (togglePlay, setTogglePlay, stateActive, setStateActive)
     setTogglePlay({ ...togglePlay, playVideo: true })
 
     // Verifica se o elemento clicado é <video> ou qualquer área de `SecondaryContainerVideo`
-    const videoElement = event.target.tagName === 'VIDEO' ? event.target : document.getElementById(index);
+    // const videoElement = event.target.tagName === 'VIDEO' ? event.target : document.getElementById(index);
+    // Pega direto o src do vídeo usando o index do rocketSeatMock
+    const selectedVideo = rocketSeatMock[index];
 
     // Usa o src do vídeo
-    if (videoElement) {
-      setPlayList(videoElement.src);
+    // if (videoElement) {
+    //   setPlayList(videoElement.src);
+    // }
+    if (selectedVideo && selectedVideo.video) {
+      setPlayList(selectedVideo.video);
     }
   }
 

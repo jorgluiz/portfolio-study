@@ -204,6 +204,7 @@ animation-play-state: ${({ circleRotate }) => circleRotate === true ? "running" 
     }
 `;
 
+
 // https://acervolima.com/como-desenhar-um-semicirculo-usando-html-e-css/'
 const CircleTop = styled.div`
 
